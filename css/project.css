@@ -1,0 +1,389 @@
+/* 
+	===============
+	=== PROJECT ===
+	===============
+*/
+/* _________ IMPORT ________*/
+@import 'normalize.css';
+/* _________ FONTS _________ */
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("../fonts/ubuntu-r-webfont.eot");
+  src: url("../fonts/ubuntu-r-webfont.eot?#iefix") format('embedded-opentype'), url("../fonts/ubuntu-r-webfont.svg") format('svg'), url("../fonts/ubuntu-r-webfont.woff") format('woff'), url("../fonts/ubuntu-r-webfont.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+/* _________ GLOBAL _________
+
+Все глобальные СТИЛИ кнопок, форм, ссылок, списков и тд.
+описываются здесь
+*/
+p {
+  font-size: 16px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+h1 {
+  font-size: 36px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+h2 {
+  font-size: 30px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+h3 {
+  font-size: 24px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+h4 {
+  font-size: 18px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+h5 {
+  font-size: 14px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+h6 {
+  font-size: 12px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 50px #ededed inset;
+}
+/*_________ MAIN __________*/
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+  background-color: #222;
+}
+body > main {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  background: url("../img/bg.jpg") repeat-y center center;
+}
+/*_________ HEADER ___________*/
+body > main > header {
+  z-index: 2;
+  width: 100%;
+  height: 40px;
+  background: #555;
+}
+body > main > header > .container {
+  height: 100%;
+  max-width: 1265px;
+  margin: 0 auto;
+  background: #999;
+}
+body > main > header > .container > .content {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+  width: 100%;
+}
+body > main > header > .container > .content .logo {
+  margin: 13px 0 0 10px;
+}
+body > main > header > .container > .content .logo a {
+  text-decoration: none;
+  color: #000;
+}
+body > main > header > .container > .content nav#menu {
+  float: right;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+  text-transform: uppercase;
+  margin: 10px 10px 0 0;
+}
+body > main > header > .container > .content nav#menu a {
+  text-decoration: none;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+  position: relative;
+  color: #fff;
+}
+body > main > header > .container > .content nav#menu ul {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+}
+body > main > header > .container > .content nav#menu ul li {
+  float: left;
+  margin: 0 0 6px 0;
+}
+body > main > header > .container > .content nav#menu ul li.separator {
+  border-left: solid 1px #d3d3d3;
+  width: 1px;
+  height: 13px;
+  margin: 0 5px;
+}
+body > main > header > .container > .content nav#menu ul li.navigate a {
+  border-bottom: 1px dashed #fff;
+}
+body > main > header > .container > .content .logo {
+  float: left;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+}
+/*_________ FOOTER ___________*/
+body > main > footer {
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  height: 40px;
+  background: #333;
+}
+body > main > footer > .container {
+  height: 100%;
+  max-width: 1265px;
+  margin: 0 auto;
+  background: #555;
+}
+body > main > footer > .container > .content {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+  margin: 14px;
+}
+/*_________ SECTIONS _________*/
+body > main > .sections {
+  clear: both;
+  width: 100%;
+  padding-bottom: 40px;
+}
+body > main > .sections > section {
+  clear: both;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+}
+body > main > .sections > section > .container {
+  position: relative;
+  max-width: 1265px;
+  height: 100%;
+  margin: 0 auto;
+  background: #f2e5d5;
+}
+/*___ PAGE MIXINS  __*/
+/* _________ PAGES _________*/
+body.page-1 .sections,
+body.page-2 .sections {
+  padding-top: 60px;
+}
+body.page-1 .sections section,
+body.page-2 .sections section {
+  margin: 0 0 40px 0;
+}
+body.page-1 .sections section .container .content,
+body.page-2 .sections section .container .content {
+  padding: 0 20px;
+}
+body.page-1 .sections section .container .content p,
+body.page-2 .sections section .container .content p {
+  margin: 20px 0;
+  line-height: 1.4;
+}
+body.page-1 .sections section .container .content .links,
+body.page-2 .sections section .container .content .links {
+  padding: 10px 0;
+}
+body.page-1 .sections section .container .content .items,
+body.page-2 .sections section .container .content .items {
+  margin: 20px 0 0 0;
+}
+body.page-1 .sections section .container .content .row,
+body.page-2 .sections section .container .content .row {
+  margin: 20px 0;
+}
+main.view-fonts section .container .content {
+  padding: 50px 20px;
+}
+main.view-fonts section .container .content h1 {
+  margin: 30px 0;
+  font-size: 24px;
+}
+main.view-fonts section .container .content h2 {
+  margin: 30px 0;
+  font-size: 47px;
+}
+main.view-fonts section .container .content .fonts {
+  width: 1225px;
+  overflow: hidden;
+}
+main.view-fonts section .container .content .fonts p {
+  margin: 15px 0;
+  background: #fff;
+  padding: 0 10px;
+  border: 1px solid #808080;
+}
+main.view-fonts section .container .content .fonts p .lowercase {
+  text-transform: lowercase;
+}
+main.view-fonts section .container .content .fonts p .uppercase {
+  text-transform: uppercase;
+}
+/* _________ POPUPS ________*/
+#popups .background {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 88888;
+  background: #000;
+  opacity: 0.6;
+  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+}
+#popups .popup {
+  z-index: 99999;
+  position: absolute;
+  display: none;
+  background-color: #fff;
+  border: 10px solid #e2e2e2;
+}
+#popups .popup .close {
+  cursor: pointer;
+  position: absolute;
+  right: -36px;
+  top: -33px;
+  width: 56px;
+  height: 52px;
+  background: url("../img/close_popup.png") no-repeat center center;
+  background-position: left 0px;
+  text-decoration: none !important;
+  z-index: 98;
+}
+#popups .popup[data-popup-name="custom"] {
+  text-align: center;
+  min-height: 274px;
+  width: 705px;
+}
+#popups .popup[data-popup-name="custom"] .header {
+  padding: 30px 0 50px 0;
+}
+#popups .popup[data-popup-name="custom"] .header h1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 30px;
+}
+#popups .popup[data-popup-name="custom"] .body {
+  font-size: 24px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+  color: #333;
+  padding: 0 90px;
+}
+#popups .popup[data-popup-name="custom"] .footer {
+  padding: 50px 0 30px 0;
+}
+#popups .popup[data-popup-name="custom"] .footer button {
+  margin: 0 auto;
+}
+#popups .popup[data-popup-name="unique"] {
+  text-align: center;
+  min-height: 274px;
+  width: 705px;
+}
+#popups .popup[data-popup-name="unique"] .header {
+  padding: 30px 0 50px 0;
+}
+#popups .popup[data-popup-name="unique"] .header h1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 30px;
+}
+#popups .popup[data-popup-name="unique"] .body {
+  font-size: 24px;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+  color: #333;
+  padding: 0 90px;
+}
+#popups .popup[data-popup-name="unique"] .footer {
+  padding: 50px 0 30px 0;
+}
+#popups .popup[data-popup-name="unique"] .footer button {
+  margin: 0 auto;
+}
+/* _________ MEDIA _________ */
+@media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait) {
+  #debugBox .mediaWidth:after {
+    content: '@media(min-width: 320px) and (max-width: 480px)';
+  }
+  body > main > header {
+    height: 60px;
+  }
+  body > main .sections > section .container .content {
+    padding: 80px 20px;
+  }
+}
+@media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) {
+  #debugBox .mediaWidth:after {
+    content: '@media(min-width: 320px) and (max-width: 480px)';
+  }
+}
+@media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  #debugBox .mediaWidth:after {
+    content: '@media(min-width: 768px) and (max-width: 1024px)';
+  }
+}
+@media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  #debugBox .mediaWidth:after {
+    content: '@media(min-width: 768px) and (max-width: 1024px)';
+  }
+}

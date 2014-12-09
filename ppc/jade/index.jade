@@ -1,0 +1,106 @@
+doctype html
+html
+
+	head
+
+		//- meta(name='viewport' content='width=1265')
+		meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0")
+
+		meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+
+		//SEO
+		title ANGULAR FRONTEND::{{title}}
+		meta(name='description' content='')
+		meta(name='keywords' content='')
+
+		// Open Graph
+		meta(property='og:title' content='')
+		meta(property='og:url' content='')
+		meta(property='og:image' content='')
+		meta(property='og:description' content='')
+
+		//favicon
+		link(rel='image_src' href='')
+		link(rel="shortcut icon" type="image/x-icon" href="")
+
+		//IE
+		<!--[if IE]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta http-equiv="imagetoolbar" content="no"/>
+		<meta http-equiv="MSThemeCompatible" content="no"/>
+		<![endif]-->
+
+		<!--[if lt IE 7]>
+		style.
+			body > main {
+				height: 100%;
+			}
+		<![endif]-->
+					
+		<!--[if lt IE 9]>
+		script(type='text/javascript' src='js/libs/html5shiv.js')
+		<![endif]-->
+
+		//Apple
+		meta(name="apple-mobile-web-app-capable" content="yes")
+		meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+
+		//JS helpers 
+		script(type='text/javascript' src='js/libs/helpers.js')
+
+		//Include JS/CSS
+		script
+			:coffee
+				if !/debug/.test(window.location.search)
+
+					console.log '[App] PRODUCTION MODE (Console is disabled)'
+
+					$$.disableConsole()
+
+					$$.includeCSS 'css/project.css'
+					$$.includeJS 'js/libs/lib.js'
+					$$.includeJS 'js/project.min.js'
+
+				else
+
+					console.debug '[App] DEBUG MODE'
+
+					$$.includeCSS 'css/app.css'
+					
+					$$.includeJS 'js/libs/jquery-1.11.1.js'
+					$$.includeJS 'js/libs/json2.js'
+					$$.includeJS 'js/libs/underscore.js'
+					$$.includeJS 'js/libs/angular.js'
+					$$.includeJS 'js/libs/angular-route.js '
+					$$.includeJS 'js/libs/angular-cookies.js '
+
+					$$.includeJS 'js/app.js'
+					$$.includeJS 'js/app.controllers.js'
+					$$.includeJS 'js/app.directives.js'
+					$$.includeJS 'js/app.services.js'
+		
+
+		block css
+			//-
+
+		block js
+			script.
+				app.setApp("project", "Angular Skeleton");
+
+	body(ng-class="bodyClass")
+	
+		//- //Vkontakte openapi
+		//- script(src='http://vkontakte.ru/js/api/openapi.js', type='text/javascript')
+		//- //Facebook SDK 
+		//- #fb-root
+		//- script(src='http://connect.facebook.net/en_US/all.js')
+		
+		//- include includes/popups
+		
+		main
+
+			include includes/header
+
+			.sections(ng-view)
+
+			include includes/footer
