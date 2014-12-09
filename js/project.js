@@ -47,16 +47,12 @@ app.config(['$interpolateProvider', function($interpolateProvider) {}]);
 
 app.config([
   '$routeProvider', function($routeProvider) {
-    $routeProvider.when('/page', {
-      templateUrl: 'page-1.html',
-      controller: 'page1Ctrl'
-    });
-    $routeProvider.when('/page/:pageId', {
-      templateUrl: 'page-2.html',
-      controller: 'page2Ctrl'
+    $routeProvider.when('/test', {
+      templateUrl: 'test.html',
+      controller: 'testCtrl'
     });
     $routeProvider.otherwise({
-      redirectTo: '/page'
+      redirectTo: '/test'
     });
     return 0;
   }
@@ -66,75 +62,18 @@ var appControllers;
 
 appControllers = angular.module('appControllers', []);
 
-appControllers.controller('page1Ctrl', [
-  'APP', '$rootScope', '$scope', '$route', 'listeners', function(APP, $rootScope, $scope, $route, listeners) {
-    $rootScope.title = "title::page-1";
-    $rootScope.bodyClass = "page-1";
-    $scope.title = 'page-1';
-    $scope.phones = [
-      {
-        'name': 'Nexus'
-      }, {
-        'name': 'Motorola'
-      }, {
-        'name': 'Nokia'
-      }
-    ];
-    return $scope.add = function(vars, event) {
-      $scope.phones.push({
-        'name': 'Samsung'
-      });
-      return $scope.$broadcast('dataloaded');
-    };
+appControllers.controller('headCtrl', ['$rootScope', function($rootScope) {}]);
+
+appControllers.controller('testCtrl', [
+  'APP', '$rootScope', '$scope', function(APP, $rootScope, $scope) {
+    $rootScope.title = "test";
+    return $rootScope.bodyClass = "test";
   }
-]).directive('section1', [
+]).directive('testCtrlDirective', [
   '$rootScope', function($rootScope) {
     return {
       restrict: 'C',
       link: function(scope, el, attr) {}
-    };
-  }
-]).directive('section2', [
-  '$rootScope', function($rootScope) {
-    return {
-      restrict: 'C',
-      link: function(scope, el, attr) {
-        var logit;
-        logit = function() {
-          var p;
-          return p = el.find('.list > p');
-        };
-        _.defer(function() {
-          return logit();
-        });
-        return scope.$on('dataloaded', function() {
-          return _.defer(function() {
-            return logit();
-          });
-        });
-      }
-    };
-  }
-]);
-
-appControllers.controller('page2Ctrl', [
-  'APP', 'api', '$rootScope', '$scope', '$routeParams', function(APP, api, $rootScope, $scope, $routeParams) {
-    $rootScope.title = "title::page-2";
-    $rootScope.bodyClass = "page-2";
-    $scope.title = 'page-' + $routeParams.pageId;
-    $scope.state = 'hide';
-    $scope.show = function(vars, event) {
-      return $scope.state = 'show';
-    };
-    return $scope.request = function() {
-      return api({
-        url: '/api/user/details',
-        params: {
-          id: 1
-        }
-      }).success(function(res) {
-        return $scope.response = res;
-      });
     };
   }
 ]);
@@ -143,16 +82,11 @@ var appDirectives;
 
 appDirectives = angular.module('appDirectives', []);
 
-appDirectives.directive('alertDirective', function() {
+appDirectives.directive('testDirective', function() {
   return {
     restrict: 'A',
     scope: {},
-    link: function(scope, el, attr) {
-      return el.click(function() {
-        alert(attr.info + ' : ' + scope.title);
-        return console.log('module:', el);
-      });
-    }
+    link: function(scope, el, attr) {}
   };
 });
 

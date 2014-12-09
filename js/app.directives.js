@@ -2,15 +2,10 @@ var appDirectives;
 
 appDirectives = angular.module('appDirectives', []);
 
-appDirectives.directive('alertDirective', function() {
+appDirectives.directive('testDirective', function() {
   return {
     restrict: 'A',
     scope: {},
-    link: function(scope, el, attr) {
-      return el.click(function() {
-        alert(attr.info + ' : ' + scope.title);
-        return console.log('module:', el);
-      });
-    }
+    link: function(scope, el, attr) {}
   };
 });

@@ -216,33 +216,26 @@ body > main > .sections > section > .container {
 }
 /*___ PAGE MIXINS  __*/
 /* _________ PAGES _________*/
-body.page-1 .sections,
-body.page-2 .sections {
+body.test .sections {
   padding-top: 60px;
 }
-body.page-1 .sections section,
-body.page-2 .sections section {
+body.test .sections section {
   margin: 0 0 40px 0;
 }
-body.page-1 .sections section .container .content,
-body.page-2 .sections section .container .content {
+body.test .sections section .container .content {
   padding: 0 20px;
 }
-body.page-1 .sections section .container .content p,
-body.page-2 .sections section .container .content p {
+body.test .sections section .container .content p {
   margin: 20px 0;
   line-height: 1.4;
 }
-body.page-1 .sections section .container .content .links,
-body.page-2 .sections section .container .content .links {
+body.test .sections section .container .content .links {
   padding: 10px 0;
 }
-body.page-1 .sections section .container .content .items,
-body.page-2 .sections section .container .content .items {
+body.test .sections section .container .content .items {
   margin: 20px 0 0 0;
 }
-body.page-1 .sections section .container .content .row,
-body.page-2 .sections section .container .content .row {
+body.test .sections section .container .content .row {
   margin: 20px 0;
 }
 main.view-fonts section .container .content {

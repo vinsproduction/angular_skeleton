@@ -47,16 +47,12 @@ app.config(['$interpolateProvider', function($interpolateProvider) {}]);
 
 app.config([
   '$routeProvider', function($routeProvider) {
-    $routeProvider.when('/page', {
-      templateUrl: 'page-1.html',
-      controller: 'page1Ctrl'
-    });
-    $routeProvider.when('/page/:pageId', {
-      templateUrl: 'page-2.html',
-      controller: 'page2Ctrl'
+    $routeProvider.when('/test', {
+      templateUrl: 'test.html',
+      controller: 'testCtrl'
     });
     $routeProvider.otherwise({
-      redirectTo: '/page'
+      redirectTo: '/test'
     });
     return 0;
   }
