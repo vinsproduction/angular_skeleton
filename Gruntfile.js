@@ -94,8 +94,8 @@ module.exports = function(grunt) {
 	    },
 			js: {
 				files: {
-					'js/project.min.js': ['<%= concat.js.dest %>'],
-					'js/libs/lib.min.js': ['<%= concat.libs.dest %>']
+					'js/project.min.js': 'js/project.js',
+					'js/libs/lib.min.js': 'js/libs/lib.js'
 				}
 			}
 		},
@@ -104,7 +104,11 @@ module.exports = function(grunt) {
 		// Наблюдение за изменениями
 		watch: {
 			options: {
-				livereload: 777
+				livereload: 777,
+				dateFormat: function(time) {
+					grunt.log.writeln('______ The watch finished in ' + time + 'ms at' + (new Date()).toString());
+					grunt.log.writeln('______ Waiting for more changes...');
+				},
 			},
 
 			// Перекомпиляция стилей при изменении styl-файлов
@@ -143,21 +147,18 @@ module.exports = function(grunt) {
 			// Пересобирание скриптов при изменении исходных js-файлов
 			js: {
 				files: [
+
 					'js/*.js',
-					'!js/project.js',
+					'js/project.js',
 					'!js/project.min.js',
+
+					'js/libs/*.js',
+					'js/libs/lib.js',
+					'!js/libs/lib.min.js',
 					
 				],
-				tasks: ['concat:js']
+				tasks: ['concat:js','uglify:js']
 			},
-			jslibs: {
-				files: [
-					'js/libs/*.js',
-					'!js/libs/lib.js',
-					'!js/libs/lib.min.js'
-				],
-				tasks: ['concat:libs']
-			}
 			
 		},
 	});

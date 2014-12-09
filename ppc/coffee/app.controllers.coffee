@@ -2,6 +2,11 @@
 appControllers = angular.module('appControllers', []) 
 
 appControllers
+.controller('headCtrl', ['$rootScope', ($rootScope) ->
+
+
+])
+
 .controller('page1Ctrl', ['APP','$rootScope','$scope', '$route', 'listeners', (APP,$rootScope,$scope,$route, listeners) ->
 
 	$rootScope.title =  "title::page-1"
@@ -45,7 +50,7 @@ appControllers
 ])
 
 
-appControllers.controller('page2Ctrl', ['APP','api','$rootScope','$scope','$routeParams', (APP,api,$rootScope,$scope,$routeParams) ->
+.controller('page2Ctrl', ['APP','api','$rootScope','$scope','$routeParams', (APP,api,$rootScope,$scope,$routeParams) ->
 
 
 	$rootScope.title =  "title::page-2"

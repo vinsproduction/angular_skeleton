@@ -2,7 +2,7 @@ var appControllers;
 
 appControllers = angular.module('appControllers', []);
 
-appControllers.controller('page1Ctrl', [
+appControllers.controller('headCtrl', ['$rootScope', function($rootScope) {}]).controller('page1Ctrl', [
   'APP', '$rootScope', '$scope', '$route', 'listeners', function(APP, $rootScope, $scope, $route, listeners) {
     $rootScope.title = "title::page-1";
     $rootScope.bodyClass = "page-1";
@@ -51,9 +51,7 @@ appControllers.controller('page1Ctrl', [
       }
     };
   }
-]);
-
-appControllers.controller('page2Ctrl', [
+]).controller('page2Ctrl', [
   'APP', 'api', '$rootScope', '$scope', '$routeParams', function(APP, api, $rootScope, $scope, $routeParams) {
     $rootScope.title = "title::page-2";
     $rootScope.bodyClass = "page-2";
