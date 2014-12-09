@@ -1,0 +1,18 @@
+
+section.section-1
+
+	.container
+		.content
+
+			include includes/links
+
+			h1 {{ title }}
+
+			.row
+				button(ng-click="request()") Request
+				.layer
+					{{response}}
+
+			.row
+				button(ng-click="show('test', $event)") Show
+				.layer(ng-show="state == 'show'") Hello
