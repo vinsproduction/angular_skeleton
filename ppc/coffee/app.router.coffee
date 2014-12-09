@@ -19,6 +19,8 @@ app.config ['$routeProvider', ($routeProvider) ->
 			$rootScope.bodyClass = 'view-404'
 		redirectTo: '/404'
 
+	console.log $routeProvider
+
 	return 0
 
 ]

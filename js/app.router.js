@@ -19,6 +19,7 @@ app.config([
       },
       redirectTo: '/404'
     });
+    console.log($routeProvider);
     return 0;
   }
 ]);
