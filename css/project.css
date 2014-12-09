@@ -63,12 +63,18 @@ a {
   -ms-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
+  outline: 0;
+}
+a:hover,
+a:active,
+a:focus {
+  outline: 0;
 }
 input:focus,
 textarea:focus,
 select:focus,
 button:focus {
-  outline: none;
+  outline: 0;
 }
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 50px #ededed inset;
@@ -216,54 +222,34 @@ body > main > .sections > section > .container {
 }
 /*___ PAGE MIXINS  __*/
 /* _________ PAGES _________*/
-body.test .sections {
+body.view-index .sections,
+body.view-404 .sections {
   padding-top: 60px;
 }
-body.test .sections section {
+body.view-index .sections section,
+body.view-404 .sections section {
   margin: 0 0 40px 0;
 }
-body.test .sections section .container .content {
+body.view-index .sections section .container .content,
+body.view-404 .sections section .container .content {
   padding: 0 20px;
 }
-body.test .sections section .container .content p {
+body.view-index .sections section .container .content p,
+body.view-404 .sections section .container .content p {
   margin: 20px 0;
   line-height: 1.4;
 }
-body.test .sections section .container .content .links {
+body.view-index .sections section .container .content .links,
+body.view-404 .sections section .container .content .links {
   padding: 10px 0;
 }
-body.test .sections section .container .content .items {
+body.view-index .sections section .container .content .items,
+body.view-404 .sections section .container .content .items {
   margin: 20px 0 0 0;
 }
-body.test .sections section .container .content .row {
+body.view-index .sections section .container .content .row,
+body.view-404 .sections section .container .content .row {
   margin: 20px 0;
-}
-main.view-fonts section .container .content {
-  padding: 50px 20px;
-}
-main.view-fonts section .container .content h1 {
-  margin: 30px 0;
-  font-size: 24px;
-}
-main.view-fonts section .container .content h2 {
-  margin: 30px 0;
-  font-size: 47px;
-}
-main.view-fonts section .container .content .fonts {
-  width: 1225px;
-  overflow: hidden;
-}
-main.view-fonts section .container .content .fonts p {
-  margin: 15px 0;
-  background: #fff;
-  padding: 0 10px;
-  border: 1px solid #808080;
-}
-main.view-fonts section .container .content .fonts p .lowercase {
-  text-transform: lowercase;
-}
-main.view-fonts section .container .content .fonts p .uppercase {
-  text-transform: uppercase;
 }
 /* _________ POPUPS ________*/
 #popups .background {

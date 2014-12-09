@@ -27,7 +27,8 @@ module.exports = function(grunt) {
 				},
 				files: {
 					"index.html": "ppc/jade/index.jade",
-					"test.html": "ppc/jade/test.jade",
+					"views/404.html": "ppc/jade/views/404.jade",
+					"views/index.html": "ppc/jade/views/index.jade",
 
 				}
 			}
@@ -44,6 +45,7 @@ module.exports = function(grunt) {
 			
        	files: {
        		'js/app.js': 'ppc/coffee/app.coffee',
+       		'js/app.router.js': 'ppc/coffee/app.router.coffee',
      			'js/app.controllers.js': 'ppc/coffee/app.controllers.coffee',
 	    		'js/app.directives.js': 'ppc/coffee/app.directives.coffee',
 	    		'js/app.services.js': 'ppc/coffee/app.services.coffee',
@@ -123,7 +125,8 @@ module.exports = function(grunt) {
 			jade: {
 				files: [
 					'ppc/jade/*.jade',
-					'ppc/jade/layout/*.jade',
+					'ppc/jade/includes/*.jade',
+					'ppc/jade/views/*.jade',
 				],
 				tasks: ['jade']
 			},

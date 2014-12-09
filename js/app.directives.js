@@ -1,3 +1,7 @@
+
+/* 
+ Directives
+ */
 var appDirectives;
 
 appDirectives = angular.module('appDirectives', []);

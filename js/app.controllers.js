@@ -1,15 +1,19 @@
+
+/* 
+ Controllers
+ */
 var appControllers;
 
 appControllers = angular.module('appControllers', []);
 
 appControllers.controller('headCtrl', ['$rootScope', function($rootScope) {}]);
 
-appControllers.controller('testCtrl', [
+appControllers.controller('indexCtrl', [
   'APP', '$rootScope', '$scope', function(APP, $rootScope, $scope) {
-    $rootScope.title = "test";
-    return $rootScope.bodyClass = "test";
+    $rootScope.title = "index";
+    return $rootScope.bodyClass = "view-index";
   }
-]).directive('testCtrlDirective', [
+]).directive('indexCtrlDirective', [
   '$rootScope', function($rootScope) {
     return {
       restrict: 'C',

@@ -1,4 +1,8 @@
 
+### 
+ App
+###
+
 app = angular.module('app', ['ngRoute', 'ngCookies', 'appControllers', 'appDirectives', 'appServices'])
 
 angular.element(document).ready ->
@@ -40,17 +44,4 @@ app.config ['$interpolateProvider', ($interpolateProvider) ->
 	# $interpolateProvider.startSymbol('[[')
 	# $interpolateProvider.endSymbol(']]')
 	# return 0
-]
-
-app.config ['$routeProvider', ($routeProvider) ->
-
-	$routeProvider.when '/test',
-		templateUrl: 'test.html'
-		controller: 'testCtrl'
-
-	$routeProvider.otherwise
-		redirectTo: '/test'
-
-	return 0
-
 ]

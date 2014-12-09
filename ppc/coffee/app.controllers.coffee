@@ -1,3 +1,7 @@
+### 
+ Controllers
+###
+
 
 appControllers = angular.module('appControllers', [])
 
@@ -8,13 +12,13 @@ appControllers.controller 'headCtrl', ['$rootScope', ($rootScope) ->
 ]
 
 appControllers
-.controller('testCtrl', ['APP','$rootScope','$scope', (APP,$rootScope,$scope) ->
+.controller('indexCtrl', ['APP','$rootScope','$scope', (APP,$rootScope,$scope) ->
 
-	$rootScope.title = "test"
-	$rootScope.bodyClass 	= "test"
+	$rootScope.title = "index"
+	$rootScope.bodyClass 	= "view-index"
 
 ])
-.directive('testCtrlDirective', ['$rootScope', ($rootScope) ->
+.directive('indexCtrlDirective', ['$rootScope', ($rootScope) ->
 	restrict: 'C'
 	link: (scope, el, attr) -> #console.log el
 

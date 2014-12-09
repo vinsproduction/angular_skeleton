@@ -82,9 +82,13 @@ ul
 a
 	text-decoration none
 	transition all 0.2s
+	outline 0
+	
+a:hover, a:active, a:focus
+	outline 0
 
 input:focus, textarea:focus, select:focus, button:focus
-	outline none
+	outline 0
 
 input:-webkit-autofill
 	-webkit-box-shadow: 0 0 0px 50px #ededed inset
@@ -268,7 +272,7 @@ bg-fixed()
 /* _________ PAGES _________*/
 
 
-body.test
+body.view-index
 
 	.sections
 		
@@ -292,34 +296,9 @@ body.test
 					.row
 						margin 20px 0
 
+body.view-404
+	@extend body.view-index
 
-main.view-fonts
-	
-	section
-		.container
-			
-			.content
-				padding 50px 20px
-
-				h1
-					margin 30px 0
-					font-size 24px
-				h2
-					margin 30px 0
-					font-size 47px
-				.fonts
-					width (1265 - 40)px
-					overflow hidden
-					p
-						margin 15px 0
-						background #FFF
-						padding 0 10px
-						border 1px solid gray
-						//white-space nowrap
-						.lowercase
-							text-transform lowercase
-						.uppercase
-							text-transform uppercase
 
 /* _________ POPUPS ________*/
 

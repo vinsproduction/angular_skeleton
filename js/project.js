@@ -1,3 +1,7 @@
+
+/* 
+ App
+ */
 var app;
 
 app = angular.module('app', ['ngRoute', 'ngCookies', 'appControllers', 'appDirectives', 'appServices']);
@@ -45,31 +49,22 @@ app.setApp = function(key, val) {
 
 app.config(['$interpolateProvider', function($interpolateProvider) {}]);
 
-app.config([
-  '$routeProvider', function($routeProvider) {
-    $routeProvider.when('/test', {
-      templateUrl: 'test.html',
-      controller: 'testCtrl'
-    });
-    $routeProvider.otherwise({
-      redirectTo: '/test'
-    });
-    return 0;
-  }
-]);
 
+/* 
+ Controllers
+ */
 var appControllers;
 
 appControllers = angular.module('appControllers', []);
 
 appControllers.controller('headCtrl', ['$rootScope', function($rootScope) {}]);
 
-appControllers.controller('testCtrl', [
+appControllers.controller('indexCtrl', [
   'APP', '$rootScope', '$scope', function(APP, $rootScope, $scope) {
-    $rootScope.title = "test";
-    return $rootScope.bodyClass = "test";
+    $rootScope.title = "index";
+    return $rootScope.bodyClass = "view-index";
   }
-]).directive('testCtrlDirective', [
+]).directive('indexCtrlDirective', [
   '$rootScope', function($rootScope) {
     return {
       restrict: 'C',
@@ -78,6 +73,10 @@ appControllers.controller('testCtrl', [
   }
 ]);
 
+
+/* 
+ Directives
+ */
 var appDirectives;
 
 appDirectives = angular.module('appDirectives', []);
@@ -90,6 +89,10 @@ appDirectives.directive('testDirective', function() {
   };
 });
 
+
+/* 
+ Services
+ */
 var appServices;
 
 appServices = angular.module('appServices', []);

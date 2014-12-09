@@ -1,3 +1,7 @@
+
+/* 
+ App
+ */
 var app;
 
 app = angular.module('app', ['ngRoute', 'ngCookies', 'appControllers', 'appDirectives', 'appServices']);
@@ -44,16 +48,3 @@ app.setApp = function(key, val) {
 };
 
 app.config(['$interpolateProvider', function($interpolateProvider) {}]);
-
-app.config([
-  '$routeProvider', function($routeProvider) {
-    $routeProvider.when('/test', {
-      templateUrl: 'test.html',
-      controller: 'testCtrl'
-    });
-    $routeProvider.otherwise({
-      redirectTo: '/test'
-    });
-    return 0;
-  }
-]);
