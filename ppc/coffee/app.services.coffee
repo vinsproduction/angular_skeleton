@@ -255,7 +255,7 @@ appServices.factory "size", [() ->
 
 ### Социальные настройки (Не проверено на Ангуларе!) ###
 
-appServices.factory "social", [() ->
+appServices.factory "social", ['APP',(APP) ->
 
 	class Social
 
@@ -265,17 +265,17 @@ appServices.factory "social", [() ->
 			@facebookApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '1487802001472904' else '687085858046891'
 			@odnoklassnikiApiId = ''
 
-			# if VK?
-			# 	VK.init
-			# 		apiId: @vkontakteApiId
+			if VK?
+				VK.init
+					apiId: @vkontakteApiId
 
-			# if FB?
-			# 	FB.init
-			# 		appId: @facebookApiId
-			# 		status: true
-			# 		cookie: true
-			# 		xfbml: true
-			# 		oauth: true
+			if FB?
+				FB.init
+					appId: @facebookApiId
+					status: true
+					cookie: true
+					xfbml: true
+					oauth: true
 
 		auth: 
 
@@ -364,10 +364,11 @@ appServices.factory "social", [() ->
 				###
 				в attachments должна быть только 1 ссылка! Если надо прекрепить фото, 
 				оно должно быть залито в сам ВКонтакте
+				attachments: "photo131380871_348071400,http://vinsproduction.com"
 				###
 
-				options.attachLink = if options.attachLink then "#{app.social.url}#" + options.attachLink else app.social.url
-				options.attachPhoto = if options.attachPhoto then options.attachPhoto else "photo131380871_321439116"
+				options.attachLink 	= if options.attachLink then options.attachLink else ""
+				options.attachPhoto = if options.attachPhoto then options.attachPhoto else ""
 
 				VK.api "wall.post",
 					owner_id	: options.owner_id
@@ -384,9 +385,9 @@ appServices.factory "social", [() ->
 						if options.error
 							options.error(r.error)
 
-						if popup and r.error and r.error.error_msg and r.error.error_code
-							if r.error.error_code is 214
-								app.errors.popup "Стенка закрыта", false
+						# if r.error and r.error.error_msg and r.error.error_code
+						# 	if r.error.error_code is 214
+						# 		console.error "VKONTAKTE > wall.post > Стенка закрыта"
 					else
 						console.debug '[VKONTAKTE > wall.post] success'
 						if options.success then options.success()

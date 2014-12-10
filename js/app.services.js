@@ -272,13 +272,27 @@ appServices.factory("size", [
 /* Социальные настройки (Не проверено на Ангуларе!) */
 
 appServices.factory("social", [
-  function() {
+  'APP', function(APP) {
     var Social;
     Social = (function() {
       function Social() {
         this.vkontakteApiId = APP.local || /dev.site.ru/.test(APP.host) ? '4555300' : '4574053';
         this.facebookApiId = APP.local || /dev.site.ru/.test(APP.host) ? '1487802001472904' : '687085858046891';
         this.odnoklassnikiApiId = '';
+        if (typeof VK !== "undefined" && VK !== null) {
+          VK.init({
+            apiId: this.vkontakteApiId
+          });
+        }
+        if (typeof FB !== "undefined" && FB !== null) {
+          FB.init({
+            appId: this.facebookApiId,
+            status: true,
+            cookie: true,
+            xfbml: true,
+            oauth: true
+          });
+        }
       }
 
       Social.prototype.auth = {
@@ -340,9 +354,10 @@ appServices.factory("social", [
           /*
           				в attachments должна быть только 1 ссылка! Если надо прекрепить фото, 
           				оно должно быть залито в сам ВКонтакте
+          				attachments: "photo131380871_348071400,http://vinsproduction.com"
            */
-          options.attachLink = options.attachLink ? ("" + app.social.url + "#") + options.attachLink : app.social.url;
-          options.attachPhoto = options.attachPhoto ? options.attachPhoto : "photo131380871_321439116";
+          options.attachLink = options.attachLink ? options.attachLink : "";
+          options.attachPhoto = options.attachPhoto ? options.attachPhoto : "";
           return VK.api("wall.post", {
             owner_id: options.owner_id,
             message: options.message,
@@ -352,11 +367,6 @@ appServices.factory("social", [
               console.error('[VKONTAKTE > wall.post]', r);
               if (options.error) {
                 options.error(r.error);
-              }
-              if (popup && r.error && r.error.error_msg && r.error.error_code) {
-                if (r.error.error_code === 214) {
-                  app.errors.popup("Стенка закрыта", false);
-                }
               }
             } else {
               console.debug('[VKONTAKTE > wall.post] success');
