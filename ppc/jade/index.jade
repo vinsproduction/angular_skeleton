@@ -87,8 +87,9 @@ html
 		block js
 			script.
 				app.setApp("project", "Angular Skeleton");
+				app.setApp("remoteHost", "http://vinsproduction.com");
 
-	body(ng-class="bodyClass")
+	body(ng-controller="bodyCtrl" ng-class="bodyClass")
 	
 		//- //Vkontakte openapi
 		//- script(src='http://vkontakte.ru/js/api/openapi.js', type='text/javascript')

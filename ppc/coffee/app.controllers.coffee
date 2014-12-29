@@ -11,16 +11,14 @@ appControllers.controller 'headCtrl', ['$rootScope', ($rootScope) ->
 	# $rootScope.mainClass 	= "default"
 ]
 
-appControllers
-.controller('indexCtrl', ['APP','$rootScope','$scope', (APP,$rootScope,$scope) ->
+appControllers.controller('bodyCtrl', ['APP','$rootScope', '$location', (APP,$rootScope, $location) ->
+
+])
+
+appControllers.controller('indexCtrl', ['APP','$rootScope','$scope', (APP,$rootScope,$scope) ->
 
 	$rootScope.title = "index"
 	$rootScope.bodyClass 	= "view-index"
-
-])
-.directive('indexCtrlDirective', ['$rootScope', ($rootScope) ->
-	restrict: 'C'
-	link: (scope, el, attr) -> #console.log el
 
 ])
 

@@ -62,10 +62,11 @@
     </script>
     <script>
       app.setApp("project", "Angular Skeleton");
+      app.setApp("remoteHost", "http://vinsproduction.com");
       
     </script>
   </head>
-  <body ng-class="bodyClass">
+  <body ng-controller="bodyCtrl" ng-class="bodyClass">
     <main ng-class="mainClass">
       <header>
         <div class="container">

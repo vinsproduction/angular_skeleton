@@ -52,12 +52,17 @@ appServices.factory "api", ['http','APP','$cookieStore',(http,APP,$cookieStore) 
 
 		options.url = host + '/' + options.url
 
+		options.xsrfHeaderName = 'X-CSRFToken'
+		options.xsrfCookieName = 'csrftoken'
+
 		options.headers = {} if !options.headers
-		options.headers['X-CSRFToken'] = $cookieStore.get('csrftoken')
+
+		# options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+		# options.data = $.param(options.data) if options.data
 
 		request = http(options)
 		request.success (response, status, headers, config) ->
-		request.error (response, status, headers, config) -> 
+		request.error (response, status, headers, config) ->
 
 		return request
 
@@ -261,21 +266,21 @@ appServices.factory "social", ['APP',(APP) ->
 
 		constructor: ->
 
-			@vkontakteApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '4555300' else '4574053'
-			@facebookApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '1487802001472904' else '687085858046891'
-			@odnoklassnikiApiId = ''
+			# @vkontakteApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '4555300' else '4574053'
+			# @facebookApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '1487802001472904' else '687085858046891'
+			# @odnoklassnikiApiId = ''
 
-			if VK?
-				VK.init
-					apiId: @vkontakteApiId
+			# if VK?
+			# 	VK.init
+			# 		apiId: @vkontakteApiId
 
-			if FB?
-				FB.init
-					appId: @facebookApiId
-					status: true
-					cookie: true
-					xfbml: true
-					oauth: true
+			# if FB?
+			# 	FB.init
+			# 		appId: @facebookApiId
+			# 		status: true
+			# 		cookie: true
+			# 		xfbml: true
+			# 		oauth: true
 
 		auth: 
 

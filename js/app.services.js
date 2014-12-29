@@ -59,10 +59,11 @@ appServices.factory("api", [
       }
       host = APP.local ? APP.remoteHost : APP.host;
       options.url = host + '/' + options.url;
+      options.xsrfHeaderName = 'X-CSRFToken';
+      options.xsrfCookieName = 'csrftoken';
       if (!options.headers) {
         options.headers = {};
       }
-      options.headers['X-CSRFToken'] = $cookieStore.get('csrftoken');
       request = http(options);
       request.success(function(response, status, headers, config) {});
       request.error(function(response, status, headers, config) {});
@@ -275,25 +276,7 @@ appServices.factory("social", [
   'APP', function(APP) {
     var Social;
     Social = (function() {
-      function Social() {
-        this.vkontakteApiId = APP.local || /dev.site.ru/.test(APP.host) ? '4555300' : '4574053';
-        this.facebookApiId = APP.local || /dev.site.ru/.test(APP.host) ? '1487802001472904' : '687085858046891';
-        this.odnoklassnikiApiId = '';
-        if (typeof VK !== "undefined" && VK !== null) {
-          VK.init({
-            apiId: this.vkontakteApiId
-          });
-        }
-        if (typeof FB !== "undefined" && FB !== null) {
-          FB.init({
-            appId: this.facebookApiId,
-            status: true,
-            cookie: true,
-            xfbml: true,
-            oauth: true
-          });
-        }
-      }
+      function Social() {}
 
       Social.prototype.auth = {
         vk: function(callback) {
