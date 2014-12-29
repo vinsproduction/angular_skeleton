@@ -9,17 +9,19 @@ angular.element(document).ready ->
 
 	angular.bootstrap document, ['app']
 
-	window.console.info "[app loaded] APP: ", app.APP
+	window.console.info "[App loaded] APP: ", app.APP
 
 ### Дефолтные константы для приложения ###	
 app.APP = do ->
 
 	opt = 
 
-		remoteHost: 'http://vinsproduction.com'
-		host: 	window.location.protocol + "//" + window.location.host
+		project: 'Angular Skeleton'
 		debug: 	/debug/.test(window.location.search)
 		local: 	window.location.host is "" or /localhost/.test window.location.host
+		host: 	window.location.protocol + "//" + window.location.host
+		remoteHost: 'http://vinsproduction.com'
+		root: ''
 
 	### Автоперезагрузка браузера для разработки ###
 	if window.WebSocket and /localhost/.test window.location.host

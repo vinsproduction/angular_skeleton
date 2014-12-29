@@ -8,7 +8,7 @@ app = angular.module('app', ['ngRoute', 'ngCookies', 'appControllers', 'appDirec
 
 angular.element(document).ready(function() {
   angular.bootstrap(document, ['app']);
-  return window.console.info("[app loaded] APP: ", app.APP);
+  return window.console.info("[App loaded] APP: ", app.APP);
 });
 
 
@@ -17,10 +17,12 @@ angular.element(document).ready(function() {
 app.APP = (function() {
   var opt, port, url;
   opt = {
-    remoteHost: 'http://vinsproduction.com',
-    host: window.location.protocol + "//" + window.location.host,
+    project: 'Angular Skeleton',
     debug: /debug/.test(window.location.search),
-    local: window.location.host === "" || /localhost/.test(window.location.host)
+    local: window.location.host === "" || /localhost/.test(window.location.host),
+    host: window.location.protocol + "//" + window.location.host,
+    remoteHost: 'http://vinsproduction.com',
+    root: ''
   };
 
   /* Автоперезагрузка браузера для разработки */
