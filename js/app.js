@@ -47,4 +47,13 @@ app.setApp = function(key, val) {
   })());
 };
 
-app.config(['$interpolateProvider', function($interpolateProvider) {}]);
+
+/* Установки шаблонизатора */
+
+app.config([
+  '$interpolateProvider', function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+    return 0;
+  }
+]);

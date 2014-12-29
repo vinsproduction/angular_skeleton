@@ -47,7 +47,16 @@ app.setApp = function(key, val) {
   })());
 };
 
-app.config(['$interpolateProvider', function($interpolateProvider) {}]);
+
+/* Установки шаблонизатора */
+
+app.config([
+  '$interpolateProvider', function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+    return 0;
+  }
+]);
 
 
 /* 
@@ -86,6 +95,8 @@ appControllers.controller('headCtrl', ['$rootScope', function($rootScope) {}]);
 
 appControllers.controller('bodyCtrl', ['APP', '$rootScope', '$location', function(APP, $rootScope, $location) {}]);
 
+appControllers.controller('popupsCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
 appControllers.controller('indexCtrl', [
   'APP', '$rootScope', '$scope', function(APP, $rootScope, $scope) {
     $rootScope.title = "index";
@@ -101,11 +112,24 @@ var appDirectives;
 
 appDirectives = angular.module('appDirectives', []);
 
-appDirectives.directive('testDirective', function() {
+appDirectives.directive('placeholderDirective', function() {
   return {
     restrict: 'A',
     scope: {},
-    link: function(scope, el, attr) {}
+    link: function(scope, el, attr) {
+      el = $(el);
+      el.focus(function() {
+        if (el.val() === attr.placeholderDirective) {
+          return el.val("");
+        }
+      });
+      el.blur(function() {
+        if (el.val() === "") {
+          return el.val(attr.placeholderDirective);
+        }
+      });
+      return el.blur();
+    }
   };
 });
 

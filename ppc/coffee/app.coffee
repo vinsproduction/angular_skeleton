@@ -39,9 +39,10 @@ app.setApp = (key,val) ->
 		app.APP[key] = val
 		return app.APP
 
-
+### Установки шаблонизатора ###
 app.config ['$interpolateProvider', ($interpolateProvider) ->
-	# $interpolateProvider.startSymbol('[[')
-	# $interpolateProvider.endSymbol(']]')
-	# return 0
+	$interpolateProvider.startSymbol('[[')
+	$interpolateProvider.endSymbol(']]')
+	return 0
 ]
+
