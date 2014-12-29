@@ -239,7 +239,7 @@ Popup = (function() {
     if (opt.button && $button.size()) {
       $button.unbind("click").click((function(_this) {
         return function() {
-          if (typeof button === "function") {
+          if (typeof opt.button === "function") {
             return opt.button();
           } else {
             return _this.close();
