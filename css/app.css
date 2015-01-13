@@ -194,7 +194,7 @@ body > main > footer > .container > .content {
   vertical-align: top;
   zoom: 1;
   *display: inline;
-  margin: 14px;
+  margin: 14px 0;
 }
 /*_________ SECTIONS _________*/
 body > main > .sections {
@@ -343,12 +343,6 @@ body.view-404 .sections section .container .content .row {
 @media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait) {
   #debugBox .mediaWidth:after {
     content: '@media(min-width: 320px) and (max-width: 480px)';
-  }
-  body > main > header {
-    height: 60px;
-  }
-  body > main .sections > section .container .content {
-    padding: 80px 20px;
   }
 }
 @media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) {

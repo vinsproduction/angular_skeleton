@@ -73,6 +73,7 @@ module.exports = function(grunt) {
 					'js/libs/json2.min.js',
 
 					'js/libs/popup.js',
+					// 'js/libs/jquery.jcarousel.js',
 					// 'js/libs/fileuploader.js',
 					// 'js/libs/form.js',
 
