@@ -325,7 +325,7 @@ appServices.factory("scroll", [
     return function(v, animate) {
       var callback, easing, el, time;
       time = (animate != null ? animate.time : void 0) || 800;
-      easing = (animate != null ? animate.easing : void 0) || 'easeOutCubic';
+      easing = (animate != null ? animate.easing : void 0) || 'linear';
       callback = false;
       if ((v != null) && _.isString(v)) {
         el = $(v);

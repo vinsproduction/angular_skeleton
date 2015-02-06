@@ -184,7 +184,7 @@ appServices.factory "scroll", [() ->
 	(v,animate) ->
 
 		time 		= animate?.time 	|| 800
-		easing 	= animate?.easing || 'easeOutCubic'
+		easing 	= animate?.easing || 'linear'
 		callback = false
 
 		# Если это строка, то имеется ввиду селектор
