@@ -59,3 +59,24 @@ app.config([
     return 0;
   }
 ]);
+
+
+/* Смена урла без перезагрузки страницы - $location.path("/product/1", false) */
+
+app.run([
+  '$route', '$rootScope', '$location', function($route, $rootScope, $location) {
+    var original;
+    original = $location.path;
+    return $location.path = function(path, reload) {
+      var lastRoute, un;
+      if (reload === false) {
+        lastRoute = $route.current;
+        un = $rootScope.$on('$locationChangeSuccess', function() {
+          $route.current = lastRoute;
+          return un();
+        });
+      }
+      return original.apply($location, [path]);
+    };
+  }
+]);

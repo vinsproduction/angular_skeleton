@@ -48,3 +48,16 @@ app.config ['$interpolateProvider', ($interpolateProvider) ->
 	return 0
 ]
 
+### Смена урла без перезагрузки страницы - $location.path("/product/1", false) ###
+app.run ['$route', '$rootScope', '$location',  ($route, $rootScope, $location) ->
+	original = $location.path
+	$location.path = (path, reload) -> 
+		if reload is false
+			lastRoute = $route.current
+			un = $rootScope.$on '$locationChangeSuccess', ->
+				$route.current = lastRoute
+				un()
+
+		original.apply($location, [path]);
+]
+
