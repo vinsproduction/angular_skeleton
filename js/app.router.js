@@ -5,8 +5,8 @@
 app.config([
   '$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {
-      templateUrl: 'views/index.html',
-      controller: 'indexCtrl'
+      templateUrl: 'home.html',
+      controller: 'homeCtrl'
     });
     $routeProvider.when('/index', {
       redirectTo: '/'

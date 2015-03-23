@@ -26,9 +26,16 @@ module.exports = function(grunt) {
 					}
 				},
 				files: {
+					"__layout.html": "ppc/jade/includes/layout.jade",
+					"__header.html": "ppc/jade/includes/header.jade",
+					"__footer.html": "ppc/jade/includes/footer.jade",
+					"__popups.html": "ppc/jade/includes/popups.jade",
+
+
+					"404.html": "ppc/jade/404.jade",
 					"index.html": "ppc/jade/index.jade",
-					"views/404.html": "ppc/jade/views/404.jade",
-					"views/index.html": "ppc/jade/views/index.jade",
+					"home.html": "ppc/jade/home.jade",
+					
 
 				}
 			}

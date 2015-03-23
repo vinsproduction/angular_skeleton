@@ -195,14 +195,15 @@ body > main > footer > .container > .content {
   zoom: 1;
   *display: inline;
   margin: 14px 0;
+  padding: 0 10px;
 }
 /*_________ SECTIONS _________*/
-body > main > .sections {
+body > main > .view > .sections {
   clear: both;
   width: 100%;
   padding-bottom: 40px;
 }
-body > main > .sections > section {
+body > main > .view > .sections > section {
   clear: both;
   position: relative;
   z-index: 1;
@@ -213,7 +214,7 @@ body > main > .sections > section {
   zoom: 1;
   *display: inline;
 }
-body > main > .sections > section > .container {
+body > main > .view > .sections > section > .container {
   position: relative;
   max-width: 1265px;
   height: 100%;
@@ -221,34 +222,34 @@ body > main > .sections > section > .container {
   background: #f2e5d5;
 }
 /*___ PAGE MIXINS  __*/
-/* _________ PAGES _________*/
-body.view-index .sections,
-body.view-404 .sections {
+/* _________ VIEWS _________*/
+#view-home,
+#view-404 {
   padding-top: 60px;
 }
-body.view-index .sections section,
-body.view-404 .sections section {
+#view-home section,
+#view-404 section {
   margin: 0 0 40px 0;
 }
-body.view-index .sections section .container .content,
-body.view-404 .sections section .container .content {
+#view-home section .container .content,
+#view-404 section .container .content {
   padding: 0 20px;
 }
-body.view-index .sections section .container .content p,
-body.view-404 .sections section .container .content p {
+#view-home section .container .content p,
+#view-404 section .container .content p {
   margin: 20px 0;
   line-height: 1.4;
 }
-body.view-index .sections section .container .content .links,
-body.view-404 .sections section .container .content .links {
+#view-home section .container .content .links,
+#view-404 section .container .content .links {
   padding: 10px 0;
 }
-body.view-index .sections section .container .content .items,
-body.view-404 .sections section .container .content .items {
+#view-home section .container .content .items,
+#view-404 section .container .content .items {
   margin: 20px 0 0 0;
 }
-body.view-index .sections section .container .content .row,
-body.view-404 .sections section .container .content .row {
+#view-home section .container .content .row,
+#view-404 section .container .content .row {
   margin: 20px 0;
 }
 /* _________ POPUPS ________*/

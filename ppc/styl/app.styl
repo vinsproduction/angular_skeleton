@@ -207,11 +207,12 @@ body > main > footer
 		> .content
 			block-inline()
 			margin 14px 0
+			padding 0 10px
 
 
 /*_________ SECTIONS _________*/
 
-body > main > .sections
+body > main > .view > .sections
 
 	clear both
 	width 100%
@@ -248,7 +249,7 @@ header-fixed()
 
 footer-none()
 
-	> main >.sections
+	> main >.view >.sections
 		padding-bottom 0
 
 	> main > footer 
@@ -269,35 +270,33 @@ bg-fixed()
 	background-repeat no-repeat
 
 
-/* _________ PAGES _________*/
+/* _________ VIEWS _________*/
 
 
-body.view-index
+#view-home
 
-	.sections
-		
-		padding-top 60px
+	padding-top 60px
 
-		section
-			margin 0 0 40px 0
-			.container
-				.content
-					padding 0 20px
-					p 
-						margin 20px 0
-						line-height 1.4
-						
-					.links
-						padding 10px 0
-						
-					.items
-						margin 20px 0 0 0
-						
-					.row
-						margin 20px 0
+	section
+		margin 0 0 40px 0
+		.container
+			.content
+				padding 0 20px
+				p 
+					margin 20px 0
+					line-height 1.4
+					
+				.links
+					padding 10px 0
+					
+				.items
+					margin 20px 0 0 0
+					
+				.row
+					margin 20px 0
 
-body.view-404
-	@extend body.view-index
+#view-404
+	@extend #view-home
 
 
 /* _________ POPUPS ________*/

@@ -92,6 +92,12 @@ Popup = (function() {
     if (opt == null) {
       opt = {};
     }
+
+    if (opt.closeCallback != null) {
+      this.closeCallback = opt.closeCallback;
+    }
+
+
     if (this.status === 0) {
       this.doCallback(popup);
       this.popups.hide().removeClass('open');
@@ -134,8 +140,14 @@ Popup = (function() {
 
   Popup.prototype.loadCallback = function(popup) {};
 
+  /* Если надо отловить callback закрытия попапа: */
+  Popup.prototype.closeCallback = function() {};
+
   Popup.prototype.disable = function() {
     if (this.status === 1) {
+
+      this.closeCallback();
+
       this.popups.removeClass('open');
       if (this.fade) {
         this.popups.fadeOut(this.fade);
@@ -149,7 +161,8 @@ Popup = (function() {
 
   Popup.prototype.close = function() {
     this.status = 1;
-    return this.disable();
+    this.disable();
+
   };
 
   Popup.prototype.center = function(popup, opt) {
@@ -233,6 +246,7 @@ Popup = (function() {
     if (!popup.size()) {
       return console.warn("popup " + name + " not found");
     }
+    popup.removeAttr('style');
     this.center(popup, opt);
     this.load(popup, opt);
     $button = popup.find("[data-popup-button]");
@@ -254,7 +268,7 @@ Popup = (function() {
 
 
   /* Функция открытия конкретного попапа  
-  кастомный попап для вывода любой	информации
+  кастомный попап для вывода любой  информации
   popup.custom('Ошибка','Необходима авторизация',{button: function(){popup.open('popup_name')}});
    */
 

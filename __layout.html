@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head data-ng-controller="headCtrl">
+  <head ng-controller="data-headCtrl">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!--SEO-->
@@ -51,7 +51,6 @@
     $$.includeJS('js/libs/angular-route.js ');
     $$.includeJS('js/libs/angular-cookies.js ');
     $$.includeJS('js/app.js');
-    $$.includeJS('js/app.router.js');
     $$.includeJS('js/app.controllers.js');
     $$.includeJS('js/app.directives.js');
     $$.includeJS('js/app.services.js');
@@ -108,7 +107,10 @@
           </div>
         </div>
       </header>
-      <div data-ng-view class="view"></div>
+      <!-- view-->
+      <div class="view">
+      </div>
+      <!-- view end-->
       <footer>
         <div class="container">
           <div class="content">

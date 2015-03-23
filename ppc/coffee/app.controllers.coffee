@@ -20,11 +20,11 @@ appControllers.controller('bodyCtrl', ['APP','$rootScope', '$location', (APP,$ro
 ])
 
 appControllers.controller('popupsCtrl', ['APP','$rootScope','$scope','$location', (APP,$rootScope,$scope,$location) ->
+	# popup.open 'unique'
 ])
 
 
-appControllers.controller('indexCtrl', ['APP','$rootScope','$scope', (APP,$rootScope,$scope) ->
-	$rootScope.title = "index"
-	$rootScope.bodyClass 	= "view-index"
+appControllers.controller('homeCtrl', ['APP','$rootScope','$scope','$location', (APP,$rootScope,$scope,$location) ->
+	$rootScope.title = "home"
 ])
 

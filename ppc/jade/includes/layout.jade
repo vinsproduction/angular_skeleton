@@ -1,7 +1,7 @@
 doctype html
 html
 
-	head(data-ng-controller="headCtrl")
+	head(ng-controller="data-headCtrl")
 
 		//- meta(name='viewport' content='width=1265')
 		meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0")
@@ -75,7 +75,6 @@ html
 					$$.includeJS 'js/libs/angular-cookies.js '
 
 					$$.includeJS 'js/app.js'
-					$$.includeJS 'js/app.router.js'
 					$$.includeJS 'js/app.controllers.js'
 					$$.includeJS 'js/app.directives.js'
 					$$.includeJS 'js/app.services.js'
@@ -97,12 +96,15 @@ html
 		//- #fb-root
 		//- script(src='http://connect.facebook.net/en_US/all.js')
 		
-		include includes/popups
+		include popups
 		
 		main(data-ng-class="mainClass")
 
-			include includes/header
+			include header
 
-			.view(data-ng-view)
+			// view
+			.view
+				block content
+			// view end
 
-			include includes/footer
+			include footer
