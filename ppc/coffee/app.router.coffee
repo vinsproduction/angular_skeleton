@@ -5,20 +5,19 @@
 
 app.config ['$routeProvider', ($routeProvider) ->
 
-	$routeProvider.when '/',
-		templateUrl: 'home.html'
-		controller: 'homeCtrl'
+	# $routeProvider.when '/',
+	# 	templateUrl: 'home.html'
+	# 	controller: 'homeCtrl'
 
-	$routeProvider.when '/index',
-		redirectTo: '/'
+	# $routeProvider.when '/index',
+	# 	redirectTo: '/'
 
-	$routeProvider.otherwise
-		templateUrl: 'views/404.html'
-		controller: ($rootScope) ->
-			$rootScope.title = '404'
-			$rootScope.bodyClass = 'view-404'
-		redirectTo: '/404'
+	# $routeProvider.otherwise
+	# 	templateUrl: '404.html'
+	# 	controller: ($rootScope) ->
+	# 		$rootScope.title = '404'
+	# 	redirectTo: '/404'
 
-	return 0
+	# return 0
 
 ]

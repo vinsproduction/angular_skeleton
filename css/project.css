@@ -341,23 +341,3 @@ body > main > .view > .sections > section > .container {
   margin: 0 auto;
 }
 /* _________ MEDIA _________ */
-@media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait) {
-  #debugBox .mediaWidth:after {
-    content: '@media(min-width: 320px) and (max-width: 480px)';
-  }
-}
-@media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) {
-  #debugBox .mediaWidth:after {
-    content: '@media(min-width: 320px) and (max-width: 480px)';
-  }
-}
-@media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
-  #debugBox .mediaWidth:after {
-    content: '@media(min-width: 768px) and (max-width: 1024px)';
-  }
-}
-@media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  #debugBox .mediaWidth:after {
-    content: '@media(min-width: 768px) and (max-width: 1024px)';
-  }
-}

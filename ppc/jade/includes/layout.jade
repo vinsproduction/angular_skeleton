@@ -1,10 +1,10 @@
 doctype html
 html
 
-	head(ng-controller="data-headCtrl")
+	head(data-ng-controller="headCtrl")
 
-		//- meta(name='viewport' content='width=1265')
-		meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0")
+		meta(name='viewport' content='width=1265')
+		//- meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0")
 
 		meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
 
@@ -75,6 +75,7 @@ html
 					$$.includeJS 'js/libs/angular-cookies.js '
 
 					$$.includeJS 'js/app.js'
+					$$.includeJS 'js/app.router.js'
 					$$.includeJS 'js/app.controllers.js'
 					$$.includeJS 'js/app.directives.js'
 					$$.includeJS 'js/app.services.js'

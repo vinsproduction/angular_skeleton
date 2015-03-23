@@ -1,18 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head data-ng-controller="headCtrl">
+    <meta name="viewport" content="width=1265">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--SEO-->
+    <title>ANGULAR SKELETON - [[title]]</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- Open Graph-->
+    <meta property="og:title" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:description" content="">
+    <!--favicon-->
+    <link rel="image_src" href="">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <!--IE--><!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="MSThemeCompatible" content="no"/>
+    <![endif]-->
+    <!--[if lt IE 7]>
+    <style>
+      body > main {
+      	height: 100%;
+      }
+    </style><![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/libs/html5shiv.js"></script><![endif]-->
+    <!--Apple-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!--JS helpers -->
+    <script type="text/javascript" src="js/libs/helpers.js"></script>
+    <!--Include JS/CSS-->
+    <script>(function() {
+  if (!/debug/.test(window.location.search)) {
+    console.log('[App] PRODUCTION MODE (Console is disabled)');
+    $$.disableConsole();
+    $$.includeCSS('css/project.css');
+    $$.includeJS('js/libs/lib.js');
+    $$.includeJS('js/project.min.js');
+  } else {
+    console.debug('[App] DEBUG MODE');
+    $$.includeCSS('css/app.css');
+    $$.includeJS('js/libs/jquery-1.11.1.js');
+    $$.includeJS('js/libs/json2.js');
+    $$.includeJS('js/libs/underscore.js');
+    $$.includeJS('js/libs/angular.js');
+    $$.includeJS('js/libs/angular-route.js ');
+    $$.includeJS('js/libs/angular-cookies.js ');
+    $$.includeJS('js/app.js');
+    $$.includeJS('js/app.router.js');
+    $$.includeJS('js/app.controllers.js');
+    $$.includeJS('js/app.directives.js');
+    $$.includeJS('js/app.services.js');
+  }
 
+}).call(this);
 
-<div id="view-home" class="sections">
-  <section>
-    <div class="container">
-      <div class="content">
-        <h4>Section 1</h4>
+    </script>
+    <script>
+      app.setApp("project", "Angular Skeleton");
+      app.setApp("remoteHost", "http://vinsproduction.com");
+      
+    </script>
+  </head>
+  <body data-ng-controller="bodyCtrl" data-ng-class="bodyClass">
+    <div id="popups" data-ng-controller="popupsCtrl">
+      <div data-popup-name="custom" class="popup">
+        <div data-popup-close class="close"></div>
+        <div class="header">
+          <h1></h1>
+        </div>
+        <div class="body"></div>
+        <div class="footer">
+          <button data-popup-close>закрыть</button>
+        </div>
       </div>
-    </div>
-  </section>
-  <section>
-    <div class="container">
-      <div class="content">
-        <h4>Section 2</h4>
+      <div data-popup-name="unique" class="popup">
+        <div data-popup-close class="close"></div>
+        <div class="header">
+          <h1>unique</h1>
+        </div>
+        <div class="body">
+          <p>popup</p>
+        </div>
+        <div class="footer">
+          <button data-popup-button>закрыть</button>
+        </div>
       </div>
+      <div data-popup-close class="background"></div>
     </div>
-  </section>
-</div>
+    <main data-ng-class="mainClass">
+      <header>
+        <div class="container">
+          <div class="content">
+            <div class="logo">
+              <h5><a href="#/">HEADER</a></h5>
+            </div>
+            <nav id="menu">
+              <ul>
+                <li class="separator"></li>
+                <li><a href="https://github.com/vinsproduction/angular_skeleton/wiki" target="_blank">Wiki</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <!-- view-->
+      <div class="view">
+        <div id="view-home" data-ng-controller="homeCtrl" class="sections">
+          <section>
+            <div class="container">
+              <div class="content">
+                <h4>Section 1</h4>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="container">
+              <div class="content">
+                <h4>Section 2</h4>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- view end-->
+      <footer>
+        <div class="container">
+          <div class="content">
+            <h5>FOOTER (always at the bottom)</h5>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,24 +1,24 @@
-//- Для отдельных страниц - если не синглпейдж сайт
-//- extends includes/layout
-//- block content
-//- 	#view-home.sections(data-ng-controller="homeCtrl")
-//- 		section
-//- 			.container
-//- 				.content
-//- 					h4 Секция
+//- Для синглпейдж сайта
+//- #view-home.sections
+//- 	section
+//- 		.container
+//- 			.content
+//- 				h4 Section 1
+//- 	section
+//- 		.container
+//- 			.content
+//- 				h4 Section 2
 
+extends includes/layout
 
-#view-home.sections
-
-	section
-		.container
-			.content
-
-				h4 Section 1
-
-	section
-		.container
-			.content
-
-				h4 Section 2
+block content
+	#view-home.sections(data-ng-controller="homeCtrl")
+		section
+			.container
+				.content
+					h4 Section 1
+		section
+			.container
+				.content
+					h4 Section 2
 
