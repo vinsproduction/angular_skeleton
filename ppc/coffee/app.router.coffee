@@ -5,6 +5,7 @@
 
 app.config ['$routeProvider', ($routeProvider) ->
 
+	# Для синглпейджа
 	# $routeProvider.when '/',
 	# 	templateUrl: 'home.html'
 	# 	controller: 'homeCtrl'
