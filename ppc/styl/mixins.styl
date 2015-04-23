@@ -41,6 +41,10 @@ opacity(n)
 	opacity n
 	filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
 
+rgb(r,g,b)
+	s('rgb(%s, %s, %s)', r, g, b)
+
+
 //background_rgba(#000000,'000000',0.5)
 background_rgba(color,colorms,a)
 
