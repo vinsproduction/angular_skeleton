@@ -95,7 +95,9 @@ body > main {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background: url("../img/bg.jpg") repeat-y center center;
+  background-image: url("../img/bg.jpg");
+  background-repeat: repeat-y;
+  background-position: center center;
 }
 /*_________ HEADER ___________*/
 body > main > header {
@@ -119,10 +121,15 @@ body > main > header > .container > .content {
   width: 100%;
 }
 body > main > header > .container > .content .logo {
+  float: left;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
   margin: 13px 0 0 10px;
 }
 body > main > header > .container > .content .logo a {
-  text-decoration: none;
   color: #000;
 }
 body > main > header > .container > .content nav#menu {
@@ -133,17 +140,7 @@ body > main > header > .container > .content nav#menu {
   zoom: 1;
   *display: inline;
   text-transform: uppercase;
-  margin: 10px 10px 0 0;
-}
-body > main > header > .container > .content nav#menu a {
-  text-decoration: none;
-  display: -moz-inline-stack;
-  display: inline-block;
-  vertical-align: top;
-  zoom: 1;
-  *display: inline;
-  position: relative;
-  color: #fff;
+  margin: 6px 10px 0 0;
 }
 body > main > header > .container > .content nav#menu ul {
   display: -moz-inline-stack;
@@ -154,24 +151,28 @@ body > main > header > .container > .content nav#menu ul {
 }
 body > main > header > .container > .content nav#menu ul li {
   float: left;
-  margin: 0 0 6px 0;
+  margin: 0 10px;
 }
 body > main > header > .container > .content nav#menu ul li.separator {
   border-left: solid 1px #d3d3d3;
   width: 1px;
-  height: 13px;
-  margin: 0 5px;
+  height: 26px;
+  margin: 0;
 }
-body > main > header > .container > .content nav#menu ul li.navigate a {
-  border-bottom: 1px dashed #fff;
-}
-body > main > header > .container > .content .logo {
-  float: left;
+body > main > header > .container > .content nav#menu ul li a {
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: top;
   zoom: 1;
   *display: inline;
+  position: relative;
+  color: #000;
+  padding: 5px 20px;
+}
+body > main > header > .container > .content nav#menu ul li a.active,
+body > main > header > .container > .content nav#menu ul li a:hover {
+  color: #000;
+  background: #555;
 }
 /*_________ FOOTER ___________*/
 body > main > footer {
@@ -194,8 +195,26 @@ body > main > footer > .container > .content {
   vertical-align: top;
   zoom: 1;
   *display: inline;
-  margin: 14px 0;
   padding: 0 10px;
+  width: 1245px;
+}
+body > main > footer > .container > .content .left {
+  float: left;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+  margin: 13px 0 0 0;
+}
+body > main > footer > .container > .content .right {
+  float: right;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+  margin: 13px 0 0 0;
 }
 /*_________ SECTIONS _________*/
 body > main > .view > .sections {
@@ -204,15 +223,15 @@ body > main > .view > .sections {
   padding-bottom: 40px;
 }
 body > main > .view > .sections > section {
-  clear: both;
-  position: relative;
-  z-index: 1;
-  width: 100%;
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: top;
   zoom: 1;
   *display: inline;
+  position: relative;
+  clear: both;
+  z-index: 1;
+  width: 100%;
 }
 body > main > .view > .sections > section > .container {
   position: relative;
@@ -221,36 +240,23 @@ body > main > .view > .sections > section > .container {
   margin: 0 auto;
   background: #f2e5d5;
 }
-/*___ PAGE MIXINS  __*/
 /* _________ VIEWS _________*/
 #view-home,
 #view-404 {
-  padding-top: 60px;
-}
-#view-home section,
-#view-404 section {
-  margin: 0 0 40px 0;
+  padding: 60px 0;
 }
 #view-home section .container .content,
 #view-404 section .container .content {
   padding: 0 20px;
 }
-#view-home section .container .content p,
-#view-404 section .container .content p {
-  margin: 20px 0;
-  line-height: 1.4;
-}
-#view-home section .container .content .links,
-#view-404 section .container .content .links {
-  padding: 10px 0;
-}
-#view-home section .container .content .items,
-#view-404 section .container .content .items {
-  margin: 20px 0 0 0;
-}
-#view-home section .container .content .row,
-#view-404 section .container .content .row {
-  margin: 20px 0;
+#view-home section .container .content h4,
+#view-404 section .container .content h4 {
+  float: left;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
 }
 /* _________ POPUPS ________*/
 #popups .background {
@@ -274,7 +280,7 @@ body > main > .view > .sections > section > .container {
   position: absolute;
   display: none;
   background-color: #fff;
-  border: 10px solid #e2e2e2;
+  border: 10px solid rgb(226, 226, 226);
 }
 #popups .popup .close {
   cursor: pointer;
@@ -305,7 +311,7 @@ body > main > .view > .sections > section > .container {
   font-size: 24px;
   line-height: 1;
   font-family: Ubuntu, helvetica, verdana, arial, tahoma;
-  color: #333;
+  color: rgb(51, 51, 51);
   padding: 0 90px;
 }
 #popups .popup[data-popup-name="custom"] .footer {
@@ -331,7 +337,7 @@ body > main > .view > .sections > section > .container {
   font-size: 24px;
   line-height: 1;
   font-family: Ubuntu, helvetica, verdana, arial, tahoma;
-  color: #333;
+  color: rgb(51, 51, 51);
   padding: 0 90px;
 }
 #popups .popup[data-popup-name="unique"] .footer {

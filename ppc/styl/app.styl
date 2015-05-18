@@ -25,12 +25,8 @@ $mainWidth = 1265
 // Главный шрифт
 $mainFont = Ubuntu
 
-// Цвета
-$color-graydarker 	= lighten(#000, 13.5%)
-$color-graydark 		= lighten(#000, 20%)
-$color-gray 				= lighten(#000, 33.5%)
-$color-graylight 		= lighten(#000, 60%)
-$color-graylighter 	= lighten(#000, 80%)
+// Вспомогательные элементы
+$scaffold = true // false
 
 /* _________ FONTS _________ */
 
@@ -50,8 +46,8 @@ font(size,name)
 
 bg(filename, arguments=false)
 	if !arguments
-		arguments = no-repeat center center
-	background url($root + 'img/' + filename) arguments
+		arguments = center center
+	background url($root + 'img/' + filename) no-repeat arguments
 
 
 /* _________ GLOBAL _________
@@ -108,13 +104,9 @@ body
 	overflow-y auto
 	font-family $mainFont
 	
-	// bg 'bg.jpg', top center
-	background-color $color-graydarker
-	// background-attachment fixed
-	// -webkit-background-size cover
-	// -moz-background-size cover
-	// -o-background-size cover
-	// background-size cover
+	if $scaffold is true
+		background-color lighten(#000, 13.5%)
+
 	
 body > main
 	
@@ -123,14 +115,10 @@ body > main
 	width 100%
 	
 	// Фон с изображением
-	bg 'bg.jpg', repeat-y center center
-	// background-color $color-graydarker
-	// background-attachment fixed
-	// -webkit-background-size cover
-	// -moz-background-size cover
-	// -o-background-size cover
-	// background-size cover
-
+	if $scaffold is true
+		background-image url('../img/bg.jpg')
+		background-repeat repeat-y
+		background-position center center
 
 /*_________ HEADER ___________*/
 
@@ -139,53 +127,56 @@ body > main > header
 	width 100%
 	height 40px
 
-	background $color-gray
+	if $scaffold is true
+		background lighten(#000, 33.5%)
 
 	> .container
 		height 100%
 		max-width  ($mainWidth)px
 		margin 0 auto
-		background $color-graylight
+		
+		if $scaffold is true
+			background lighten(#000, 60%)
 
 		> .content
 			block-inline()
 			width 100%
 
 			.logo
+				block-left()
 				margin 13px 0 0 10px
 				a
-					text-decoration none
 					color #000
 
 			nav#menu
 				block-right()
 				text-transform uppercase
-				margin 10px 10px 0 0
+				margin 6px 10px 0 0
 				
-				a 
-					text-decoration none
-					block-inline()
-					relative()
-					color #FFF
 
 				ul
 					block-inline()
 					li
 						float left
-						margin 0 0 6px 0
+						margin 0 10px
 
 						&.separator
 							border-left solid 1px #d3d3d3
-							size 1px 13px
-							margin 0 5px
+							size 1px 26px
+							margin 0
+							
+						a 
+							block-inline()
+							relative()
+							color #000
+							padding 5px 20px
+							
+							&.active, &:hover
+								color #000
+								background lighten(#000, 33.5%)
 
-						&.navigate
-							a
-								border-bottom 1px dashed #FFF
-					
 
-			.logo
-				block-left()
+
 
 /*_________ FOOTER ___________*/
 
@@ -195,19 +186,29 @@ body > main > footer
 	z-index 2
 	width 100%
 	height 40px
-
-	background $color-graydark
+	
+	if $scaffold is true
+		background lighten(#000, 20%)
 
 	> .container
 		height 100%
 		max-width  ($mainWidth)px
 		margin 0 auto
-		background $color-gray
+		
+		if $scaffold is true
+			background lighten(#000, 33.5%)
 
 		> .content
 			block-inline()
-			margin 14px 0
 			padding 0 10px
+			width ($mainWidth - 10*2)px
+			
+			.left
+				block-left()
+				margin 13px 0 0 0
+			.right
+				block-right()
+				margin 13px 0 0 0
 
 
 /*_________ SECTIONS _________*/
@@ -220,12 +221,12 @@ body > main > .view > .sections
 
 	// Для всех секций!
 	> section
-
-		clear both
+		block-inline()
 		relative()
+		clear both
 		z-index 1
 		width 100%
-		block-inline()
+		
 
 		> .container
 			relative()
@@ -233,41 +234,11 @@ body > main > .view > .sections
 			height 100%
 			margin 0 auto
 
-			background #F2E5D5
+			if $scaffold is true
+				background #F2E5D5
 
 			> .content
 				// padding 50px 20px
-
-
-/*___ PAGE MIXINS  __*/
-
-header-fixed()
-
-	> main > header
-		position fixed
-		top 0
-
-footer-none()
-
-	> main >.view >.sections
-		padding-bottom 0
-
-	> main > footer 
-		display none
-
-scroll-none()
-	overflow-y hidden
-
-bg-fixed()
-
-	background-attachment fixed
-	-webkit-background-size cover
-	-moz-background-size cover
-	-o-background-size cover
-	background-size cover
-
-	background-position center top
-	background-repeat no-repeat
 
 
 /* _________ VIEWS _________*/
@@ -275,25 +246,16 @@ bg-fixed()
 
 #view-home
 
-	padding-top 60px
+	padding 60px 0
 
 	section
-		margin 0 0 40px 0
+
 		.container
 			.content
 				padding 0 20px
-				p 
-					margin 20px 0
-					line-height 1.4
-					
-				.links
-					padding 10px 0
-					
-				.items
-					margin 20px 0 0 0
-					
-				.row
-					margin 20px 0
+				h4
+					block-left()
+
 
 #view-404
 	@extend #view-home

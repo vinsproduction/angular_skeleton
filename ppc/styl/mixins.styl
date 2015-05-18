@@ -28,6 +28,13 @@ transform-origin()
 
 user-select()
 	vendor('user-select', arguments)
+	
+background-size()
+	vendor('background-size', arguments)
+	
+background-fixed()
+	background-attachment fixed
+	background-size cover
 
 background-linear-gradient(startPoint, startColor, startInterval, endColor, endInterval)
 	background-color startColor
@@ -64,8 +71,7 @@ import-font(originalname, newname)
 
 
 clearfix()
-	&:before,
-	&:after
+	&:before,&:after
 		content " "
 		display table
 	&:after
