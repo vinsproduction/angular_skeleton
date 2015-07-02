@@ -16,4 +16,11 @@ appControllers.controller('homeCtrl', [
   'APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {
     return $rootScope.title = "home";
   }
+]).directive('homeDirective', [
+  '$rootScope', '$location', function($rootScope, $location) {
+    return {
+      restrict: 'A',
+      link: function(scope, el, attr) {}
+    };
+  }
 ]);
