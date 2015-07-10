@@ -48,8 +48,14 @@ app.config ['$interpolateProvider', ($interpolateProvider) ->
 	return 0
 ]
 
-### Смена урла без перезагрузки страницы - $location.path("/product/1", false) ###
+
 app.run ['$route', '$rootScope', '$location',  ($route, $rootScope, $location) ->
+
+	### HELPERS ###
+	$rootScope.isEmpty 				= (val) -> val and _.isEmpty val
+	# $rootScope.declOfViews 		= (val) -> $$.declOfNum(val, ['Просмотр', 'Просмотра', 'Просмотров'])
+
+	### Смена урла без перезагрузки страницы - $location.path("/product/1", false) ###
 	original = $location.path
 	$location.path = (path, reload) -> 
 		if reload is false
@@ -59,5 +65,47 @@ app.run ['$route', '$rootScope', '$location',  ($route, $rootScope, $location) -
 				un()
 
 		original.apply($location, [path]);
+
+	### ROUTE EVENTS ###
+	
+	$rootScope.$on '$routeChangeSuccess', ->
+		# 
+
+	$rootScope.$on '$routeChangeStart', ->
+		# $rootScope.location = $location.path()
+		# console.log '__ ROUTE:', $location.path()
+
+
+	### RESIZE ###
+	
+	# $main 			= $('main')
+	# $header 	 	= $('main > header')
+	# headerH 	 	= $('main > header').height()
+	# $footer 	 	= $('main > footer')
+	# footerH 	 	= $('main > footer').height()
+
+	# $rootScope.resize = ->
+
+	# 	_.defer ->
+
+	# 		$body 			= $main.find('> .body')
+	# 		$view 			= $body.find('> .views > .view')
+	# 		$sections 	= $view.find('> .sections')
+
+	# 		sectionsH = $sections.height()
+	# 		h = sectionsH
+
+	# 		mainH = headerH + $body.height() + footerH
+
+	# 		# $view.height(h)
+	# 		viewH = $view.height() + parseInt($view.css('padding-top')) + parseInt($view.css('padding-bottom'))
+
+	# 		console.log '[App Resize]', 'header:', headerH, 'main:', mainH, 'view:', viewH, 'sections:', sectionsH, 'footer:', footerH,
+
+
+	# $rootScope.resize()
+
+
+
 ]
 

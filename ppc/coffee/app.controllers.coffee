@@ -19,7 +19,9 @@ appControllers.controller('homeCtrl', ['APP','$rootScope','$scope','$location', 
 	restrict: 'A'
 	link: (scope, el, attr) ->
 
-		# console.log el
+		# $rootScope.$watch 'title', (newValue,oldValue) ->
+		# 	if newValue
+		# 		console.log $rootScope.title
 
 ])
 

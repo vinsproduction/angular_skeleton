@@ -213,32 +213,34 @@ body > main > footer
 
 /*_________ SECTIONS _________*/
 
-body > main > .view > .sections
+body > main > .body
 
 	clear both
 	width 100%
 	padding-bottom 40px // Height of the footer
+	
+	> .views > .view > .sections
 
-	// Для всех секций!
-	> section
-		block-inline()
-		relative()
-		clear both
-		z-index 1
-		width 100%
-		
-
-		> .container
+		// Для всех секций!
+		> section
+			block-inline()
 			relative()
-			max-width  ($mainWidth)px
-			height 100%
-			margin 0 auto
+			clear both
+			z-index 1
+			width 100%
+			
 
-			if $scaffold is true
-				background #F2E5D5
+			> .container
+				relative()
+				max-width  ($mainWidth)px
+				height 100%
+				margin 0 auto
 
-			> .content
-				// padding 50px 20px
+				if $scaffold is true
+					background #F2E5D5
+
+				> .content
+					// padding 50px 20px
 
 
 /* _________ VIEWS _________*/

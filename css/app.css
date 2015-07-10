@@ -217,12 +217,12 @@ body > main > footer > .container > .content .right {
   margin: 13px 0 0 0;
 }
 /*_________ SECTIONS _________*/
-body > main > .view > .sections {
+body > main > .body {
   clear: both;
   width: 100%;
   padding-bottom: 40px;
 }
-body > main > .view > .sections > section {
+body > main > .body > .views > .view > .sections > section {
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: top;
@@ -233,7 +233,7 @@ body > main > .view > .sections > section {
   z-index: 1;
   width: 100%;
 }
-body > main > .view > .sections > section > .container {
+body > main > .body > .views > .view > .sections > section > .container {
   position: relative;
   max-width: 1265px;
   height: 100%;

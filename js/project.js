@@ -60,14 +60,18 @@ app.config([
   }
 ]);
 
-
-/* Смена урла без перезагрузки страницы - $location.path("/product/1", false) */
-
 app.run([
   '$route', '$rootScope', '$location', function($route, $rootScope, $location) {
+
+    /* HELPERS */
     var original;
+    $rootScope.isEmpty = function(val) {
+      return val && _.isEmpty(val);
+    };
+
+    /* Смена урла без перезагрузки страницы - $location.path("/product/1", false) */
     original = $location.path;
-    return $location.path = function(path, reload) {
+    $location.path = function(path, reload) {
       var lastRoute, un;
       if (reload === false) {
         lastRoute = $route.current;
@@ -78,6 +82,12 @@ app.run([
       }
       return original.apply($location, [path]);
     };
+
+    /* ROUTE EVENTS */
+    $rootScope.$on('$routeChangeSuccess', function() {});
+    return $rootScope.$on('$routeChangeStart', function() {});
+
+    /* RESIZE */
   }
 ]);
 
