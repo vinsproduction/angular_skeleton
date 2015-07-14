@@ -25,19 +25,13 @@ module.exports = function(grunt) {
 						debug: false
 					}
 				},
-				files: {
-					"__layout.html": "ppc/jade/includes/layout.jade",
-					"__header.html": "ppc/jade/includes/header.jade",
-					"__footer.html": "ppc/jade/includes/footer.jade",
-					"__popups.html": "ppc/jade/includes/popups.jade",
-
-
-					"404.html": "ppc/jade/404.jade",
-					"index.html": "ppc/jade/index.jade",
-					"home.html": "ppc/jade/home.jade",
-					
-
-				}
+				files: [ {
+          cwd: "ppc/jade",
+          src: "**/*.jade",
+          dest: ".",
+          expand: true,
+          ext: ".html"
+        } ]
 			}
 		},
 
@@ -126,23 +120,21 @@ module.exports = function(grunt) {
 			stylus: {
 
 				files: [
-					'ppc/styl/*.styl',
+					'ppc/styl/**/*.styl',
 				],
 				tasks: ['stylus']
 			},
 			// Перекомпиляция html при изменении jade-файлов
 			jade: {
 				files: [
-					'ppc/jade/*.jade',
-					'ppc/jade/includes/*.jade',
+					'ppc/jade/**/*.jade',
 				],
 				tasks: ['jade']
 			},
 			// Перекомпиляция js при изменении coffee-файлов
 			coffee: {
 				files: [
-					'ppc/coffee/*.coffee',
-					'ppc/coffee/libs/*.coffee',
+					'ppc/coffee/**/*.coffee',
 				],
 				tasks: ['coffee']
 			},

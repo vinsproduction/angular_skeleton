@@ -19,11 +19,11 @@ appServices.factory("http", [
       log: true
     };
     request = function(options) {
-      var log, params, _ref;
+      var log, params, ref;
       if (options == null) {
         options = {};
       }
-      log = (_ref = options.log) != null ? _ref : defaultOptions.log;
+      log = (ref = options.log) != null ? ref : defaultOptions.log;
       params = angular.extend({}, defaultOptions, options);
       delete params.log;
       request = $http(params);
@@ -344,7 +344,7 @@ appServices.factory("social", [
           return VK.api("wall.post", {
             owner_id: options.owner_id,
             message: options.message,
-            attachments: "" + options.attachPhoto + "," + options.attachLink
+            attachments: options.attachPhoto + "," + options.attachLink
           }, function(r) {
             if (!r || r.error) {
               console.error('[VKONTAKTE > wall.post]', r);
@@ -418,7 +418,7 @@ appServices.factory("social", [
           options = {};
           options.title = "title";
           options.description = "description";
-          options.image = "" + app.host + "/img/for_post.png";
+          options.image = app.host + "/img/for_post.png";
           return this.facebook(options);
         },
         vk: function(options) {

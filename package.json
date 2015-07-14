@@ -20,7 +20,8 @@
     "grunt-contrib-stylus": "*",
     "coffee-script": "*",
     "stylus": "*",
-    "jade": "*"
+    "jade": "*",
+    "jstransformer-coffee-script": "*"
   }
 
 }
