@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 				],
 				dest: 'js/project.js'
 			},
-			lib_js: {
+			libs_js: {
 				src: [
 					// 'js/libs/bfbs.js',
 					'js/libs/jquery-1.11.1.min.js',
@@ -170,7 +170,7 @@ module.exports = function(grunt) {
 					'!js/libs/lib.min.js',
 					
 				],
-				tasks: ['concat:lib_js','uglify:lib_js']
+				tasks: ['concat:libs_js','uglify:lib_js']
 			},
 		}
 	});
