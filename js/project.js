@@ -93,12 +93,6 @@ app.run([
 
 
 /* 
- Router
- */
-app.config(['$routeProvider', function($routeProvider) {}]);
-
-
-/* 
  Controllers
  */
 var appControllers;

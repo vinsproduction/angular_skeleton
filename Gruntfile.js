@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 			
        	files: {
        		'js/app.js': 'ppc/coffee/app.coffee',
-       		'js/app.router.js': 'ppc/coffee/app.router.coffee',
+       		// 'js/app.router.js': 'ppc/coffee/app.router.coffee',
      			'js/app.controllers.js': 'ppc/coffee/app.controllers.coffee',
 	    		'js/app.directives.js': 'ppc/coffee/app.directives.coffee',
 	    		'js/app.services.js': 'ppc/coffee/app.services.coffee',
@@ -60,20 +60,23 @@ module.exports = function(grunt) {
 			js: {
 				src: [
 					'js/app.js',
-					'js/app.router.js',
+					// 'js/app.router.js',
 					'js/app.controllers.js',
 					'js/app.directives.js',
 					'js/app.services.js',
 				],
 				dest: 'js/project.js'
 			},
-			libs: {
+			lib_js: {
 				src: [
+					// 'js/libs/bfbs.js',
 					'js/libs/jquery-1.11.1.min.js',
 					'js/libs/underscore-min.js',
 					'js/libs/json2.min.js',
 
 					'js/libs/popup.js',
+					// 'js/libs/jquery.tinyscrollbar.min.js',
+					// 'js/libs/jquery.maskedinput.min.js',
 					// 'js/libs/jquery.jcarousel.js',
 					// 'js/libs/fileuploader.js',
 					// 'js/libs/form.js',
@@ -97,9 +100,13 @@ module.exports = function(grunt) {
 			options: {
 	      mangle: false
 	    },
-			js: {
+			project_js: {
 				files: {
 					'js/project.min.js': 'js/project.js',
+				}
+			},
+			lib_js: {
+				files: {
 					'js/libs/lib.min.js': 'js/libs/lib.js'
 				}
 			}
@@ -111,8 +118,8 @@ module.exports = function(grunt) {
 			options: {
 				livereload: 777,
 				dateFormat: function(time) {
-					grunt.log.writeln('______ The watch finished in ' + time + 'ms at' + (new Date()).toString());
-					grunt.log.writeln('______ Waiting for more changes...');
+					grunt.log.writeln('++++ The watch finished in ' + time + 'ms at' + (new Date()).toString());
+					grunt.log.writeln('++++ Waiting for more changes...');
 				},
 			},
 
@@ -150,32 +157,27 @@ module.exports = function(grunt) {
 			// Пересобирание скриптов при изменении исходных js-файлов
 			js: {
 				files: [
-
 					'js/*.js',
-					'js/project.js',
+					'!js/project.js',
 					'!js/project.min.js',
-
+				],
+				tasks: ['concat:js','uglify:project_js']
+			},
+			libs_js: {
+				files: [
 					'js/libs/*.js',
-					'js/libs/lib.js',
+					'!js/libs/lib.js',
 					'!js/libs/lib.min.js',
 					
 				],
-				tasks: ['concat:js','uglify:js']
+				tasks: ['concat:lib_js','uglify:lib_js']
 			},
-			
-		},
+		}
 	});
 	
 	// Загрузка библиотек
 	grunt.file.expand('node_modules/grunt-*/tasks').forEach(grunt.loadTasks);
 
-	// grunt.loadNpmTasks('grunt-contrib-concat');
-	// grunt.loadNpmTasks('grunt-contrib-jshint');
-	// grunt.loadNpmTasks('grunt-contrib-uglify');
-	// grunt.loadNpmTasks('grunt-contrib-watch');
-	// grunt.loadNpmTasks('grunt-contrib-stylus');
-	// grunt.loadNpmTasks('grunt-contrib-jade');
-	// grunt.loadNpmTasks('grunt-contrib-coffee');
 
 	// Сервер
 	grunt.registerTask('_server', 'Start web server', function() {

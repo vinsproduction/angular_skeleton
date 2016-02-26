@@ -3,7 +3,7 @@
  Router
 ###
 
-app.config ['$routeProvider', ($routeProvider) ->
+# app.config ['$routeProvider', ($routeProvider) ->
 
 	# Для синглпейджа
 	# $routeProvider.when '/',
@@ -21,4 +21,4 @@ app.config ['$routeProvider', ($routeProvider) ->
 
 	# return 0
 
-]
+# ]
