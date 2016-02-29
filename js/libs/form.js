@@ -248,12 +248,15 @@ Form = (function() {
     }
   };
 
-  Form.prototype.addField = function(name, opt) {
+  Form.prototype.addField = function(name, opt, onInit) {
     if (opt == null) {
       opt = this.fieldsOptions;
     }
     this.fields[name] = opt;
     this.initField(name, true);
+    if (onInit) {
+      onInit();
+    }
     if (this.fields[name].style) {
       this.fields[name].el.trigger('style');
     }
@@ -500,7 +503,7 @@ Form = (function() {
       if (opt.autoErrors) {
         self.form.find('.' + self.classes.errorClass + '-' + name).empty();
       }
-      if (!self.isEmpty(opt.rules)) {
+      if (opt.rules && !self.isEmpty(opt.rules)) {
         return $.each(opt.rules, function(ruleName, rule) {
           var valid;
           if (rule) {
