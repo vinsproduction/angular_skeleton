@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 			
        	files: {
        		'js/app.js': 'ppc/coffee/app.coffee',
-       		// 'js/app.router.js': 'ppc/coffee/app.router.coffee',
+       		'js/app.router.js': 'ppc/coffee/app.router.coffee',
      			'js/app.controllers.js': 'ppc/coffee/app.controllers.coffee',
 	    		'js/app.directives.js': 'ppc/coffee/app.directives.coffee',
 	    		'js/app.services.js': 'ppc/coffee/app.services.coffee',
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 			js: {
 				src: [
 					'js/app.js',
-					// 'js/app.router.js',
+					'js/app.router.js',
 					'js/app.controllers.js',
 					'js/app.directives.js',
 					'js/app.services.js',
