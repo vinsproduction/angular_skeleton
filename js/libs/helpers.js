@@ -61,20 +61,23 @@ $$; // SHORT NAMESPACE
 			debug: function(){},
 			warn: function(){},
 			info: function(){},
-			error: function(){}
+			error: function(){},
+			groupCollapsed: function(){},
+			groupEnd:: function(){}
 		};	
 	};
 
 	if( !window.console ) {
 		$.disableConsole();
-	}
-	
-
-	if (!window.console.debug) { if(window.console.log){window.console.debug 	= window.console.log}else{window.console.debug = function(){};} }
-	if (!window.console.warn) 	{ if(window.console.log){window.console.warn 	= window.console.log}else{window.console.warn = function(){};} }
-	if (!window.console.info) 	{ if(window.console.log){window.console.info 	= window.console.log}else{window.console.info = function(){};} }
-	if (!window.console.error) { if(window.console.log){window.console.error 	= window.console.log}else{window.console.error = function(){};} }
-	if (!window.console.log) 	{ window.console.log = function(){}; }
+	}else{
+		if (!window.console.log) 	{ window.console.log = function(){}; }
+		if (!window.console.groupCollapsed) { window.console.groupCollapsed = window.console.log; }
+		if (!window.console.groupEnd) { window.console.groupEnd = window.console.log; }
+		if (!window.console.debug) { window.console.debug = window.console.log; }
+		if (!window.console.warn) { window.console.warn = window.console.log; }
+		if (!window.console.info) { window.console.info = window.console.log; }
+		if (!window.console.error) { window.console.error = window.console.log; }	
+	};
 
 
 	/* EXAMPLE
