@@ -63,7 +63,7 @@ $$; // SHORT NAMESPACE
 			info: function(){},
 			error: function(){},
 			groupCollapsed: function(){},
-			groupEnd:: function(){}
+			groupEnd: function(){}
 		};	
 	};
 
