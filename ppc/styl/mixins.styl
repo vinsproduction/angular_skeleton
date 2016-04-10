@@ -32,6 +32,10 @@ user-select()
 background-size()
 	vendor('background-size', arguments)
 	
+borderbox()
+	-moz-box-sizing border-box
+	box-sizing border-box
+
 background-fixed()
 	background-attachment fixed
 	background-size cover
@@ -69,7 +73,6 @@ import-font(originalname, newname)
 		font-weight normal
 		font-style normal
 
-
 clearfix()
 	&:before,&:after
 		content " "
@@ -89,19 +92,6 @@ sizepx(w = false,h = false)
 	if h
 		height (h)px
 
-show(visibility=false)
-	if visibility
-		display block
-		visibility visible
-	else
-		display block
-
-hide(visibility=false)
-	if visibility
-		display block
-		visibility hidden
-	else
-		display none !important
 
 
 block(w = false,h = false)
@@ -136,16 +126,3 @@ block-left(w = false,h = false)
 block-right(w = false,h = false)
 	float right
 	block-inline(w,h)
-
-
-center()
-	text-align center
-
-absolute()
-	position absolute
-
-relative()
-	position relative
-
-fixed()
-	position fixed

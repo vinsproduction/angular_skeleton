@@ -1,13 +1,4 @@
-header
-	.container
-		.content
-
-			.logo: a(href="#/") Logo
-
-			nav#menu
-				ul
-					li: a.active(href="https://github.com/vinsproduction/angular_skeleton/wiki", target="_blank"): span Wiki
-					li.separator
-					li: a(href="#"): span Link
-					li.separator
-					li: a(href="#"): span Link
+header(ng-controller="headerCtrl")
+	.main-container
+		.inner
+			h2 Header

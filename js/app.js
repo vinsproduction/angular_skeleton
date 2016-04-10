@@ -19,6 +19,7 @@ app.APP = (function() {
   opt = {
     project: 'Angular Skeleton',
     debug: /debug/.test(window.location.search),
+    test: /\^?debug=test$/.test(location.search),
     local: window.location.host === "" || /localhost/.test(window.location.host),
     host: window.location.protocol + "//" + window.location.host,
     remoteHost: 'http://vinsproduction.com',
@@ -60,33 +61,22 @@ app.config([
   }
 ]);
 
+
+/* Отображать теги */
+
+app.config([
+  '$sceProvider', function($sceProvider) {
+    $sceProvider.enabled(false);
+    return 0;
+  }
+]);
+
 app.run([
   '$route', '$rootScope', '$location', function($route, $rootScope, $location) {
 
     /* HELPERS */
-    var original;
-    $rootScope.isEmpty = function(val) {
+    return $rootScope.isEmpty = function(val) {
       return val && _.isEmpty(val);
     };
-
-    /* Смена урла без перезагрузки страницы - $location.path("/product/1", false) */
-    original = $location.path;
-    $location.path = function(path, reload) {
-      var lastRoute, un;
-      if (reload === false) {
-        lastRoute = $route.current;
-        un = $rootScope.$on('$locationChangeSuccess', function() {
-          $route.current = lastRoute;
-          return un();
-        });
-      }
-      return original.apply($location, [path]);
-    };
-
-    /* ROUTE EVENTS */
-    $rootScope.$on('$routeChangeSuccess', function() {});
-    return $rootScope.$on('$routeChangeStart', function() {});
-
-    /* RESIZE */
   }
 ]);

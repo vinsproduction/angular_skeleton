@@ -11,302 +11,243 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 //# sourceMappingURL=underscore-min.map
 "object"!=typeof JSON&&(JSON={}),function(){"use strict";function f(t){return 10>t?"0"+t:t}function quote(t){return escapable.lastIndex=0,escapable.test(t)?'"'+t.replace(escapable,function(t){var e=meta[t];return"string"==typeof e?e:"\\u"+("0000"+t.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+t+'"'}function str(t,e){var r,n,o,f,u,p=gap,a=e[t];switch(a&&"object"==typeof a&&"function"==typeof a.toJSON&&(a=a.toJSON(t)),"function"==typeof rep&&(a=rep.call(e,t,a)),typeof a){case"string":return quote(a);case"number":return isFinite(a)?a+"":"null";case"boolean":case"null":return a+"";case"object":if(!a)return"null";if(gap+=indent,u=[],"[object Array]"===Object.prototype.toString.apply(a)){for(f=a.length,r=0;f>r;r+=1)u[r]=str(r,a)||"null";return o=0===u.length?"[]":gap?"[\n"+gap+u.join(",\n"+gap)+"\n"+p+"]":"["+u.join(",")+"]",gap=p,o}if(rep&&"object"==typeof rep)for(f=rep.length,r=0;f>r;r+=1)"string"==typeof rep[r]&&(n=rep[r],o=str(n,a),o&&u.push(quote(n)+(gap?": ":":")+o));else for(n in a)Object.prototype.hasOwnProperty.call(a,n)&&(o=str(n,a),o&&u.push(quote(n)+(gap?": ":":")+o));return o=0===u.length?"{}":gap?"{\n"+gap+u.join(",\n"+gap)+"\n"+p+"}":"{"+u.join(",")+"}",gap=p,o}}"function"!=typeof Date.prototype.toJSON&&(Date.prototype.toJSON=function(){return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(){return this.valueOf()});var cx,escapable,gap,indent,meta,rep;"function"!=typeof JSON.stringify&&(escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,meta={"\b":"\\b","	":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},JSON.stringify=function(t,e,r){var n;if(gap="",indent="","number"==typeof r)for(n=0;r>n;n+=1)indent+=" ";else"string"==typeof r&&(indent=r);if(rep=e,e&&"function"!=typeof e&&("object"!=typeof e||"number"!=typeof e.length))throw Error("JSON.stringify");return str("",{"":t})}),"function"!=typeof JSON.parse&&(cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,JSON.parse=function(text,reviver){function walk(t,e){var r,n,o=t[e];if(o&&"object"==typeof o)for(r in o)Object.prototype.hasOwnProperty.call(o,r)&&(n=walk(o,r),void 0!==n?o[r]=n:delete o[r]);return reviver.call(t,e,o)}var j;if(text+="",cx.lastIndex=0,cx.test(text)&&(text=text.replace(cx,function(t){return"\\u"+("0000"+t.charCodeAt(0).toString(16)).slice(-4)})),/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,"")))return j=eval("("+text+")"),"function"==typeof reviver?walk({"":j},""):j;throw new SyntaxError("JSON.parse")})}();
 
-/* Примеры вызова попапа
-
-1.  popup.open('popup_name')
-
-2.  popup.custom('title','body')
-
-3.  popup.custom('Ошибка','Необходима авторизация',{button: function(){popup.open('popup_name')}})
-      при этом у кнопки должен быть обязательный атрибут [data-popup-button]
-
-4.  popup.custom('title','body',{top: 325, left: 344})
-
-5.  Если необходимо отделить одни попапы от других
-      window.popup2 = new Popup()
-      И соответсвенно запускаем их через popup2.open('popup_name')
+/*
+	Popup
+	https://github.com/vinsproduction/popup
  */
-var Popup;
+var Popup, popup;
+
+if (!window.console) {
+  window.console = {};
+}
+
+if (!window.console.log) {
+  window.console.log = function() {};
+}
+
+if (!window.console.warn) {
+  window.console.warn = window.console.log;
+}
 
 Popup = (function() {
+  Popup.prototype.logs = true;
 
-  /* плавное открыватие попапа */
-  Popup.prototype.fade = 500;
+  Popup.prototype.popups = {};
 
+  Popup.prototype.active = false;
 
-  /* Автоматическое и ручное позицонирование попапа */
+  Popup.prototype.options = {
+    top: 'auto',
+    left: 'auto',
+    right: 'auto',
+    bottom: 'auto',
+    close: true,
+    fade: 300,
+    buttonClick: false,
+    title: "",
+    body: "",
+    button: "Закрыть"
+  };
 
-  Popup.prototype.top = 'auto';
-
-  Popup.prototype.left = 'auto';
-
-
-  /* Автоматическое движение попапа за скроллом */
-
-  Popup.prototype.scroll = true;
-
-  function Popup(opt) {
-    if (opt == null) {
-      opt = {};
+  Popup.prototype.selectors = {
+    popups: '#popups',
+    popup: '[data-popup-name]',
+    close: '[data-popup-close]',
+    button: '[data-popup-button]',
+    custom: {
+      title: '[data-popup-title]',
+      body: '[data-popup-body]',
+      button: '[data-popup-button-name]'
     }
-    this.status = 0;
-    if (opt.scroll != null) {
-      this.scroll = opt.scroll;
-    }
-    if (opt.fade != null) {
-      this.fade = opt.fade;
-    }
-    if (opt.top) {
-      this.top = opt.top;
-    }
-    if (opt.left) {
-      this.left = opt.left;
-    }
-    $((function(_this) {
-      return function() {
-        _this.el = $("#popups");
-        _this.bg = _this.el.find(".background");
-        _this.elClose = _this.el.find("[data-popup-close]");
-        _this.popups = _this.el.find("[data-popup-name]");
-        _this.elClose.click(function() {
-          _this.disable();
+  };
+
+  Popup.prototype.classes = {
+    inner: 'inner',
+    closeDisabled: 'popup-close-disabled',
+    popupOpen: 'popup-open',
+    mobile: 'popup-mobile'
+  };
+
+  Popup.prototype.mobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  function Popup() {
+    var self;
+    self = this;
+    $(function() {
+      self.$popups = $(self.selectors.popups);
+      self.$popup = self.$popups.find(self.selectors.popup);
+      self.$close = self.$popups.find(self.selectors.close);
+      if (self.mobileBrowser) {
+        self.$popups.addClass(self.classes.mobile);
+      }
+      self.$popup.each(function() {
+        var el, name;
+        el = $(this);
+        name = el.attr('data-popup-name');
+        if (!el.find('.' + self.classes.inner).size()) {
+          $(this).wrapInner("<div class='" + self.classes.inner + "'></div>");
+        }
+        self.popups[name] = {
+          name: name,
+          el: el,
+          inner: el.find('.' + self.classes.inner)
+        };
+        return el.find(self.selectors.button).click(function() {
+          if (self.active) {
+            if (self.popups[self.active].opt.buttonClick) {
+              self.popups[self.active].opt.buttonClick();
+            } else {
+              if (self.popups[self.active].opt.close) {
+                self.close();
+              }
+            }
+          }
           return false;
         });
-        $(document).keypress(function(e) {
-          if (e.keyCode === 27 && _this.status === 1) {
-            return _this.disable();
+      });
+      self.$popups.find(self.selectors.close).click(function() {
+        if (self.active && self.popups[self.active].opt.close) {
+          self.close(self.active);
+        }
+        return false;
+      });
+      self.$popups.click(function(event) {
+        if (self.active && self.popups[self.active].opt.close) {
+          if (!$(event.target).closest(self.popups[self.active].inner).length && !$(event.target).is(self.popups[self.active].inner)) {
+            self.close(self.active);
           }
-        });
-        $(window).scroll(function() {
-          if (_this.status === 1) {
-            return _this.center();
-          }
-        });
-        return $(window).resize(function() {
-          if (_this.status === 1) {
-            return _this.center();
-          }
-        });
-      };
-    })(this));
+        }
+        return false;
+      });
+      $(window).resize(function() {
+        if (self.active) {
+          return self.position(self.popups[self.active]);
+        }
+      });
+      if (self.logs) {
+        console.log('[Popup] init', self.popups);
+      }
+    });
+    return;
   }
 
-
-  /* Список всех попапов */
-
-  Popup.prototype.list = function() {
-    return this.popups.each(function() {
-      return console.log('Popup', $(this).data());
+  Popup.prototype.position = function(popup) {
+    var css, el, inner, left, name, opt, popupHeight, popupWidth, self, top, windowHeight, windowScroll, windowWidth;
+    self = this;
+    name = popup.name;
+    el = popup.el;
+    opt = popup.opt;
+    inner = popup.inner;
+    windowWidth = window.innerWidth != null ? innerWidth : $(window).width();
+    windowHeight = window.innerHeight != null ? innerHeight : $(window).height();
+    popupHeight = inner.outerHeight();
+    popupWidth = inner.outerWidth();
+    windowScroll = $(window).scrollTop();
+    top = windowHeight / 2 - popupHeight / 2 + windowScroll;
+    if (top < 0) {
+      top = 0;
+    }
+    left = windowWidth / 2 - popupWidth / 2;
+    if (left < 0) {
+      left = 0;
+    }
+    css = {};
+    if (opt.bottom !== 'auto') {
+      css.bottom = opt.bottom;
+    } else {
+      if (opt.top !== 'auto') {
+        css.top = opt.top;
+      } else {
+        css.top = top;
+      }
+    }
+    if (opt.right !== 'auto') {
+      css.right = opt.right;
+    } else {
+      if (opt.left !== 'auto') {
+        css.left = opt.left;
+      } else {
+        css.left = left;
+      }
+    }
+    if (popupWidth > windowWidth) {
+      css.width = windowWidth;
+    }
+    inner.css(css);
+    el.css({
+      height: popupHeight > windowHeight ? popupHeight : windowHeight,
+      width: windowWidth
     });
   };
 
-  Popup.prototype.load = function(popup, opt) {
+  Popup.prototype.open = function(name, opt) {
+    var self;
     if (opt == null) {
       opt = {};
     }
-
-    if (opt.closeCallback != null) {
-      this.closeCallback = opt.closeCallback;
-    }
-
-
-    if (this.status === 0) {
-      this.doCallback(popup);
-      this.popups.hide().removeClass('open');
-      popup.css({
-        width: popup.width() + parseInt(popup.css("paddingLeft")) + parseInt(popup.css("paddingRight")) + parseInt(popup.css("border-right-width")) + parseInt(popup.css("border-right-width"))
-      });
-      popup.addClass('open');
-      if (this.fade) {
-        popup.fadeIn(this.fade, (function(_this) {
-          return function() {
-            if (opt.callback) {
-              opt.callback();
-            }
-            return _this.loadCallback(popup);
-          };
-        })(this));
-      } else {
-        popup.show();
-        if (opt.callback) {
-          opt.callback();
+    self = this;
+    $(function() {
+      if (!name || !self.popups[name]) {
+        return false;
+      }
+      if (self.active) {
+        self.close();
+      }
+      self.popups[name].opt = $.extend(true, {}, self.options, opt);
+      return setTimeout(function() {
+        self.active = name;
+        self.popups[name].el.find(self.selectors.custom.title).html(self.popups[name].opt.title);
+        self.popups[name].el.find(self.selectors.custom.body).html(self.popups[name].opt.body);
+        self.popups[name].el.find(self.selectors.custom.button).html(self.popups[name].opt.button);
+        self.popups[name].el.show();
+        self.$popups.stop().fadeIn(self.popups[name].opt.fade);
+        self.popups[name].el.addClass(self.classes.popupOpen);
+        if (!self.popups[name].opt.close) {
+          self.popups[name].el.addClass(self.classes.closeDisabled);
         }
-        this.loadCallback(popup);
-      }
-      this.bg.show();
-      return this.status = 1;
-    }
-  };
-
-
-  /* Если надо отловить callback ДО открытия попапа: */
-
-  Popup.prototype.doCallback = function(popup) {};
-
-
-  /* Если надо отловить callback после появления попапа:
-  popup.loadCallback = function(popup){
-    console.log('this loadCallback. and this popup:',popup);
-  }
-   */
-
-  Popup.prototype.loadCallback = function(popup) {};
-
-  /* Если надо отловить callback закрытия попапа: */
-  Popup.prototype.closeCallback = function() {};
-
-  Popup.prototype.disable = function() {
-    if (this.status === 1) {
-
-      this.closeCallback();
-
-      this.popups.removeClass('open');
-      if (this.fade) {
-        this.popups.fadeOut(this.fade);
-      } else {
-        this.popups.hide();
-      }
-      this.bg.hide();
-      return this.status = 0;
-    }
+        $('body').addClass(self.classes.popupOpen);
+        self.position(self.popups[name]);
+        if (self.logs) {
+          console.log('[Popup] open', self.popups[name]);
+        }
+        self.$popup.eq(0).trigger('open', [self.popups[name]]);
+      }, 0);
+    });
   };
 
   Popup.prototype.close = function() {
-    this.status = 1;
-    this.disable();
-
-  };
-
-  Popup.prototype.center = function(popup, opt) {
-    var l, popupHeight, popupWidth, t, windowHeight, windowScroll, windowWidth;
-    if (opt == null) {
-      opt = {};
-    }
-    if (!popup) {
-      popup = this.el.find(".open[data-popup-name]");
-    }
-    if (!popup.size()) {
-      return console.error("popup not found");
-    }
-    windowWidth = document.documentElement.clientWidth;
-    windowHeight = document.documentElement.clientHeight;
-    popupHeight = popup.height() + parseInt(popup.css("paddingTop")) + parseInt(popup.css("paddingBottom"));
-    popupWidth = popup.width() + parseInt(popup.css("paddingLeft")) + parseInt(popup.css("paddingRight"));
-    windowScroll = $(window).scrollTop();
-    t = windowHeight / 2 - popupHeight / 2 + windowScroll;
-    if (t < 0) {
-      t = 0;
-    }
-    l = $(window).width() / 2 - popupWidth / 2;
-    if (opt.top) {
-      if (this.scroll) {
-        popup.css({
-          top: opt.top + windowScroll
-        });
+    var self;
+    self = this;
+    $(function() {
+      var name;
+      if (self.active) {
+        name = self.active;
+        self.$popups.stop().hide();
+        self.popups[name].el.hide();
+        self.popups[name].el.removeClass(self.classes.popupOpen);
+        self.popups[name].el.removeClass(self.classes.closeDisabled);
+        $('body').removeClass(self.classes.popupOpen);
+        if (self.logs) {
+          console.log('[Popup] close', self.popups[name]);
+        }
+        self.$popup.eq(0).trigger('close', [self.popups[name]]);
       } else {
-        popup.css({
-          top: opt.top
-        });
+        self.$popup.hide();
+        self.$popups.hide();
+        self.$popup.removeClass(self.classes.closeDisabled);
+        self.$popup.removeClass(self.classes.popupOpen);
+        self.$popups.removeClass(self.classes.popupOpen);
+        $('body').removeClass(self.classes.popupOpen);
       }
-    } else if (this.top !== 'auto') {
-      if (this.scroll) {
-        popup.css({
-          top: this.top + windowScroll
-        });
-      } else {
-        popup.css({
-          top: this.top
-        });
-      }
-    } else {
-      popup.css({
-        top: t
-      });
-    }
-    if (opt.left) {
-      return popup.css({
-        left: opt.left
-      });
-    } else if (this.left !== 'auto') {
-      return popup.css({
-        left: this.left
-      });
-    } else {
-      return popup.css({
-        left: l
-      });
-    }
-  };
-
-
-  /* Функция открытия конкретного попапа
-  popup.open('unique',{button: function(){popup.close()}});
-  opt = {
-    button: bool or function. Если надо навешать функцию на кнопку. При этом у кнопки должен быть обязательный атрибут [data-popup-button]
-    closeDisable: bool Если надо блокировать закрытие
-    callback: function
-  }
-   */
-
-  Popup.prototype.open = function(name, opt) {
-    var $button, popup;
-    if (opt == null) {
-      opt = {};
-    }
-    this.close();
-    popup = $("[data-popup-name='" + name + "']");
-    if (!popup.size()) {
-      return console.warn("popup " + name + " not found");
-    }
-    popup.removeAttr('style');
-    this.center(popup, opt);
-    this.load(popup, opt);
-    $button = popup.find("[data-popup-button]");
-    if (opt.button && $button.size()) {
-      $button.unbind("click").click((function(_this) {
-        return function() {
-          if (typeof opt.button === "function") {
-            return opt.button();
-          } else {
-            return _this.close();
-          }
-        };
-      })(this));
-    }
-    if (opt.closeDisable) {
-      return this.status = 0;
-    }
-  };
-
-
-  /* Функция открытия конкретного попапа  
-  кастомный попап для вывода любой  информации
-  popup.custom('Ошибка','Необходима авторизация',{button: function(){popup.open('popup_name')}});
-   */
-
-  Popup.prototype.custom = function(title, text, opt) {
-    var name, popup;
-    if (opt == null) {
-      opt = {};
-    }
-    name = "custom";
-    popup = $("[data-popup-name='" + name + "']");
-    if (!popup.size()) {
-      return console.warn("popup " + name + " not found");
-    }
-    popup.find(".header h1").html(title);
-    popup.find(".body").html(text);
-    return this.open(name, opt);
+      self.active = false;
+    });
   };
 
   return Popup;
 
 })();
 
-
-/* ============ Объявляем Попапы! =========== */
-
-window.popup = new Popup;
+popup = new Popup;
 
 /*
  AngularJS v1.3.15

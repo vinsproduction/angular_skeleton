@@ -1,27 +1,13 @@
 //- Для синглпейджа
-//- #view-home.view
-//- 	.sections
-//- 		section
-//- 			.container
-//- 				.content
-//- 					h4 Section 1
-//- 		section
-//- 			.container
-//- 				.content
-//- 					h4 Section 2
+	#view-home.view
+		.main-container
+			.view-content
+				h4 Content
 
 extends includes/layout
 
 block content
 	#view-home.view(data-ng-controller="homeCtrl")
-		.sections
-			section
-				.container
-					.content
-						h4 Section 1
-
-			section(home-directive)
-				.container
-					.content
-						h4 Section 2
-
+		.main-container
+			.view-content
+				h1 Content

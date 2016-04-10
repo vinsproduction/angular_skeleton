@@ -235,15 +235,6 @@ appServices.factory "scroll", [() ->
 
 appServices.factory "size", [() ->
 
-	windowWidth 	: $(window).width()
-	windowHeight 	: $(window).height()
-
-	documentWidth  : $(document).width()
-	documentHeight : $(document).height()
-
-	bodyWidth 		: parseInt($('body').width())
-	bodyHeight 		: parseInt($('body').height())
-
 	mainWidth			: parseInt($('body > main').width())
 	mainHeight		: parseInt($('body > main').height())
 
@@ -253,8 +244,8 @@ appServices.factory "size", [() ->
 	footerWidth		: parseInt($('body > main > footer').width())
 	footerHeight	: parseInt($('body > main > footer').height())
 	
-	sectionsWidth : parseInt($('body > main > .sections').width())
-	sectionsHeight: parseInt($('body > main > .sections').height())
+	bodyWidth 		: parseInt($('body > main > .body').width())
+	bodyHeight		: parseInt($('body > main > .body').height())
 
 ]
 

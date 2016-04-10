@@ -19,6 +19,7 @@ app.APP = (function() {
   opt = {
     project: 'Angular Skeleton',
     debug: /debug/.test(window.location.search),
+    test: /\^?debug=test$/.test(location.search),
     local: window.location.host === "" || /localhost/.test(window.location.host),
     host: window.location.protocol + "//" + window.location.host,
     remoteHost: 'http://vinsproduction.com',
@@ -60,34 +61,23 @@ app.config([
   }
 ]);
 
+
+/* Отображать теги */
+
+app.config([
+  '$sceProvider', function($sceProvider) {
+    $sceProvider.enabled(false);
+    return 0;
+  }
+]);
+
 app.run([
   '$route', '$rootScope', '$location', function($route, $rootScope, $location) {
 
     /* HELPERS */
-    var original;
-    $rootScope.isEmpty = function(val) {
+    return $rootScope.isEmpty = function(val) {
       return val && _.isEmpty(val);
     };
-
-    /* Смена урла без перезагрузки страницы - $location.path("/product/1", false) */
-    original = $location.path;
-    $location.path = function(path, reload) {
-      var lastRoute, un;
-      if (reload === false) {
-        lastRoute = $route.current;
-        un = $rootScope.$on('$locationChangeSuccess', function() {
-          $route.current = lastRoute;
-          return un();
-        });
-      }
-      return original.apply($location, [path]);
-    };
-
-    /* ROUTE EVENTS */
-    $rootScope.$on('$routeChangeSuccess', function() {});
-    return $rootScope.$on('$routeChangeStart', function() {});
-
-    /* RESIZE */
   }
 ]);
 
@@ -105,6 +95,12 @@ var appControllers;
 
 appControllers = angular.module('appControllers', []);
 
+appControllers.controller('headerCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
+appControllers.controller('footerCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
+appControllers.controller('bodyCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
 appControllers.controller('popupsCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
 
 appControllers.controller('homeCtrl', [
@@ -112,7 +108,7 @@ appControllers.controller('homeCtrl', [
     return $rootScope.title = "home";
   }
 ]).directive('homeDirective', [
-  '$rootScope', '$location', function($rootScope, $location) {
+  'APP', '$rootScope', '$location', function(APP, $rootScope, $location) {
     return {
       restrict: 'A',
       link: function(scope, el, attr) {}
@@ -402,20 +398,14 @@ appServices.factory("scroll", [
 appServices.factory("size", [
   function() {
     return {
-      windowWidth: $(window).width(),
-      windowHeight: $(window).height(),
-      documentWidth: $(document).width(),
-      documentHeight: $(document).height(),
-      bodyWidth: parseInt($('body').width()),
-      bodyHeight: parseInt($('body').height()),
       mainWidth: parseInt($('body > main').width()),
       mainHeight: parseInt($('body > main').height()),
       headerWidth: parseInt($('body > main > header').width()),
       headerHeight: parseInt($('body > main > header').height()),
       footerWidth: parseInt($('body > main > footer').width()),
       footerHeight: parseInt($('body > main > footer').height()),
-      sectionsWidth: parseInt($('body > main > .sections').width()),
-      sectionsHeight: parseInt($('body > main > .sections').height())
+      bodyWidth: parseInt($('body > main > .body').width()),
+      bodyHeight: parseInt($('body > main > .body').height())
     };
   }
 ]);

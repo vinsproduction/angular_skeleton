@@ -251,20 +251,14 @@ appServices.factory("scroll", [
 appServices.factory("size", [
   function() {
     return {
-      windowWidth: $(window).width(),
-      windowHeight: $(window).height(),
-      documentWidth: $(document).width(),
-      documentHeight: $(document).height(),
-      bodyWidth: parseInt($('body').width()),
-      bodyHeight: parseInt($('body').height()),
       mainWidth: parseInt($('body > main').width()),
       mainHeight: parseInt($('body > main').height()),
       headerWidth: parseInt($('body > main > header').width()),
       headerHeight: parseInt($('body > main > header').height()),
       footerWidth: parseInt($('body > main > footer').width()),
       footerHeight: parseInt($('body > main > footer').height()),
-      sectionsWidth: parseInt($('body > main > .sections').width()),
-      sectionsHeight: parseInt($('body > main > .sections').height())
+      bodyWidth: parseInt($('body > main > .body').width()),
+      bodyHeight: parseInt($('body > main > .body').height())
     };
   }
 ]);

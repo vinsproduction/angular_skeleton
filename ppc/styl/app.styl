@@ -20,13 +20,11 @@
 $root = '../'
 
 // Ширина контейнера с контентом
-$mainWidth = 1265
+$mainWidth = 900
 
 // Главный шрифт
 $mainFont = Ubuntu
 
-// Вспомогательные элементы
-$scaffold = true // false
 
 /* _________ FONTS _________ */
 
@@ -50,11 +48,7 @@ bg(filename, arguments=false)
 	background url($root + 'img/' + filename) no-repeat arguments
 
 
-/* _________ GLOBAL _________
-
-Все глобальные СТИЛИ кнопок, форм, ссылок, списков и тд.
-описываются здесь
-*/
+/* _________ GLOBAL _________ */
 
 p
 	font 16px $mainFont
@@ -77,9 +71,8 @@ ul
 
 a
 	text-decoration none
-	transition all 0.2s
 	outline 0
-	
+
 a:hover, a:active, a:focus
 	outline 0
 
@@ -90,7 +83,279 @@ input:-webkit-autofill
 	-webkit-box-shadow: 0 0 0px 50px #ededed inset
 
 
+/* _________ FORM _________ */
 
+.form
+	
+	input,textarea
+		// -webkit-appearance none
+		// -webkit-border-radius 0
+	
+	input:focus, textarea:focus, select:focus, button:focus
+		outline 0
+
+	input:-webkit-autofill,textarea:-webkit-autofill
+		-webkit-box-shadow 0 0 0px 50px #FFF inset
+		
+	[data-type='text'],[data-type='password'],[data-type='textarea']
+		
+		borderbox()
+		border 1px solid #CCC
+		padding 10px 35px 10px 15px
+		background #FFF
+		width 100%
+		
+		&.error-field
+			border 1px solid red
+		
+		&.valid
+			bg 'valid.png', #FFF right 10px top 14px
+			border 1px solid green !important
+
+	[data-type='text'],[data-type='password']
+
+		height 50px
+
+
+	[data-type='textarea']
+
+		height 150px
+		
+	[data-type='select']
+
+		width 100%
+		position relative
+		user-select none
+		background #FFF
+
+		.selected
+			overflow hidden
+			height 50px
+			z-index 998
+			borderbox()
+			position relative
+			padding 15px 10px 0 10px
+			background #FFF
+			border 1px solid rgb(214,214,214)
+			cursor pointer
+
+			&:after
+				content ''
+				position: absolute
+				right 10px
+				top 15px
+				bg "select-corner-down.png", center center
+				block()
+				width 16px
+				height 16px
+
+			&.default
+				color #8f8f8f
+		
+		&.valid
+			.selected
+				border 1px solid green
+		
+		&.error-field
+			.selected
+				border 1px solid red
+
+		&.open
+			.selected
+				&:after
+					bg "select-corner-up.png", center center
+		
+		.options
+			borderbox()
+			width 100%
+			z-index 999
+			position absolute
+			background #FFF
+			border 1px solid #CCC
+			margin-top -1px
+			padding 10px 0
+
+			.option
+				padding 15px 15px 15px 15px 
+				cursor pointer
+				color #060707
+				font-size 12px
+				span
+					width 100%
+					block()
+					position relative
+					&:after
+						content ''
+						position absolute
+						height 1px
+						width 100%
+						background #CCC
+						bottom -16px
+						left 0
+						
+				&[data-checked]
+					color #a4a4a4
+
+				&:first-child
+					color #a4a4a4
+					
+				&:last-child
+					span
+						&:after
+							height 0px
+
+				&:hover
+					background #CCC
+					color #FFF
+					span:after
+						display none
+						
+		.scrollbar
+			// background: transparent url('../img/bg-scrollbar.png') no-repeat 0 0
+			position: relative
+			background-position: 0 0
+			float: right
+			width 6px
+			margin 0 5px 0 0
+
+			&.disable
+				display none
+
+			.track
+				// background: transparent url('../img/bg-scrollbar.png') no-repeat 0 100%
+				position: relative
+				width 6px
+				height 100%
+
+				.thumb
+					background: transparent url('../img/bg-scrollbar.png') no-repeat 0 100%
+					cursor pointer
+					width 6px
+					overflow hidden
+					position absolute
+					top 0
+
+					.end
+						background: transparent url('../img/bg-scrollbar.png') no-repeat 0 0
+						height 5px
+						width 6px
+						// overflow hidden
+
+		.viewport
+			overflow hidden
+			height 175px
+			position relative
+
+			.overview
+				width 100%
+				position absolute
+				
+	[data-type='checkbox']
+		block(15,15)
+		border 1px solid rgb(214,214,214)
+		background #FFF
+		cursor pointer
+		&[data-checked]
+			bg 'checked.png'
+		&.error-field
+			border 1px solid red
+		
+	[data-type='radio']
+		block(15,15)
+		border 1px solid rgb(214,214,214)
+		background #FFF
+		cursor pointer
+		&[data-checked]
+			bg 'checked.png'
+		&.error-field
+			border 1px solid red
+
+	[data-submit]
+
+		block-inline(200)
+		padding 10px 20px 
+		text-align center
+		text-decoration none
+		color #000
+		background #DDD
+
+		&.disabled
+			background #A8ABAD !important
+			cursor wait !important
+			&:hover
+				background #A8ABAD !important
+			
+	.label
+		padding 0 0 10px 0
+	
+	.error
+		clear both
+		color red
+		height 24px
+		font-size 12px
+
+	.errors
+		height 30px
+	
+	.placeholder
+		color #CCC
+
+
+/* _______ PRELOADER ______ */ 
+
+@-webkit-keyframes scale {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; }
+  45% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+    opacity: 0.7; }
+  80% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; } }
+@keyframes scale {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; }
+  45% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+    opacity: 0.7; }
+  80% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; } }
+    
+.preloader
+	display none
+
+.preloader > div:nth-child(1) {
+  -webkit-animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+          animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+.preloader > div:nth-child(2) {
+  -webkit-animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+          animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+.preloader > div:nth-child(3) {
+  -webkit-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+          animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+.preloader > div {
+  background-color: #CCC;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  display: inline-block;
+
+}
 
 /*_________ MAIN __________*/
 
@@ -104,159 +369,72 @@ body
 	overflow-y auto
 	font-family $mainFont
 	
-	if $scaffold is true
-		background-color lighten(#000, 13.5%)
-
-	
 body > main
 	
-	relative()
+	position relative
 	min-height 100%
 	width 100%
-	
-	// Фон с изображением
-	if $scaffold is true
-		background-image url('../img/bg.jpg')
-		background-repeat repeat-y
-		background-position center center
 
-/*_________ HEADER ___________*/
+	.main-container
+		clearfix()
+		position relative
+		max-width ($mainWidth)px
+		margin 0 auto
+		height 100%
+
+
+/*_________ HEADER __________*/
 
 body > main > header
+	clear both
 	z-index 2
 	width 100%
-	height 40px
-
-	if $scaffold is true
-		background lighten(#000, 33.5%)
-
-	> .container
-		height 100%
-		max-width  ($mainWidth)px
-		margin 0 auto
-		
-		if $scaffold is true
-			background lighten(#000, 60%)
-
-		> .content
-			block-inline()
-			width 100%
-
-			.logo
-				block-left()
-				margin 13px 0 0 10px
-				a
-					color #000
-
-			nav#menu
-				block-right()
-				text-transform uppercase
-				margin 6px 10px 0 0
-				
-
-				ul
-					block-inline()
-					li
-						float left
-						margin 0 10px
-
-						&.separator
-							border-left solid 1px #d3d3d3
-							size 1px 26px
-							margin 0
-							
-						a 
-							block-inline()
-							relative()
-							color #000
-							padding 5px 20px
-							
-							&.active, &:hover
-								color #000
-								background lighten(#000, 33.5%)
-
+	// height 40px
+	
+	.inner
+		padding 20px 0
+		borderbox()
 
 
 
 /*_________ FOOTER ___________*/
 
 body > main > footer
-	absolute()
+	clear both
+	position absolute
 	bottom 0
 	z-index 2
 	width 100%
-	height 40px
+	height 60px
 	
-	if $scaffold is true
-		background lighten(#000, 20%)
-
-	> .container
-		height 100%
-		max-width  ($mainWidth)px
-		margin 0 auto
-		
-		if $scaffold is true
-			background lighten(#000, 33.5%)
-
-		> .content
-			block-inline()
-			padding 0 10px
-			width ($mainWidth - 10*2)px
-			
-			.left
-				block-left()
-				margin 13px 0 0 0
-			.right
-				block-right()
-				margin 13px 0 0 0
+	.inner
+		padding 20px 0
+		borderbox()
 
 
-/*_________ SECTIONS _________*/
+/*___________ BODY ___________*/
 
 body > main > .body
+		
+		clear both
+		padding-bottom 60px // Height of the footer	
 
-	clear both
-	width 100%
-	padding-bottom 40px // Height of the footer
-	
-	> .views > .view > .sections
+		> .view
 
-		// Для всех секций!
-		> section
-			block-inline()
-			relative()
-			clear both
-			z-index 1
-			width 100%
-			
+			position relative
 
-			> .container
-				relative()
-				max-width  ($mainWidth)px
-				height 100%
-				margin 0 auto
-
-				if $scaffold is true
-					background #F2E5D5
-
-				> .content
-					// padding 50px 20px
+			.view-content
+				padding 20px 0 60px 0
+				borderbox()
 
 
-/* _________ VIEWS _________*/
+/* __________ VIEWS  ________*/
 
 
 #view-home
 
-	padding 60px 0
-
-	section
-
-		.container
-			.content
-				padding 0 20px
-				h4
-					block-left()
+	h1
+		color #CCC
 
 
 #view-404

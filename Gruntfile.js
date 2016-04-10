@@ -116,13 +116,10 @@ module.exports = function(grunt) {
 		// Наблюдение за изменениями
 		watch: {
 			options: {
-				livereload: 777,
 				dateFormat: function(time) {
-					grunt.log.writeln('++++ The watch finished in ' + time + 'ms at' + (new Date()).toString());
-					grunt.log.writeln('++++ Waiting for more changes...');
+					grunt.log.writeln("\n>> Waiting for more changes... >>\n");
 				},
 			},
-
 			// Перекомпиляция стилей при изменении styl-файлов
 			stylus: {
 
@@ -172,25 +169,29 @@ module.exports = function(grunt) {
 				],
 				tasks: ['concat:libs_js','uglify:lib_js']
 			},
+			livereload: {
+	      options: { livereload: 777 },
+	      files: [
+		      '**/*',
+		      '!**/node_modules/**'
+	      ],
+			}
 		}
 	});
 	
-	// Загрузка библиотек
+	// Загрузка npm
 	grunt.file.expand('node_modules/grunt-*/tasks').forEach(grunt.loadTasks);
 
 
 	// Сервер
-	grunt.registerTask('_server', 'Start web server', function() {
+	grunt.registerTask('server', 'Start web server', function() {
 		port = 8888
 		grunt.log.writeln('SERVER started on port ' + port);
 		require('./server/server.js')(port)
 	});
 
-	// Сервер + ppc
-	grunt.registerTask('server', ['_server','coffee', 'stylus', 'jade', 'concat', 'uglify', 'watch']);
 
-	
 	// Объявление тасков
-	grunt.registerTask('default', ['coffee', 'stylus', 'jade', 'concat', 'uglify', 'watch']);
+	grunt.registerTask('default', ['server','coffee', 'stylus', 'jade', 'concat', 'uglify', 'watch']);
 
 };

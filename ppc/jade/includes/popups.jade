@@ -1,19 +1,11 @@
 #popups(data-ng-controller="popupsCtrl")
-	
+
 	.popup(data-popup-name="custom")
-		.close(data-popup-close)
-		.header: h1
-		.body
-		.footer
-			button(data-popup-close) закрыть
+		.inner
+			.close(data-popup-close)
+			.title(data-popup-title)
+			.body(data-popup-body)
+			.button(data-popup-button)
+				span(data-popup-button-name) Закрыть
 
-	.popup(data-popup-name="unique")
-		.close(data-popup-close)
-		.header
-			h1 unique
-		.body
-			p popup
-		.footer
-			button(data-popup-button) закрыть
-
-	.background(data-popup-close)
+	.background

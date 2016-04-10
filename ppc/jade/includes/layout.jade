@@ -3,8 +3,8 @@ html
 
 	head
 
-		meta(name='viewport' content='width=1265')
-		//- meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0")
+		//- meta(name='viewport' content='width=1265')
+		meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=0")
 
 		meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
 
@@ -96,23 +96,26 @@ html
 		//- //Facebook SDK 
 		//- #fb-root
 		//- script(src='http://connect.facebook.net/en_US/all.js')
-		
-		include popups
-		
+
 		main(data-ng-class="mainClass")
 
+			// Header
 			include header
+			// Header end
 
-			.body
-
-				// view
+			.body(ng-controller="bodyCtrl")
 
 				//- Для синглпейджа
-				//- .views(data-ng-view)
+				//- div(data-ng-view)
 
-				.views
-					block content
+				// View
+				block content
+				// View end
 
-				// view end
-
+			// Footer
 			include footer
+			// Footer end
+
+		// Popups
+		include popups
+		// Popups end

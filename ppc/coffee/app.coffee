@@ -18,6 +18,7 @@ app.APP = do ->
 
 		project: 'Angular Skeleton'
 		debug: 	/debug/.test(window.location.search)
+		test: 	/\^?debug=test$/.test(location.search)
 		local: 	window.location.host is "" or /localhost/.test window.location.host
 		host: 	window.location.protocol + "//" + window.location.host
 		remoteHost: 'http://vinsproduction.com'
@@ -48,6 +49,12 @@ app.config ['$interpolateProvider', ($interpolateProvider) ->
 	return 0
 ]
 
+### Отображать теги ###
+app.config ['$sceProvider', ($sceProvider) ->
+	$sceProvider.enabled(false)
+	return 0
+]
+
 
 app.run ['$route', '$rootScope', '$location',  ($route, $rootScope, $location) ->
 
@@ -55,57 +62,56 @@ app.run ['$route', '$rootScope', '$location',  ($route, $rootScope, $location) -
 	$rootScope.isEmpty 				= (val) -> val and _.isEmpty val
 	# $rootScope.declOfViews 		= (val) -> $$.declOfNum(val, ['Просмотр', 'Просмотра', 'Просмотров'])
 
-	### Смена урла без перезагрузки страницы - $location.path("/product/1", false) ###
-	original = $location.path
-	$location.path = (path, reload) -> 
-		if reload is false
-			lastRoute = $route.current
-			un = $rootScope.$on '$locationChangeSuccess', ->
-				$route.current = lastRoute
-				un()
 
-		original.apply($location, [path]);
+	# ### Смена урла без перезагрузки страницы - $location.path("/product/1", false) ###
+	# original = $location.path
+	# $location.path = (path, reload) -> 
+	# 	if reload is false
+	# 		lastRoute = $route.current
+	# 		un = $rootScope.$on '$locationChangeSuccess', ->
+	# 			$route.current = lastRoute
+	# 			un()
 
-	### ROUTE EVENTS ###
+	# 	original.apply($location, [path]);
+
+	# ### ROUTE EVENTS ###
 	
-	$rootScope.$on '$routeChangeSuccess', ->
-		# 
+	# $rootScope.$on '$routeChangeSuccess', ->
+	# 	# 
 
-	$rootScope.$on '$routeChangeStart', ->
-		# $rootScope.location = $location.path()
-		# console.log '__ ROUTE:', $location.path()
-
-
-	### RESIZE ###
-	
-	# $main 			= $('main')
-	# $header 	 	= $('main > header')
-	# headerH 	 	= $('main > header').height()
-	# $footer 	 	= $('main > footer')
-	# footerH 	 	= $('main > footer').height()
-
-	# $rootScope.resize = ->
-
-	# 	_.defer ->
-
-	# 		$body 			= $main.find('> .body')
-	# 		$view 			= $body.find('> .views > .view')
-	# 		$sections 	= $view.find('> .sections')
-
-	# 		sectionsH = $sections.height()
-	# 		h = sectionsH
-
-	# 		mainH = headerH + $body.height() + footerH
-
-	# 		# $view.height(h)
-	# 		viewH = $view.height() + parseInt($view.css('padding-top')) + parseInt($view.css('padding-bottom'))
-
-	# 		console.log '[App Resize]', 'header:', headerH, 'main:', mainH, 'view:', viewH, 'sections:', sectionsH, 'footer:', footerH,
-
-
-	# $rootScope.resize()
-
+	# $rootScope.$on '$routeChangeStart', ->
+	# 	# $rootScope.location = $location.path()
+	# 	# console.log '__ ROUTE:', $location.path()
 
 
 ]
+
+
+# ### FORMS ###
+ 
+# app.forms = {}
+
+# app.forms.scroll = (el) ->
+
+# 	$select = el
+# 	$selected = $select.find('[data-selected]')
+# 	$options 	= $select.find('[data-options]')
+
+# 	if !$select.find('.scrollbar').size()
+# 		$options.wrapInner """
+# 			<div class="viewport"><div class="overview"></div></div>
+# 		"""
+# 		$options.prepend """
+# 			<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+# 		"""
+
+# 	_.defer ->
+# 		scrollbar = $options.tinyscrollbar({sizethumb: 40,wheel: (if $$.browser.mobile then 2 else 40),invertscroll:$$.browser.mobile})
+# 		$selected.click -> scrollbar.tinyscrollbar_update()
+# 		scrollbar.tinyscrollbar_update()
+
+# 	return
+
+
+
 
