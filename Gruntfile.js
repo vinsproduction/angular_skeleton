@@ -74,12 +74,13 @@ module.exports = function(grunt) {
 					'js/libs/underscore-min.js',
 					'js/libs/json2.min.js',
 
-					'js/libs/popup.js',
 					// 'js/libs/jquery.tinyscrollbar.min.js',
 					// 'js/libs/jquery.maskedinput.min.js',
 					// 'js/libs/jquery.jcarousel.js',
 					// 'js/libs/fileuploader.js',
-					// 'js/libs/form.js',
+
+					'js/libs/popup.js',
+					'js/libs/form.js',
 
 					'js/libs/angular.min.js',
 					'js/libs/angular-route.min.js',
@@ -111,6 +112,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+
 
 
 		// Наблюдение за изменениями

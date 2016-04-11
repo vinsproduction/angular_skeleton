@@ -509,7 +509,7 @@ body.popup-open {
   top: 20px;
   width: 14px;
   height: 14px;
-  background: url("../img/close.png") no-repeat center center;
+  background: url("../img/popup-close.png") no-repeat center center;
   background-position: left 0px;
   text-decoration: none !important;
 }
