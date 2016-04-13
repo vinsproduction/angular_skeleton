@@ -28,6 +28,17 @@ transform-origin()
 
 user-select()
 	vendor('user-select', arguments)
+	
+background-size()
+	vendor('background-size', arguments)
+	
+borderbox()
+	-moz-box-sizing border-box
+	box-sizing border-box
+
+background-fixed()
+	background-attachment fixed
+	background-size cover
 
 background-linear-gradient(startPoint, startColor, startInterval, endColor, endInterval)
 	background-color startColor
@@ -41,7 +52,11 @@ opacity(n)
 	opacity n
 	filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
 
-//opacity_bg(#000000,'000000',0.5)
+rgb(r,g,b)
+	s('rgb(%s, %s, %s)', r, g, b)
+
+
+//background_rgba(#000000,'000000',0.5)
 background_rgba(color,colorms,a)
 
 	background transparent
@@ -58,10 +73,8 @@ import-font(originalname, newname)
 		font-weight normal
 		font-style normal
 
-
 clearfix()
-	&:before,
-	&:after
+	&:before,&:after
 		content " "
 		display table
 	&:after
@@ -79,19 +92,6 @@ sizepx(w = false,h = false)
 	if h
 		height (h)px
 
-show(visibility=false)
-	if visibility
-		display block
-		visibility visible
-	else
-		display block
-
-hide(visibility=false)
-	if visibility
-		display block
-		visibility hidden
-	else
-		display none !important
 
 
 block(w = false,h = false)
@@ -126,16 +126,3 @@ block-left(w = false,h = false)
 block-right(w = false,h = false)
 	float right
 	block-inline(w,h)
-
-
-center()
-	text-align center
-
-absolute()
-	position absolute
-
-relative()
-	position relative
-
-fixed()
-	position fixed

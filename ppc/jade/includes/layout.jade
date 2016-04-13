@@ -1,16 +1,15 @@
-//- Для синглпейджа
-//- include includes/layout
+doctype html
+html
 
-<<<<<<< HEAD
-	head(ng-controller="headCtrl")
+	head
 
 		//- meta(name='viewport' content='width=1265')
-		meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0")
+		meta(name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=0")
 
 		meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
 
 		//SEO
-		title ANGULAR FRONTEND::{{title}}
+		title ANGULAR SKELETON - [[title]]
 		meta(name='description' content='')
 		meta(name='keywords' content='')
 
@@ -51,7 +50,7 @@
 
 		//Include JS/CSS
 		script
-			:coffee
+			:coffee-script
 				if !/debug/.test(window.location.search)
 
 					console.log '[App] PRODUCTION MODE (Console is disabled)'
@@ -59,7 +58,7 @@
 					$$.disableConsole()
 
 					$$.includeCSS 'css/project.css'
-					$$.includeJS 'js/libs/lib.js'
+					$$.includeJS 'js/libs/lib.min.js'
 					$$.includeJS 'js/project.min.js'
 
 				else
@@ -71,11 +70,17 @@
 					$$.includeJS 'js/libs/jquery-1.11.1.js'
 					$$.includeJS 'js/libs/json2.js'
 					$$.includeJS 'js/libs/underscore.js'
+
+					$$.includeJS 'js/libs/form.js'
+					$$.includeJS 'js/libs/popup.js'
+
+
 					$$.includeJS 'js/libs/angular.js'
 					$$.includeJS 'js/libs/angular-route.js '
 					$$.includeJS 'js/libs/angular-cookies.js '
 
 					$$.includeJS 'js/app.js'
+					$$.includeJS 'js/app.router.js'
 					$$.includeJS 'js/app.controllers.js'
 					$$.includeJS 'js/app.directives.js'
 					$$.includeJS 'js/app.services.js'
@@ -87,24 +92,35 @@
 		block js
 			script.
 				app.setApp("project", "Angular Skeleton");
+				app.setApp("remoteHost", "http://vinsproduction.com");
 
-	body(ng-class="bodyClass")
+	body(data-ng-class="bodyClass")
 	
 		//- //Vkontakte openapi
 		//- script(src='http://vkontakte.ru/js/api/openapi.js', type='text/javascript')
 		//- //Facebook SDK 
 		//- #fb-root
 		//- script(src='http://connect.facebook.net/en_US/all.js')
-		
-		//- include includes/popups
-		
-		main(ng-class="mainClass")
 
-			include includes/header
+		main(data-ng-class="mainClass")
 
-			.sections(ng-view)
+			// Header
+			include header
+			// Header end
 
-			include includes/footer
-=======
-include home
->>>>>>> origin/master
+			.body(ng-controller="bodyCtrl")
+
+				//- Для синглпейджа
+				//- div(data-ng-view)
+
+				// View
+				block content
+				// View end
+
+			// Footer
+			include footer
+			// Footer end
+
+		// Popups
+		include popups
+		// Popups end

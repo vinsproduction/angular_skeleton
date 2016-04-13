@@ -1,3 +1,7 @@
+### 
+ Services
+###
+
 
 appServices = angular.module('appServices', [])
 
@@ -48,12 +52,17 @@ appServices.factory "api", ['http','APP','$cookieStore',(http,APP,$cookieStore) 
 
 		options.url = host + '/' + options.url
 
+		options.xsrfHeaderName = 'X-CSRFToken'
+		options.xsrfCookieName = 'csrftoken'
+
 		options.headers = {} if !options.headers
-		options.headers['X-CSRFToken'] = $cookieStore.get('csrftoken')
+
+		# options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+		# options.data = $.param(options.data) if options.data
 
 		request = http(options)
 		request.success (response, status, headers, config) ->
-		request.error (response, status, headers, config) -> 
+		request.error (response, status, headers, config) ->
 
 		return request
 
@@ -175,7 +184,7 @@ appServices.factory "scroll", [() ->
 	(v,animate) ->
 
 		time 		= animate?.time 	|| 800
-		easing 	= animate?.easing || 'easeOutCubic'
+		easing 	= animate?.easing || 'linear'
 		callback = false
 
 		# Если это строка, то имеется ввиду селектор
@@ -226,15 +235,6 @@ appServices.factory "scroll", [() ->
 
 appServices.factory "size", [() ->
 
-	windowWidth 	: $(window).width()
-	windowHeight 	: $(window).height()
-
-	documentWidth  : $(document).width()
-	documentHeight : $(document).height()
-
-	bodyWidth 		: parseInt($('body').width())
-	bodyHeight 		: parseInt($('body').height())
-
 	mainWidth			: parseInt($('body > main').width())
 	mainHeight		: parseInt($('body > main').height())
 
@@ -244,22 +244,22 @@ appServices.factory "size", [() ->
 	footerWidth		: parseInt($('body > main > footer').width())
 	footerHeight	: parseInt($('body > main > footer').height())
 	
-	sectionsWidth : parseInt($('body > main > .sections').width())
-	sectionsHeight: parseInt($('body > main > .sections').height())
+	bodyWidth 		: parseInt($('body > main > .body').width())
+	bodyHeight		: parseInt($('body > main > .body').height())
 
 ]
 
 ### Социальные настройки (Не проверено на Ангуларе!) ###
 
-appServices.factory "social", [() ->
+appServices.factory "social", ['APP',(APP) ->
 
 	class Social
 
 		constructor: ->
 
-			@vkontakteApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '4555300' else '4574053'
-			@facebookApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '1487802001472904' else '687085858046891'
-			@odnoklassnikiApiId = ''
+			# @vkontakteApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '4555300' else '4574053'
+			# @facebookApiId			= if APP.local or /dev.site.ru/.test(APP.host) then '1487802001472904' else '687085858046891'
+			# @odnoklassnikiApiId = ''
 
 			# if VK?
 			# 	VK.init
@@ -360,10 +360,11 @@ appServices.factory "social", [() ->
 				###
 				в attachments должна быть только 1 ссылка! Если надо прекрепить фото, 
 				оно должно быть залито в сам ВКонтакте
+				attachments: "photo131380871_348071400,http://vinsproduction.com"
 				###
 
-				options.attachLink = if options.attachLink then "#{app.social.url}#" + options.attachLink else app.social.url
-				options.attachPhoto = if options.attachPhoto then options.attachPhoto else "photo131380871_321439116"
+				options.attachLink 	= if options.attachLink then options.attachLink else ""
+				options.attachPhoto = if options.attachPhoto then options.attachPhoto else ""
 
 				VK.api "wall.post",
 					owner_id	: options.owner_id
@@ -380,9 +381,9 @@ appServices.factory "social", [() ->
 						if options.error
 							options.error(r.error)
 
-						if popup and r.error and r.error.error_msg and r.error.error_code
-							if r.error.error_code is 214
-								app.errors.popup "Стенка закрыта", false
+						# if r.error and r.error.error_msg and r.error.error_code
+						# 	if r.error.error_code is 214
+						# 		console.error "VKONTAKTE > wall.post > Стенка закрыта"
 					else
 						console.debug '[VKONTAKTE > wall.post] success'
 						if options.success then options.success()

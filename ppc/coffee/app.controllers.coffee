@@ -1,6 +1,9 @@
+### 
+ Controllers
+###
 
-appControllers = angular.module('appControllers', []) 
 
+<<<<<<< HEAD
 appControllers
 .controller('headCtrl', ['$rootScope', ($rootScope) ->
 
@@ -8,48 +11,36 @@ appControllers
 ])
 
 .controller('page1Ctrl', ['APP','$rootScope','$scope', '$route', 'listeners', (APP,$rootScope,$scope,$route, listeners) ->
+=======
+appControllers = angular.module('appControllers', [])
+>>>>>>> origin/master
 
-	$rootScope.title =  "title::page-1"
-	$rootScope.bodyClass = "page-1"
-
-	$scope.title = 'page-1'
-
-	$scope.phones = [
-		{'name': 'Nexus'},
-		{'name': 'Motorola'},
-		{'name': 'Nokia'}
-	]
-
-	# setTimeout(->
-	# 	$scope.$apply -> $scope.title = 'Hello'
-	# ,3000)
-
-	$scope.add = (vars, event) ->
-		$scope.phones.push {'name': 'Samsung'}
-		$scope.$broadcast('dataloaded');
+appControllers.controller('headerCtrl', ['APP','$rootScope','$scope','$location', (APP,$rootScope,$scope,$location) ->
 
 ])
-.directive('section1', ['$rootScope', ($rootScope) ->
-	restrict: 'C'
-	link: (scope, el, attr) -> #console.log el
+
+appControllers.controller('footerCtrl', ['APP','$rootScope','$scope','$location', (APP,$rootScope,$scope,$location) ->
 
 ])
-.directive('section2', ['$rootScope', ($rootScope) ->
-	restrict: 'C'
+
+appControllers.controller('bodyCtrl', ['APP','$rootScope','$scope','$location', (APP,$rootScope,$scope,$location) ->
+
+])
+
+appControllers.controller('popupsCtrl', ['APP','$rootScope','$scope','$location', (APP,$rootScope,$scope,$location) ->
+	# popup.open 'unique'
+])
+
+
+appControllers.controller('homeCtrl', ['APP','$rootScope','$scope','$location', (APP,$rootScope,$scope,$location) ->
+	$rootScope.title = "home"
+])
+.directive('homeDirective', ['APP','$rootScope','$location', (APP, $rootScope,$location) ->
+
+	restrict: 'A'
 	link: (scope, el, attr) ->
 
-		logit = ->
-			p = el.find('.list > p')
-			# console.log 'phones:', scope.phones
-
-		_.defer -> do logit
-
-		scope.$on 'dataloaded', ->
-			_.defer ->
-					do logit
-])
-
-
+<<<<<<< HEAD
 .controller('page2Ctrl', ['APP','api','$rootScope','$scope','$routeParams', (APP,api,$rootScope,$scope,$routeParams) ->
 
 
@@ -71,8 +62,11 @@ appControllers
 		).success (res) ->
 			#console.log 'response', res
 			$scope.response = res
+=======
+		# $rootScope.$watch 'title', (newValue,oldValue) ->
+		# 	if newValue
+		# 		console.log $rootScope.title
+>>>>>>> origin/master
 
 ])
-
-
 

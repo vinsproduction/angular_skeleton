@@ -1,14 +1,25 @@
 
+### 
+ Directives
+###
+
 appDirectives = angular.module('appDirectives', [])
 
-appDirectives.directive('alertDirective', ->
+appDirectives.directive('placeholderDirective', ->
 
 	restrict: 'A'
 	scope: {}
 	link: (scope, el, attr) ->
 
-		el.click ->
-			alert attr.info + ' : ' + scope.title
-			console.log 'module:' , el
+		el = $(el)
 
+		el.focus ->
+			if el.val() is attr.placeholderDirective 
+				 el.val("")
+
+		el.blur ->
+			if el.val() is "" 
+				 el.val(attr.placeholderDirective)
+
+		el.blur()
 )

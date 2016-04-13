@@ -1,10 +1,14 @@
+
+/* 
+ App
+ */
 var app;
 
 app = angular.module('app', ['ngRoute', 'ngCookies', 'appControllers', 'appDirectives', 'appServices']);
 
 angular.element(document).ready(function() {
   angular.bootstrap(document, ['app']);
-  return window.console.info("[app loaded] APP: ", app.APP);
+  return window.console.info("[App loaded] APP: ", app.APP);
 });
 
 
@@ -13,10 +17,13 @@ angular.element(document).ready(function() {
 app.APP = (function() {
   var opt, port, url;
   opt = {
-    remoteHost: 'http://vinsproduction.com',
-    host: window.location.protocol + "//" + window.location.host,
+    project: 'Angular Skeleton',
     debug: /debug/.test(window.location.search),
-    local: window.location.host === "" || /localhost/.test(window.location.host)
+    test: /\^?debug=test$/.test(location.search),
+    local: window.location.host === "" || /localhost/.test(window.location.host),
+    host: window.location.protocol + "//" + window.location.host,
+    remoteHost: 'http://vinsproduction.com',
+    root: ''
   };
 
   /* Автоперезагрузка браузера для разработки */
@@ -43,117 +50,105 @@ app.setApp = function(key, val) {
   })());
 };
 
-app.config(['$interpolateProvider', function($interpolateProvider) {}]);
+
+/* Установки шаблонизатора */
 
 app.config([
-  '$routeProvider', function($routeProvider) {
-    $routeProvider.when('/page', {
-      templateUrl: 'page-1.html',
-      controller: 'page1Ctrl'
-    });
-    $routeProvider.when('/page/:pageId', {
-      templateUrl: 'page-2.html',
-      controller: 'page2Ctrl'
-    });
-    $routeProvider.otherwise({
-      redirectTo: '/page'
-    });
+  '$interpolateProvider', function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
     return 0;
   }
 ]);
 
-var appControllers;
 
-appControllers = angular.module('appControllers', []);
+/* Отображать теги */
 
-appControllers.controller('headCtrl', ['$rootScope', function($rootScope) {}]).controller('page1Ctrl', [
-  'APP', '$rootScope', '$scope', '$route', 'listeners', function(APP, $rootScope, $scope, $route, listeners) {
-    $rootScope.title = "title::page-1";
-    $rootScope.bodyClass = "page-1";
-    $scope.title = 'page-1';
-    $scope.phones = [
-      {
-        'name': 'Nexus'
-      }, {
-        'name': 'Motorola'
-      }, {
-        'name': 'Nokia'
-      }
-    ];
-    return $scope.add = function(vars, event) {
-      $scope.phones.push({
-        'name': 'Samsung'
-      });
-      return $scope.$broadcast('dataloaded');
-    };
+app.config([
+  '$sceProvider', function($sceProvider) {
+    $sceProvider.enabled(false);
+    return 0;
   }
-]).directive('section1', [
-  '$rootScope', function($rootScope) {
-    return {
-      restrict: 'C',
-      link: function(scope, el, attr) {}
-    };
-  }
-]).directive('section2', [
-  '$rootScope', function($rootScope) {
-    return {
-      restrict: 'C',
-      link: function(scope, el, attr) {
-        var logit;
-        logit = function() {
-          var p;
-          return p = el.find('.list > p');
-        };
-        _.defer(function() {
-          return logit();
-        });
-        return scope.$on('dataloaded', function() {
-          return _.defer(function() {
-            return logit();
-          });
-        });
-      }
-    };
-  }
-]).controller('page2Ctrl', [
-  'APP', 'api', '$rootScope', '$scope', '$routeParams', function(APP, api, $rootScope, $scope, $routeParams) {
-    $rootScope.title = "title::page-2";
-    $rootScope.bodyClass = "page-2";
-    $scope.title = 'page-' + $routeParams.pageId;
-    $scope.state = 'hide';
-    $scope.show = function(vars, event) {
-      return $scope.state = 'show';
-    };
-    return $scope.request = function() {
-      return api({
-        url: '/api/user/details',
-        params: {
-          id: 1
-        }
-      }).success(function(res) {
-        return $scope.response = res;
-      });
+]);
+
+app.run([
+  '$route', '$rootScope', '$location', function($route, $rootScope, $location) {
+
+    /* HELPERS */
+    return $rootScope.isEmpty = function(val) {
+      return val && _.isEmpty(val);
     };
   }
 ]);
 
+
+/* 
+ Router
+ */
+
+
+
+/* 
+ Controllers
+ */
+var appControllers;
+
+appControllers = angular.module('appControllers', []);
+
+appControllers.controller('headerCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
+appControllers.controller('footerCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
+appControllers.controller('bodyCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
+appControllers.controller('popupsCtrl', ['APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {}]);
+
+appControllers.controller('homeCtrl', [
+  'APP', '$rootScope', '$scope', '$location', function(APP, $rootScope, $scope, $location) {
+    return $rootScope.title = "home";
+  }
+]).directive('homeDirective', [
+  'APP', '$rootScope', '$location', function(APP, $rootScope, $location) {
+    return {
+      restrict: 'A',
+      link: function(scope, el, attr) {}
+    };
+  }
+]);
+
+
+/* 
+ Directives
+ */
 var appDirectives;
 
 appDirectives = angular.module('appDirectives', []);
 
-appDirectives.directive('alertDirective', function() {
+appDirectives.directive('placeholderDirective', function() {
   return {
     restrict: 'A',
     scope: {},
     link: function(scope, el, attr) {
-      return el.click(function() {
-        alert(attr.info + ' : ' + scope.title);
-        return console.log('module:', el);
+      el = $(el);
+      el.focus(function() {
+        if (el.val() === attr.placeholderDirective) {
+          return el.val("");
+        }
       });
+      el.blur(function() {
+        if (el.val() === "") {
+          return el.val(attr.placeholderDirective);
+        }
+      });
+      return el.blur();
     }
   };
 });
 
+
+/* 
+ Services
+ */
 var appServices;
 
 appServices = angular.module('appServices', []);
@@ -171,11 +166,11 @@ appServices.factory("http", [
       log: true
     };
     request = function(options) {
-      var log, params, _ref;
+      var log, params, ref;
       if (options == null) {
         options = {};
       }
-      log = (_ref = options.log) != null ? _ref : defaultOptions.log;
+      log = (ref = options.log) != null ? ref : defaultOptions.log;
       params = angular.extend({}, defaultOptions, options);
       delete params.log;
       request = $http(params);
@@ -211,10 +206,11 @@ appServices.factory("api", [
       }
       host = APP.local ? APP.remoteHost : APP.host;
       options.url = host + '/' + options.url;
+      options.xsrfHeaderName = 'X-CSRFToken';
+      options.xsrfCookieName = 'csrftoken';
       if (!options.headers) {
         options.headers = {};
       }
-      options.headers['X-CSRFToken'] = $cookieStore.get('csrftoken');
       request = http(options);
       request.success(function(response, status, headers, config) {});
       request.error(function(response, status, headers, config) {});
@@ -339,7 +335,7 @@ appServices.factory("scroll", [
     return function(v, animate) {
       var callback, easing, el, time;
       time = (animate != null ? animate.time : void 0) || 800;
-      easing = (animate != null ? animate.easing : void 0) || 'easeOutCubic';
+      easing = (animate != null ? animate.easing : void 0) || 'linear';
       callback = false;
       if ((v != null) && _.isString(v)) {
         el = $(v);
@@ -402,20 +398,14 @@ appServices.factory("scroll", [
 appServices.factory("size", [
   function() {
     return {
-      windowWidth: $(window).width(),
-      windowHeight: $(window).height(),
-      documentWidth: $(document).width(),
-      documentHeight: $(document).height(),
-      bodyWidth: parseInt($('body').width()),
-      bodyHeight: parseInt($('body').height()),
       mainWidth: parseInt($('body > main').width()),
       mainHeight: parseInt($('body > main').height()),
       headerWidth: parseInt($('body > main > header').width()),
       headerHeight: parseInt($('body > main > header').height()),
       footerWidth: parseInt($('body > main > footer').width()),
       footerHeight: parseInt($('body > main > footer').height()),
-      sectionsWidth: parseInt($('body > main > .sections').width()),
-      sectionsHeight: parseInt($('body > main > .sections').height())
+      bodyWidth: parseInt($('body > main > .body').width()),
+      bodyHeight: parseInt($('body > main > .body').height())
     };
   }
 ]);
@@ -424,14 +414,10 @@ appServices.factory("size", [
 /* Социальные настройки (Не проверено на Ангуларе!) */
 
 appServices.factory("social", [
-  function() {
+  'APP', function(APP) {
     var Social;
     Social = (function() {
-      function Social() {
-        this.vkontakteApiId = APP.local || /dev.site.ru/.test(APP.host) ? '4555300' : '4574053';
-        this.facebookApiId = APP.local || /dev.site.ru/.test(APP.host) ? '1487802001472904' : '687085858046891';
-        this.odnoklassnikiApiId = '';
-      }
+      function Social() {}
 
       Social.prototype.auth = {
         vk: function(callback) {
@@ -492,23 +478,19 @@ appServices.factory("social", [
           /*
           				в attachments должна быть только 1 ссылка! Если надо прекрепить фото, 
           				оно должно быть залито в сам ВКонтакте
+          				attachments: "photo131380871_348071400,http://vinsproduction.com"
            */
-          options.attachLink = options.attachLink ? ("" + app.social.url + "#") + options.attachLink : app.social.url;
-          options.attachPhoto = options.attachPhoto ? options.attachPhoto : "photo131380871_321439116";
+          options.attachLink = options.attachLink ? options.attachLink : "";
+          options.attachPhoto = options.attachPhoto ? options.attachPhoto : "";
           return VK.api("wall.post", {
             owner_id: options.owner_id,
             message: options.message,
-            attachments: "" + options.attachPhoto + "," + options.attachLink
+            attachments: options.attachPhoto + "," + options.attachLink
           }, function(r) {
             if (!r || r.error) {
               console.error('[VKONTAKTE > wall.post]', r);
               if (options.error) {
                 options.error(r.error);
-              }
-              if (popup && r.error && r.error.error_msg && r.error.error_code) {
-                if (r.error.error_code === 214) {
-                  app.errors.popup("Стенка закрыта", false);
-                }
               }
             } else {
               console.debug('[VKONTAKTE > wall.post] success');
@@ -577,7 +559,7 @@ appServices.factory("social", [
           options = {};
           options.title = "title";
           options.description = "description";
-          options.image = "" + app.host + "/img/for_post.png";
+          options.image = app.host + "/img/for_post.png";
           return this.facebook(options);
         },
         vk: function(options) {

@@ -1,10 +1,14 @@
+
+/* 
+ App
+ */
 var app;
 
 app = angular.module('app', ['ngRoute', 'ngCookies', 'appControllers', 'appDirectives', 'appServices']);
 
 angular.element(document).ready(function() {
   angular.bootstrap(document, ['app']);
-  return window.console.info("[app loaded] APP: ", app.APP);
+  return window.console.info("[App loaded] APP: ", app.APP);
 });
 
 
@@ -13,10 +17,13 @@ angular.element(document).ready(function() {
 app.APP = (function() {
   var opt, port, url;
   opt = {
-    remoteHost: 'http://vinsproduction.com',
-    host: window.location.protocol + "//" + window.location.host,
+    project: 'Angular Skeleton',
     debug: /debug/.test(window.location.search),
-    local: window.location.host === "" || /localhost/.test(window.location.host)
+    test: /\^?debug=test$/.test(location.search),
+    local: window.location.host === "" || /localhost/.test(window.location.host),
+    host: window.location.protocol + "//" + window.location.host,
+    remoteHost: 'http://vinsproduction.com',
+    root: ''
   };
 
   /* Автоперезагрузка браузера для разработки */
@@ -43,21 +50,33 @@ app.setApp = function(key, val) {
   })());
 };
 
-app.config(['$interpolateProvider', function($interpolateProvider) {}]);
+
+/* Установки шаблонизатора */
 
 app.config([
-  '$routeProvider', function($routeProvider) {
-    $routeProvider.when('/page', {
-      templateUrl: 'page-1.html',
-      controller: 'page1Ctrl'
-    });
-    $routeProvider.when('/page/:pageId', {
-      templateUrl: 'page-2.html',
-      controller: 'page2Ctrl'
-    });
-    $routeProvider.otherwise({
-      redirectTo: '/page'
-    });
+  '$interpolateProvider', function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
     return 0;
+  }
+]);
+
+
+/* Отображать теги */
+
+app.config([
+  '$sceProvider', function($sceProvider) {
+    $sceProvider.enabled(false);
+    return 0;
+  }
+]);
+
+app.run([
+  '$route', '$rootScope', '$location', function($route, $rootScope, $location) {
+
+    /* HELPERS */
+    return $rootScope.isEmpty = function(val) {
+      return val && _.isEmpty(val);
+    };
   }
 ]);

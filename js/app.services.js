@@ -1,3 +1,7 @@
+
+/* 
+ Services
+ */
 var appServices;
 
 appServices = angular.module('appServices', []);
@@ -15,11 +19,11 @@ appServices.factory("http", [
       log: true
     };
     request = function(options) {
-      var log, params, _ref;
+      var log, params, ref;
       if (options == null) {
         options = {};
       }
-      log = (_ref = options.log) != null ? _ref : defaultOptions.log;
+      log = (ref = options.log) != null ? ref : defaultOptions.log;
       params = angular.extend({}, defaultOptions, options);
       delete params.log;
       request = $http(params);
@@ -55,10 +59,11 @@ appServices.factory("api", [
       }
       host = APP.local ? APP.remoteHost : APP.host;
       options.url = host + '/' + options.url;
+      options.xsrfHeaderName = 'X-CSRFToken';
+      options.xsrfCookieName = 'csrftoken';
       if (!options.headers) {
         options.headers = {};
       }
-      options.headers['X-CSRFToken'] = $cookieStore.get('csrftoken');
       request = http(options);
       request.success(function(response, status, headers, config) {});
       request.error(function(response, status, headers, config) {});
@@ -183,7 +188,7 @@ appServices.factory("scroll", [
     return function(v, animate) {
       var callback, easing, el, time;
       time = (animate != null ? animate.time : void 0) || 800;
-      easing = (animate != null ? animate.easing : void 0) || 'easeOutCubic';
+      easing = (animate != null ? animate.easing : void 0) || 'linear';
       callback = false;
       if ((v != null) && _.isString(v)) {
         el = $(v);
@@ -246,20 +251,14 @@ appServices.factory("scroll", [
 appServices.factory("size", [
   function() {
     return {
-      windowWidth: $(window).width(),
-      windowHeight: $(window).height(),
-      documentWidth: $(document).width(),
-      documentHeight: $(document).height(),
-      bodyWidth: parseInt($('body').width()),
-      bodyHeight: parseInt($('body').height()),
       mainWidth: parseInt($('body > main').width()),
       mainHeight: parseInt($('body > main').height()),
       headerWidth: parseInt($('body > main > header').width()),
       headerHeight: parseInt($('body > main > header').height()),
       footerWidth: parseInt($('body > main > footer').width()),
       footerHeight: parseInt($('body > main > footer').height()),
-      sectionsWidth: parseInt($('body > main > .sections').width()),
-      sectionsHeight: parseInt($('body > main > .sections').height())
+      bodyWidth: parseInt($('body > main > .body').width()),
+      bodyHeight: parseInt($('body > main > .body').height())
     };
   }
 ]);
@@ -268,14 +267,10 @@ appServices.factory("size", [
 /* Социальные настройки (Не проверено на Ангуларе!) */
 
 appServices.factory("social", [
-  function() {
+  'APP', function(APP) {
     var Social;
     Social = (function() {
-      function Social() {
-        this.vkontakteApiId = APP.local || /dev.site.ru/.test(APP.host) ? '4555300' : '4574053';
-        this.facebookApiId = APP.local || /dev.site.ru/.test(APP.host) ? '1487802001472904' : '687085858046891';
-        this.odnoklassnikiApiId = '';
-      }
+      function Social() {}
 
       Social.prototype.auth = {
         vk: function(callback) {
@@ -336,23 +331,19 @@ appServices.factory("social", [
           /*
           				в attachments должна быть только 1 ссылка! Если надо прекрепить фото, 
           				оно должно быть залито в сам ВКонтакте
+          				attachments: "photo131380871_348071400,http://vinsproduction.com"
            */
-          options.attachLink = options.attachLink ? ("" + app.social.url + "#") + options.attachLink : app.social.url;
-          options.attachPhoto = options.attachPhoto ? options.attachPhoto : "photo131380871_321439116";
+          options.attachLink = options.attachLink ? options.attachLink : "";
+          options.attachPhoto = options.attachPhoto ? options.attachPhoto : "";
           return VK.api("wall.post", {
             owner_id: options.owner_id,
             message: options.message,
-            attachments: "" + options.attachPhoto + "," + options.attachLink
+            attachments: options.attachPhoto + "," + options.attachLink
           }, function(r) {
             if (!r || r.error) {
               console.error('[VKONTAKTE > wall.post]', r);
               if (options.error) {
                 options.error(r.error);
-              }
-              if (popup && r.error && r.error.error_msg && r.error.error_code) {
-                if (r.error.error_code === 214) {
-                  app.errors.popup("Стенка закрыта", false);
-                }
               }
             } else {
               console.debug('[VKONTAKTE > wall.post] success');
@@ -421,7 +412,7 @@ appServices.factory("social", [
           options = {};
           options.title = "title";
           options.description = "description";
-          options.image = "" + app.host + "/img/for_post.png";
+          options.image = app.host + "/img/for_post.png";
           return this.facebook(options);
         },
         vk: function(options) {
