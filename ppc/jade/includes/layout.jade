@@ -30,6 +30,10 @@ html
 		<meta http-equiv="MSThemeCompatible" content="no"/>
 		<![endif]-->
 
+		//Apple
+		meta(name="apple-mobile-web-app-capable" content="yes")
+		meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+
 		<!--[if lt IE 7]>
 		style.
 			body > main {
@@ -38,64 +42,60 @@ html
 		<![endif]-->
 					
 		<!--[if lt IE 9]>
-		script(type='text/javascript' src='js/libs/html5shiv.js')
+		script(src='js/libs/html5shiv.js')
 		<![endif]-->
 
-		//Apple
-		meta(name="apple-mobile-web-app-capable" content="yes")
-		meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
-
 		//JS helpers 
-		script(type='text/javascript' src='js/libs/helpers.js')
+		script(src='js/libs/helpers.js')
 
 		//Include JS/CSS
-		script
-			:coffee-script
-				if !/debug/.test(window.location.search)
 
-					console.log '[App] PRODUCTION MODE (Console is disabled)'
+		//- |<script>
 
-					$$.disableConsole()
+		//- |if(/^\?debug=1$/.test(window.location.search)){
+		//- |console.log('[App] DEBUG MODE - 1');
+		//- |$$.includeCSS("css/project/libs.css");
+		//- |$$.includeCSS("css/project/app.css");
+		//- |$$.includeCSS("css/project/media.css");
+		//- |$$.includeJS("js/project/libs.js");
+		//- |$$.includeJS("js/project/app.js");
 
-					$$.includeCSS 'css/project.css'
-					$$.includeJS 'js/libs/lib.min.js'
-					$$.includeJS 'js/project.min.js'
+		//- |} else if(/^\?debug=2$/.test(window.location.search)){
+		//- |console.log('[App] DEBUG MODE - 2');
+		//- |$$.includeCSS("css/project/project.css");
+		//- |$$.includeJS("js/project/project.js");
 
-				else
+		//- |} else if(/^\?debug=2$/.test(window.location.search)){
+		//- |console.log('[App] DEBUG MODE - Production');
+		//- |$$.includeCSS("css/project/project.css");
+		//- |$$.includeJS("js/project/project.min.js");
+		//- |}else 
 
-					console.debug '[App] DEBUG MODE'
+		|<script>
 
-					$$.includeCSS 'css/app.css'
-					
-					$$.includeJS 'js/libs/jquery-1.11.1.js'
-					$$.includeJS 'js/libs/json2.js'
-					$$.includeJS 'js/libs/underscore.js'
+		|if(/^\?debug/.test(window.location.search)){
+		|console.log('[App] DEBUG MODE');
+		:includeCssDev
+		:includeJsDev
 
-					$$.includeJS 'js/libs/form.js'
-					$$.includeJS 'js/libs/popup.js'
+		|} else {
+		|console.log('[App] PRODUCTION MODE (Console is disabled)');
+		|$$.disableConsole();
+		|$$.includeCSS("css/project/project.css");
+		|$$.includeJS("js/project/project.min.js");
+		|};
 
-
-					$$.includeJS 'js/libs/angular.js'
-					$$.includeJS 'js/libs/angular-route.js '
-					$$.includeJS 'js/libs/angular-cookies.js '
-
-					$$.includeJS 'js/app.js'
-					$$.includeJS 'js/app.router.js'
-					$$.includeJS 'js/app.controllers.js'
-					$$.includeJS 'js/app.directives.js'
-					$$.includeJS 'js/app.services.js'
-		
+		|</script>
 
 		block css
 			//-
 
 		block js
-			script.
-				app.setApp("project", "Angular Skeleton");
-				app.setApp("remoteHost", "http://vinsproduction.com");
+			//- 
+		
 
 	body(data-ng-class="bodyClass")
-	
+
 		//- //Vkontakte openapi
 		//- script(src='http://vkontakte.ru/js/api/openapi.js', type='text/javascript')
 		//- //Facebook SDK 
@@ -108,10 +108,10 @@ html
 			include header
 			// Header end
 
-			.body(ng-controller="bodyCtrl")
+			//- Для синглпейджа
+			//- .views(data-ng-view)
 
-				//- Для синглпейджа
-				//- div(data-ng-view)
+			.views(ng-controller="viewsCtrl")
 
 				// View
 				block content

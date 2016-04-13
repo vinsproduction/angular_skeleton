@@ -20,52 +20,58 @@
     <meta http-equiv="imagetoolbar" content="no"/>
     <meta http-equiv="MSThemeCompatible" content="no"/>
     <![endif]-->
-    <!--[if lt IE 7]>
+    <!--Apple-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><!--[if lt IE 7]>
     <style>
       body > main {
       	height: 100%;
       }
     </style><![endif]-->
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="js/libs/html5shiv.js"></script><![endif]-->
-    <!--Apple-->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="js/libs/html5shiv.js"></script><![endif]-->
     <!--JS helpers -->
-    <script type="text/javascript" src="js/libs/helpers.js"></script>
+    <script src="js/libs/helpers.js"></script>
     <!--Include JS/CSS-->
-    <script>(function() {
-  if (!/debug/.test(window.location.search)) {
+    <script>
+    if(/^\?debug/.test(window.location.search)){
+    console.log('[App] DEBUG MODE');
+$$.includeCSS("css/libs/normalize.css");
+
+$$.includeCSS("css/app/app.css");
+
+$$.includeCSS("css/app/popup.css");
+
+$$.includeCSS("css/media/media.css");
+
+$$.includeJS("js/libs/jquery-1.11.1.js");
+
+$$.includeJS("js/libs/underscore.js");
+
+$$.includeJS("js/libs/json2.js");
+
+$$.includeJS("js/libs/popup.js");
+
+$$.includeJS("js/libs/form.js");
+
+$$.includeJS("js/libs/angular.js");
+
+$$.includeJS("js/libs/angular-cookies.js");
+
+$$.includeJS("js/app/app.js");
+
+$$.includeJS("js/app/controllers.js");
+
+$$.includeJS("js/app/directives.js");
+
+$$.includeJS("js/app/services.js");
+
+    } else {
     console.log('[App] PRODUCTION MODE (Console is disabled)');
     $$.disableConsole();
-    $$.includeCSS('css/project.css');
-    $$.includeJS('js/libs/lib.min.js');
-    $$.includeJS('js/project.min.js');
-  } else {
-    console.debug('[App] DEBUG MODE');
-    $$.includeCSS('css/app.css');
-    $$.includeJS('js/libs/jquery-1.11.1.js');
-    $$.includeJS('js/libs/json2.js');
-    $$.includeJS('js/libs/underscore.js');
-    $$.includeJS('js/libs/form.js');
-    $$.includeJS('js/libs/popup.js');
-    $$.includeJS('js/libs/angular.js');
-    $$.includeJS('js/libs/angular-route.js ');
-    $$.includeJS('js/libs/angular-cookies.js ');
-    $$.includeJS('js/app.js');
-    $$.includeJS('js/app.router.js');
-    $$.includeJS('js/app.controllers.js');
-    $$.includeJS('js/app.directives.js');
-    $$.includeJS('js/app.services.js');
-  }
-
-}).call(this);
-
-    </script>
-    <script>
-      app.setApp("project", "Angular Skeleton");
-      app.setApp("remoteHost", "http://vinsproduction.com");
-      
+    $$.includeCSS("css/project/project.css");
+    $$.includeJS("js/project/project.min.js");
+    };
     </script>
   </head>
   <body data-ng-class="bodyClass">
@@ -79,9 +85,9 @@
         </div>
       </header>
       <!-- Header end-->
-      <div ng-controller="bodyCtrl" class="body">
+      <div ng-controller="viewsCtrl" class="views">
         <!-- View-->
-        <div id="view-home" data-ng-controller="homeCtrl" class="view">
+        <div id="view-home" ng-controller="viewHomeCtrl" class="view">
           <div class="main-container">
             <div class="view-content">
               <h1>Content</h1>

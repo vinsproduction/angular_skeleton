@@ -1,5 +1,47 @@
 module.exports = function(grunt) {
 
+	var css = {
+		app: [
+			'css/app/app.css',
+			'css/app/popup.css'
+		],
+		libs: [
+			'css/libs/normalize.css',
+			
+		],
+		media: [
+			'css/media/media.css'
+		]
+	};
+
+	var js = {
+
+		app: [
+			'js/app/app.js',
+			// 'js/app/router.js',
+			'js/app/controllers.js',
+			'js/app/directives.js',
+			'js/app/services.js',
+		],
+		libs: [
+			// 'js/libs/bfbs.js',
+			'js/libs/jquery-1.11.1.js',
+			'js/libs/underscore.js',
+			'js/libs/json2.js',
+			// 'js/libs/jquery.tinyscrollbar.min.js',
+			// 'js/libs/jquery.maskedinput.min.js',
+			// 'js/libs/jquery.jcarousel.js',
+			// 'js/libs/fileuploader.js',
+			'js/libs/popup.js',
+			'js/libs/form.js',
+
+			'js/libs/angular.js',
+			'js/libs/angular-cookies.js',
+			// 'js/libs/angular-route.js',
+		]
+
+	};
+
 	grunt.initConfig({
 
 
@@ -8,11 +50,30 @@ module.exports = function(grunt) {
 			compile: {
 				options: {
 					compress: false,
-					paths: ['styl/']
 				},
-				files: {
-					'css/app.css': 'ppc/styl/app.styl',
-				}
+				files: [
+					{
+	          cwd: "ppc/styl/app",
+	          src: "**/*.styl",
+	          dest: "css/app/",
+	          expand: true,
+	          ext: ".css"
+	        },
+	        {
+	          cwd: "ppc/styl/libs",
+	          src: "**/*.styl",
+	          dest: "css/libs/",
+	          expand: true,
+	          ext: ".css"
+	        },
+	        {
+	          cwd: "ppc/styl/media",
+	          src: "**/*.styl",
+	          dest: "css/media/",
+	          expand: true,
+	          ext: ".css"
+	        }
+        ]
 			}
 		},
 
@@ -22,8 +83,57 @@ module.exports = function(grunt) {
 				options: {
 					pretty: true,
 					data: {
-						debug: false
-					}
+						debug: true,
+					},
+					filters: {
+
+						includeCssProd: function(block) {
+							var line;
+   						line = '$$.includeCSS("css/project/project.css");';
+   						return "\n" + line + "\n";
+	   				},
+
+   					includeJsProd: function(block) {
+   						var line;
+   						line = '$$.includeJS("js/project/project.min.js");';
+   						return "\n" + line + "\n";
+	   				},
+
+
+						includeCssDev: function(block) {
+   						var lines = [], line;
+
+   						css.libs.forEach(function(src) {
+   							line = '$$.includeCSS("' + src + '");';
+   							lines.push("\n" + line + "\n");
+   						});
+
+   						css.app.forEach(function(src) {
+   							line = '$$.includeCSS("' + src + '");';
+   							lines.push("\n" + line + "\n");
+   						});
+
+   						css.media.forEach(function(src) {
+   							line = '$$.includeCSS("' + src + '");';
+   							lines.push("\n" + line + "\n");
+   						});
+
+   						return lines.join("");
+	   				},
+
+   					includeJsDev: function(block) {
+   						var lines = [], line;
+   						js.libs.forEach(function(src) {
+   							line = '$$.includeJS("' + src + '");';
+   							lines.push("\n" + line + "\n");
+   						});
+   						js.app.forEach(function(src) {
+   							line = '$$.includeJS("' + src + '");';
+   							lines.push("\n" + line + "\n");
+   						});
+   						return lines.join("");
+	   				}
+   				}
 				},
 				files: [ {
           cwd: "ppc/jade",
@@ -38,61 +148,72 @@ module.exports = function(grunt) {
 		// Компиляция coffee-скриптов в js
 		coffee: {
 
-			compileBare: {
-			
-				options: {
-       		bare: true
-       	},
-			
-       	files: {
-       		'js/app.js': 'ppc/coffee/app.coffee',
-       		'js/app.router.js': 'ppc/coffee/app.router.coffee',
-     			'js/app.controllers.js': 'ppc/coffee/app.controllers.coffee',
-	    		'js/app.directives.js': 'ppc/coffee/app.directives.coffee',
-	    		'js/app.services.js': 'ppc/coffee/app.services.coffee',
-	    	}
-    	}
+	  	 compile: {
+		    options: {
+		      bare: true
+		    },
+		    files: [
+		    	{
+			      expand: true,
+			      cwd: 'ppc/coffee/app',
+			      src: '**/*.coffee',
+			      dest: 'js/app/',
+			      rename: function(dest, src){
+			      	return dest + src.replace('.coffee', '.js')
+			      },
+			    },
+			    {
+			      expand: true,
+			      cwd: 'ppc/coffee/libs',
+			      src: '**/*.coffee',
+			      dest: 'js/libs/',
+			      rename: function(dest, src){
+			      	return dest + src.replace('.coffee', '.js')
+			      },
+			    }
+		    ]
+		},
+
 		},
 
 		// Склеивание js-файлов
 		concat: {
-			
-			js: {
+			app_css: {
+				src: css.app,
+				dest: 'css/project/app.css'
+			},
+			libs_css: {
+				src: css.libs,
+				dest: 'css/project/libs.css'
+			},
+			media_css: {
+				src: css.media,
+				dest: 'css/project/media.css'
+			},
+			project_css: {
 				src: [
-					'js/app.js',
-					'js/app.router.js',
-					'js/app.controllers.js',
-					'js/app.directives.js',
-					'js/app.services.js',
+					'css/project/libs.css',
+					'css/project/app.css',
+					'css/project/media.css'
 				],
-				dest: 'js/project.js'
+				dest: 'css/project/project.css'
+			},
+
+
+			app_js: {
+				src: js.app,
+				dest: 'js/project/app.js'
 			},
 			libs_js: {
-				src: [
-					// 'js/libs/bfbs.js',
-					'js/libs/jquery-1.11.1.min.js',
-					'js/libs/underscore-min.js',
-					'js/libs/json2.min.js',
-
-					// 'js/libs/jquery.tinyscrollbar.min.js',
-					// 'js/libs/jquery.maskedinput.min.js',
-					// 'js/libs/jquery.jcarousel.js',
-					// 'js/libs/fileuploader.js',
-
-					'js/libs/popup.js',
-					'js/libs/form.js',
-
-					'js/libs/angular.min.js',
-					'js/libs/angular-route.min.js',
-					'js/libs/angular-cookies.min.js',
-				],
-				dest: 'js/libs/lib.js'
+				src: js.libs,
+				dest: 'js/project/libs.js'
 			},
-			css: {
+			project_js: {
 				src: [
-					'css/app.css'
+					'js/project/libs.js',
+					'js/project/app.js'
 				],
-				dest: 'css/project.css'
+				dest: 'js/project/project.js'
 			},
 		},
 
@@ -101,28 +222,33 @@ module.exports = function(grunt) {
 			options: {
 	      mangle: false
 	    },
-			project_js: {
+	    app_js: {
 				files: {
-					'js/project.min.js': 'js/project.js',
+					'js/project/app.min.js': 'js/project/app.js',
 				}
 			},
-			lib_js: {
+			libs_js: {
 				files: {
-					'js/libs/lib.min.js': 'js/libs/lib.js'
+					'js/project/libs.min.js': 'js/project/libs.js',
 				}
-			}
+			},
+			project_js: {
+				files: {
+					'js/project/project.min.js': 'js/project/project.js',
+				}
+			},
 		},
 
 
-
-		// Наблюдение за изменениями
 		watch: {
 			options: {
 				dateFormat: function(time) {
 					grunt.log.writeln("\n>> Waiting for more changes... >>\n");
 				},
 			},
-			// Перекомпиляция стилей при изменении styl-файлов
+
+			// Compile styl
+
 			stylus: {
 
 				files: [
@@ -130,14 +256,18 @@ module.exports = function(grunt) {
 				],
 				tasks: ['stylus']
 			},
-			// Перекомпиляция html при изменении jade-файлов
+
+			// Compile jade 
+
 			jade: {
 				files: [
 					'ppc/jade/**/*.jade',
 				],
 				tasks: ['jade']
 			},
-			// Перекомпиляция js при изменении coffee-файлов
+
+			// Compile coffee
+
 			coffee: {
 				files: [
 					'ppc/coffee/**/*.coffee',
@@ -145,37 +275,92 @@ module.exports = function(grunt) {
 				tasks: ['coffee']
 			},
 
-			// Пересобирание стилей при изменении исходных css-файлов
-			css: {
+			// Concat css
+
+			app_css: {
 				files: [
-					'css/*.css',
-					'!css/project.css'
+					'css/app/*.css',
 				],
-				tasks: ['concat:css']
+				tasks: ['concat:app_css']
 			},
-			// Пересобирание скриптов при изменении исходных js-файлов
-			js: {
+			libs_css: {
 				files: [
-					'js/*.js',
-					'!js/project.js',
-					'!js/project.min.js',
+					'css/libs/*.css',
 				],
-				tasks: ['concat:js','uglify:project_js']
+				tasks: ['concat:libs_css']
 			},
+			media_css: {
+				files: [
+					'css/media/*.css',
+				],
+				tasks: ['concat:media_css']
+			},
+			project_css: {
+				files: [
+					'css/project/app.css',
+					'css/project/libs.css',
+					'css/project/media.css',
+				],
+				tasks: ['concat:project_css']
+			},
+
+			// Concat js
+
+			app_js: {
+				files: [
+					'js/app/*.js',
+				],
+				tasks: ['concat:app_js']
+			},
+
 			libs_js: {
 				files: [
 					'js/libs/*.js',
-					'!js/libs/lib.js',
-					'!js/libs/lib.min.js',
-					
 				],
-				tasks: ['concat:libs_js','uglify:lib_js']
+				tasks: ['concat:libs_js']
 			},
+
+			project_js: {
+				files: [
+					'js/project/app.js',
+					'js/project/libs.js',
+				],
+				tasks: ['concat:project_js']
+			},
+
+			// Uglify 
+
+			uglify_app_js: {
+				files: [
+					'js/project/app.js',
+				],
+				tasks: ['uglify:app_js']
+			},
+
+			uglify_libs_js: {
+				files: [
+					'js/project/libs.js',
+				],
+				tasks: ['uglify:libs_js']
+			},
+
+			uglify_project_js: {
+				files: [
+					'js/project/project.js',
+				],
+				tasks: ['uglify:project_js']
+			},
+
+
+
 			livereload: {
-	      options: { livereload: 777 },
+	      options: { livereload: true },
 	      files: [
-		      '**/*',
-		      '!**/node_modules/**'
+		      'js/libs/helpers.js',
+		      'ppc/styl/mixins/*.styl',
+		      '*.html',
+		      'css/project/project.css',
+		      'js/project/project.min.js',
 	      ],
 			}
 		}
