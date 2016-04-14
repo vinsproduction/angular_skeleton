@@ -10,14 +10,7 @@ appControllers.controller('footerCtrl', ['APP', 'api', '$rootScope', '$scope', '
 
 appControllers.controller('viewsCtrl', ['APP', 'api', '$rootScope', '$scope', '$location', function(APP, api, $rootScope, $scope) {}]);
 
-appControllers.controller('popupsCtrl', [
-  'APP', 'api', '$rootScope', '$scope', '$location', function(APP, api, $rootScope, $scope) {
-    return popup.open('custom', {
-      title: 'Hello',
-      body: 'world!'
-    });
-  }
-]);
+appControllers.controller('popupsCtrl', ['APP', 'api', '$rootScope', '$scope', '$location', function(APP, api, $rootScope, $scope) {}]);
 
 appControllers.controller('viewHomeCtrl', [
   'size', 'APP', 'api', '$rootScope', '$scope', '$location', function(size, APP, api, $rootScope, $scope) {

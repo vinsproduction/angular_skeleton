@@ -3,31 +3,28 @@ module.exports = function(grunt) {
 	var css = {
 		app: [
 			'css/app/app.css',
-			'css/app/popup.css'
+			'css/app/app.popup.css',
+			'css/app/app.media.css'
 		],
 		libs: [
 			'css/libs/normalize.css',
-			
 		],
-		media: [
-			'css/media/media.css'
-		]
 	};
 
 	var js = {
 
 		app: [
 			'js/app/app.js',
-			// 'js/app/router.js',
-			'js/app/controllers.js',
-			'js/app/directives.js',
-			'js/app/services.js',
+			// 'js/app/app.router.js',
+			'js/app/app.controllers.js',
+			'js/app/app.directives.js',
+			'js/app/app.services.js',
 		],
 		libs: [
 			// 'js/libs/bfbs.js',
-			'js/libs/jquery-1.11.1.js',
-			'js/libs/underscore.js',
-			'js/libs/json2.js',
+			'js/libs/jquery-1.11.1.min.js',
+			'js/libs/underscore-min.js',
+			'js/libs/json2.min.js',
 			// 'js/libs/jquery.tinyscrollbar.min.js',
 			// 'js/libs/jquery.maskedinput.min.js',
 			// 'js/libs/jquery.jcarousel.js',
@@ -35,9 +32,9 @@ module.exports = function(grunt) {
 			'js/libs/popup.js',
 			'js/libs/form.js',
 
-			'js/libs/angular.js',
-			'js/libs/angular-cookies.js',
-			// 'js/libs/angular-route.js',
+			'js/libs/angular.min.js',
+			'js/libs/angular-cookies.min.js',
+			// 'js/libs/angular-route.min.js',
 		]
 
 	};
@@ -57,22 +54,19 @@ module.exports = function(grunt) {
 	          src: "**/*.styl",
 	          dest: "css/app/",
 	          expand: true,
-	          ext: ".css"
+	          rename: function(dest, src){
+			      	return dest + src.replace('.styl', '.css')
+			      },
 	        },
 	        {
 	          cwd: "ppc/styl/libs",
 	          src: "**/*.styl",
 	          dest: "css/libs/",
 	          expand: true,
-	          ext: ".css"
+	          rename: function(dest, src){
+			      	return dest + src.replace('.styl', '.css')
+			      },
 	        },
-	        {
-	          cwd: "ppc/styl/media",
-	          src: "**/*.styl",
-	          dest: "css/media/",
-	          expand: true,
-	          ext: ".css"
-	        }
         ]
 			}
 		},
@@ -109,11 +103,6 @@ module.exports = function(grunt) {
    						});
 
    						css.app.forEach(function(src) {
-   							line = '$$.includeCSS("' + src + '");';
-   							lines.push("\n" + line + "\n");
-   						});
-
-   						css.media.forEach(function(src) {
    							line = '$$.includeCSS("' + src + '");';
    							lines.push("\n" + line + "\n");
    						});
@@ -186,15 +175,10 @@ module.exports = function(grunt) {
 				src: css.libs,
 				dest: 'css/project/libs.css'
 			},
-			media_css: {
-				src: css.media,
-				dest: 'css/project/media.css'
-			},
 			project_css: {
 				src: [
 					'css/project/libs.css',
 					'css/project/app.css',
-					'css/project/media.css'
 				],
 				dest: 'css/project/project.css'
 			},
@@ -222,16 +206,6 @@ module.exports = function(grunt) {
 			options: {
 	      mangle: false
 	    },
-	    app_js: {
-				files: {
-					'js/project/app.min.js': 'js/project/app.js',
-				}
-			},
-			libs_js: {
-				files: {
-					'js/project/libs.min.js': 'js/project/libs.js',
-				}
-			},
 			project_js: {
 				files: {
 					'js/project/project.min.js': 'js/project/project.js',
@@ -289,17 +263,10 @@ module.exports = function(grunt) {
 				],
 				tasks: ['concat:libs_css']
 			},
-			media_css: {
-				files: [
-					'css/media/*.css',
-				],
-				tasks: ['concat:media_css']
-			},
 			project_css: {
 				files: [
 					'css/project/app.css',
 					'css/project/libs.css',
-					'css/project/media.css',
 				],
 				tasks: ['concat:project_css']
 			},
@@ -330,20 +297,6 @@ module.exports = function(grunt) {
 
 			// Uglify 
 
-			uglify_app_js: {
-				files: [
-					'js/project/app.js',
-				],
-				tasks: ['uglify:app_js']
-			},
-
-			uglify_libs_js: {
-				files: [
-					'js/project/libs.js',
-				],
-				tasks: ['uglify:libs_js']
-			},
-
 			uglify_project_js: {
 				files: [
 					'js/project/project.js',
@@ -357,10 +310,13 @@ module.exports = function(grunt) {
 	      options: { livereload: true },
 	      files: [
 		      'js/libs/helpers.js',
-		      'ppc/styl/mixins/*.styl',
+		      'ppc/styl/mixins.styl',
+		      'ppc/styl/app/mixins.styl',
 		      '*.html',
-		      'css/project/project.css',
-		      'js/project/project.min.js',
+		      'css/app/**/*.css',
+		      'css/libs/**/*.css',
+		      'js/app/**/*.js',
+		      'js/libs/**/*.js',
 	      ],
 			}
 		}

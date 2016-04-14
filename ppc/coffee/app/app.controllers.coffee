@@ -16,7 +16,7 @@ appControllers.controller('viewsCtrl', ['APP','api','$rootScope','$scope','$loca
 ])
 
 appControllers.controller('popupsCtrl', ['APP','api','$rootScope','$scope','$location', (APP,api,$rootScope,$scope) ->
-	popup.open 'custom', {title:'Hello',body: 'world!'}
+	# popup.open 'custom', {title:'Hello',body: 'world!'}
 ])
 
 
