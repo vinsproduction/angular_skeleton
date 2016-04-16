@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 		},
 
 		// Компиляция Jade в HTML
-		jade: {
+		pug: {
 			compile: {
 				options: {
 					pretty: true,
@@ -237,7 +237,7 @@ module.exports = function(grunt) {
 				files: [
 					'ppc/jade/**/*.jade',
 				],
-				tasks: ['jade']
+				tasks: ['pug']
 			},
 
 			// Compile coffee
@@ -337,6 +337,6 @@ module.exports = function(grunt) {
 
 
 	// Объявление тасков
-	grunt.registerTask('default', ['server','coffee', 'stylus', 'jade', 'concat', 'uglify', 'watch']);
+	grunt.registerTask('default', ['server','coffee', 'stylus', 'pug', 'concat', 'uglify', 'watch']);
 
 };
