@@ -1,11 +1,11 @@
 {
   "name": "angular_skeleton",
   "version": "0.0.1",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/vinsproduction/angular_skeleton"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinsproduction/angular_skeleton.git"
   },
-  "dependencies": {
+  "devDependencies": {
     "express": "3.2.0",
     "grunt": "*",
     "grunt-contrib-jshint": "*",
@@ -19,7 +19,19 @@
     "stylus": "*",
     "jade": "*",
     "jstransformer-coffee-script": "*",
-    "grunt-processhtml": "*"
-  }
-
+  },
+  "description": "Angular Skeleton",
+  "bugs": {
+    "url": "https://github.com/vinsproduction/angular_skeleton/issues"
+  },
+  "homepage": "https://github.com/vinsproduction/angular_skeleton#readme",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vinsproduction",
+  "license": "MIT"
 }
