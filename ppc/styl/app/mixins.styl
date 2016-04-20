@@ -1,0 +1,24 @@
+
+
+// Путь до статики
+$root = '../../../../'
+
+// Ширина контейнера с контентом
+$mainWidth = 900
+
+// Главный шрифт
+$mainFont = Ubuntu
+
+font-family(name)
+	line-height 1
+	font-family name, helvetica,verdana,arial,tahoma
+
+font(size,name)
+	//font-size unit(size*6.5, '%') convert px to percents
+	font-size size
+	font-family name
+
+bg(filename, arguments=false)
+	if !arguments
+		arguments = center center
+	background url($root + 'img/' + filename) no-repeat arguments

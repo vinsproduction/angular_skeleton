@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--SEO-->
+    <title>ANGULAR SKELETON - [[title]]</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- Open Graph-->
+    <meta property="og:title" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:description" content="">
+    <!--favicon-->
+    <link rel="image_src" href="">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <!--IE--><!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="MSThemeCompatible" content="no"/>
+    <![endif]-->
+    <!--Apple-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><!--[if lt IE 7]>
+    <style>
+      body > main {
+      	height: 100%;
+      }
+    </style><![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/libs/html5shiv.js"></script><![endif]-->
+    <!--JS helpers -->
+    <script src="js/libs/helpers.js"></script>
+    <!--Include JS/CSS-->
+    <script>
+    if(/^\?debug/.test(window.location.search)){
+    console.log('[App] DEBUG MODE');
+$$.includeCSS("css/libs/normalize.css");
+
+$$.includeCSS("css/app/base/layout/layout.css");
+
+$$.includeCSS("css/app/base/popups/popup.css");
+
+$$.includeCSS("css/app/views/home-test/home-test.css");
+
+$$.includeCSS("css/app/views/home/home.css");
+
+$$.includeJS("js/libs/jquery-1.11.1.min.js");
+
+$$.includeJS("js/libs/underscore-min.js");
+
+$$.includeJS("js/libs/json2.min.js");
+
+$$.includeJS("js/libs/angular.js");
+
+$$.includeJS("js/libs/angular-cookies.min.js");
+
+$$.includeJS("js/libs/form.js");
+
+$$.includeJS("js/libs/jquery.tinyscrollbar.min.js");
+
+$$.includeJS("js/libs/popup.js");
+
+$$.includeJS("js/app/app.js");
+
+$$.includeJS("js/app/app.router.js");
+
+$$.includeJS("js/app/app.run.js");
+
+$$.includeJS("js/app/app.services.js");
+
+$$.includeJS("js/app/base/layout/layout.controllers.js");
+
+$$.includeJS("js/app/base/layout/layout.directives.js");
+
+$$.includeJS("js/app/base/popups/popups.controllers.js");
+
+$$.includeJS("js/app/base/popups/popups.directives.js");
+
+$$.includeJS("js/app/views/home/home.controllers.js");
+
+$$.includeJS("js/app/views/home/home.directives.js");
+
+    } else {
+    console.log('[App] PRODUCTION MODE (Console is disabled)');
+    $$.disableConsole();
+    $$.includeCSS("css/project/project.css");
+    $$.includeJS("js/project/project.min.js");
+    };
+    </script>
+  </head>
+  <body>
+    <main>
+      <!-- Header-->
+      <header ng-controller="headerLayoutCtrl">
+        <div class="main-container">
+          <div class="inner">
+            <h2>Header</h2>
+          </div>
+        </div>
+      </header>
+      <!-- Header end-->
+      <div ng-controller="viewsLayoutCtrl" class="views">
+        <!-- View-->
+        <!-- View end-->
+      </div>
+      <!-- Footer-->
+      <footer ng-controller="footerLayoutCtrl">
+        <div class="main-container">
+          <div class="inner">
+            <h2>Footer</h2>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer end-->
+    </main>
+    <!-- Popups-->
+    <div id="popups" data-ng-controller="popupsCtrl">
+      <div data-popup-name="custom" class="popup">
+        <div class="inner">
+          <div data-popup-close class="close"></div>
+          <div data-popup-title class="title"></div>
+          <div data-popup-body class="body"></div>
+          <div data-popup-button class="button"><span data-popup-button-name>Закрыть</span></div>
+        </div>
+      </div>
+      <div class="background"></div>
+    </div>
+    <!-- Popups end-->
+  </body>
+</html>
