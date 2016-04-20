@@ -1,14 +1,9 @@
-/* 
-	===============
-	=== PROJECT ===
-	===============
-*/
+/* PROJECT */
 /* _________ FONTS _________ */
 @font-face {
-  line-height: 1;
-  font-family: 'Ubuntu', helvetica, verdana, arial, tahoma;
-  src: url("../../../../fonts/ubuntu-r-webfont.eot");
-  src: url("../../../../fonts/ubuntu-r-webfont.eot?#iefix") format('embedded-opentype'), url("../../../../fonts/ubuntu-r-webfont.svg") format('svg'), url("../../../../fonts/ubuntu-r-webfont.woff") format('woff'), url("../../../../fonts/ubuntu-r-webfont.ttf") format('truetype');
+  font-family: 'Ubuntu';
+  src: url("../../fonts/ubuntu-r-webfont.eot");
+  src: url("../../fonts/ubuntu-r-webfont.eot?#iefix") format('embedded-opentype'), url("../../fonts/ubuntu-r-webfont.svg") format('svg'), url("../../fonts/ubuntu-r-webfont.woff") format('woff'), url("../../fonts/ubuntu-r-webfont.ttf") format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -98,7 +93,7 @@ input:-webkit-autofill {
 .form [data-type='text'].valid,
 .form [data-type='password'].valid,
 .form [data-type='textarea'].valid {
-  background: url("../../../../img/valid.png") no-repeat #fff right 10px top 14px;
+  background: url("../../img/valid.png") no-repeat #fff right 10px top 14px;
   border: 1px solid #008000 !important;
 }
 .form [data-type='text'],
@@ -135,7 +130,7 @@ input:-webkit-autofill {
   position: absolute;
   right: 10px;
   top: 15px;
-  background: url("../../../../img/select-corner-down.png") no-repeat center center;
+  background: url("../../img/select-corner-down.png") no-repeat center center;
   display: block;
   width: 16px;
   height: 16px;
@@ -150,7 +145,7 @@ input:-webkit-autofill {
   border: 1px solid #f00;
 }
 .form [data-type='select'].open .selected:after {
-  background: url("../../../../img/select-corner-up.png") no-repeat center center;
+  background: url("../../img/select-corner-up.png") no-repeat center center;
 }
 .form [data-type='select'] .options {
   -moz-box-sizing: border-box;
@@ -245,7 +240,7 @@ input:-webkit-autofill {
   cursor: pointer;
 }
 .form [data-type='checkbox'][data-checked] {
-  background: url("../../../../img/checked.png") no-repeat center center;
+  background: url("../../img/checked.png") no-repeat center center;
 }
 .form [data-type='checkbox'].error-field {
   border: 1px solid #f00;
@@ -259,7 +254,7 @@ input:-webkit-autofill {
   cursor: pointer;
 }
 .form [data-type='radio'][data-checked] {
-  background: url("../../../../img/checked.png") no-repeat center center;
+  background: url("../../img/checked.png") no-repeat center center;
 }
 .form [data-type='radio'].error-field {
   border: 1px solid #f00;
@@ -369,76 +364,6 @@ input:-webkit-autofill {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   display: inline-block;
-}
-/*_________ MAIN __________*/
-html {
-  height: 100%;
-}
-body {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  line-height: 1;
-  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
-}
-body > main {
-  position: relative;
-  min-height: 100%;
-  width: 100%;
-}
-body > main .main-container {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  height: 100%;
-}
-body > main .main-container:before,
-body > main .main-container:after {
-  content: " ";
-  display: table;
-}
-body > main .main-container:after {
-  clear: both;
-}
-/*_________ HEADER __________*/
-body > main > header {
-  clear: both;
-  z-index: 2;
-  width: 100%;
-}
-body > main > header .inner {
-  padding: 20px 0;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  height: 100%;
-}
-/*_________ FOOTER ___________*/
-body > main > footer {
-  clear: both;
-  position: absolute;
-  bottom: 0;
-  z-index: 2;
-  width: 100%;
-  height: 60px;
-}
-body > main > footer .inner {
-  padding: 20px 0;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  height: 100%;
-}
-/*__________ VIEWS _________*/
-body > main > .views {
-  clear: both;
-  padding-bottom: 60px;
-}
-body > main > .views > .view {
-  position: relative;
-}
-body > main > .views > .view .view-content {
-  padding: 20px 0 60px 0;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 @-moz-keyframes scale {
   0% {
@@ -603,6 +528,77 @@ body > main > .views > .view .view-content {
     -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   }
+}
+
+/* LAYOUT */
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  line-height: 1;
+  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
+}
+body > main {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+}
+body > main .main-container {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+}
+body > main .main-container:before,
+body > main .main-container:after {
+  content: " ";
+  display: table;
+}
+body > main .main-container:after {
+  clear: both;
+}
+/*_________ HEADER __________*/
+body > main > header {
+  clear: both;
+  z-index: 2;
+  width: 100%;
+}
+body > main > header .inner {
+  padding: 20px 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+}
+/*_________ FOOTER ___________*/
+body > main > footer {
+  clear: both;
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  height: 60px;
+}
+body > main > footer .inner {
+  padding: 20px 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+}
+/*__________ VIEWS _________*/
+body > main > .views {
+  clear: both;
+  padding-bottom: 60px;
+}
+body > main > .views > .view {
+  position: relative;
+}
+body > main > .views > .view .view-content {
+  padding: 20px 0 60px 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* _________ POPUPS _________ */

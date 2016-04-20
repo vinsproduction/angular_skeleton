@@ -8,8 +8,12 @@ module.exports = function(grunt) {
 	var build = {
 
 		css: {
+			main: [
+				'css/app/app.css'
+			],
 			base: [],
 			views: [],
+			components: [],
 			libs: [],
 		},
 
@@ -61,12 +65,17 @@ module.exports = function(grunt) {
 
 		css.libs 	= order(build.css.libs,"css/libs/**/*.css");
 
+		css.main 	= order(build.css.main,"css/app/*.js");
 		css.base 	= order(build.css.base,"css/app/base/**/*.css");
 		css.views = order(build.css.views,"css/app/views/**/*.css");
+		css.components = order(build.css.components,"js/app/components/**/*.css");
+
 
 		css.app =
-			css.base
-			.concat(css.views);
+			css.main
+			.concat(css.base)
+			.concat(css.views)
+			.concat(css.components);
 
 		// JS
 
@@ -154,28 +163,30 @@ module.exports = function(grunt) {
 
 						includeCssProd: function(block) {
 							var line;
-   						line = '$$.includeCSS("css/project/project.css");';
-   						return "\n" + line + "\n";
+   						line = '		$$.includeCSS("css/project/project.css");';
+   						return "\r" + line;
 	   				},
 
    					includeJsProd: function(block) {
    						var line;
-   						line = '$$.includeJS("js/project/project.min.js");';
-   						return "\n" + line + "\n";
+   						line = '		$$.includeJS("js/project/project.min.js");';
+   						return "\r" + line + "\r";
 	   				},
 
 
 						includeCssDev: function(block) {
    						var lines = [], line;
-
+   						lines.push("\r");
    						css.libs.forEach(function(src) {
-   							line = '$$.includeCSS("' + src + '");';
-   							lines.push("\n" + line + "\n");
+   							line = '		$$.includeCSS("' + src + '");';
+   							lines.push(line);
+   							lines.push("\r");
    						});
 
    						css.app.forEach(function(src) {
-   							line = '$$.includeCSS("' + src + '");';
-   							lines.push("\n" + line + "\n");
+   							line = '		$$.includeCSS("' + src + '");';
+   							lines.push(line);
+   							lines.push("\r");
    						});
 
    						return lines.join("");
@@ -183,15 +194,16 @@ module.exports = function(grunt) {
 
    					includeJsDev: function(block) {
    						var lines = [], line;
-
    						js.libs.forEach(function(src) {
-   							line = '$$.includeJS("' + src + '");';
-   							lines.push("\n" + line + "\n");
+   							line = '		$$.includeJS("' + src + '");';
+   							lines.push(line);
+   							lines.push("\r");
    						});
 
    						js.app.forEach(function(src) {
-   							line = '$$.includeJS("' + src + '");';
-   							lines.push("\n" + line + "\n");
+   							line = '		$$.includeJS("' + src + '");';
+   							lines.push(line);
+   							lines.push("\r");
    						});
 
    						return lines.join("");
@@ -310,6 +322,7 @@ module.exports = function(grunt) {
 
 				files: [
 					'ppc/styl/**/*.styl',
+					'ppc/coffee/app/components/**/*.styl',
 				],
 				tasks: ['stylus']
 			},
@@ -319,6 +332,7 @@ module.exports = function(grunt) {
 			jade: {
 				files: [
 					'ppc/jade/**/*.jade',
+					'ppc/coffee/app/components/**/*.jade',
 				],
 				tasks: ['pug']
 			},
@@ -395,7 +409,6 @@ module.exports = function(grunt) {
 	      options: { livereload: true },
 	      files: [
 		      'js/libs/helpers.js',
-		      'ppc/styl/**/mixins.styl',
 		      'ppc/styl/**/requires/**/*.styl',
 		      '*.html',
 		      'css/app/**/*.css',

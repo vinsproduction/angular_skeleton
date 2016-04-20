@@ -2,7 +2,9 @@
 appDirectives.directive('homeViewDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) -> 
 
 	restrict: 'A'
-	controller: ($scope) ->
+	# transclude: true
+	# scope: {}
+	# controller: ($scope) ->
 	link: (scope, el, attr, ctrl, transclude) ->
 
 		# transclude scope, (clone) ->

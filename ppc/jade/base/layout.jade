@@ -74,14 +74,18 @@ html
 
 		|if(/^\?debug/.test(window.location.search)){
 		|console.log('[App] DEBUG MODE');
+
 		:includeCssDev
 		:includeJsDev
 
 		|} else {
+
 		|console.log('[App] PRODUCTION MODE (Console is disabled)');
 		|$$.disableConsole();
-		|$$.includeCSS("css/project/project.css");
-		|$$.includeJS("js/project/project.min.js");
+		
+		:includeCssProd
+		:includeJsProd
+
 		|};
 
 		|</script>
@@ -105,7 +109,7 @@ html
 
 			// Header
 			include header
-			// Header end
+			// /Header
 
 			//- Для синглпейджа
 			//- .views(data-ng-view)
@@ -114,12 +118,12 @@ html
 
 				// View
 				block content
-				// View end
+				// /View
 
 			// Footer
 			include footer
-			// Footer end
+			// /Footer
 
 		// Popups
 		include popups
-		// Popups end
+		// /Popups

@@ -35,58 +35,10 @@
     <!--Include JS/CSS-->
     <script>
     if(/^\?debug/.test(window.location.search)){
-    console.log('[App] DEBUG MODE');
-$$.includeCSS("css/libs/normalize.css");
-
-$$.includeCSS("css/app/base/layout/layout.css");
-
-$$.includeCSS("css/app/base/popups/popup.css");
-
-$$.includeCSS("css/app/views/home/home.css");
-
-$$.includeJS("js/libs/jquery-1.11.1.min.js");
-
-$$.includeJS("js/libs/underscore-min.js");
-
-$$.includeJS("js/libs/json2.min.js");
-
-$$.includeJS("js/libs/angular.js");
-
-$$.includeJS("js/libs/angular-cookies.min.js");
-
-$$.includeJS("js/libs/form.js");
-
-$$.includeJS("js/libs/jquery.tinyscrollbar.min.js");
-
-$$.includeJS("js/libs/popup.js");
-
-$$.includeJS("js/app/app.js");
-
-$$.includeJS("js/app/app.config.js");
-
-$$.includeJS("js/app/app.router.js");
-
-$$.includeJS("js/app/app.run.js");
-
-$$.includeJS("js/app/app.services.js");
-
-$$.includeJS("js/app/base/layout/layout.controllers.js");
-
-$$.includeJS("js/app/base/layout/layout.directives.js");
-
-$$.includeJS("js/app/base/popups/popups.controllers.js");
-
-$$.includeJS("js/app/base/popups/popups.directives.js");
-
-$$.includeJS("js/app/views/home/home.controllers.js");
-
-$$.includeJS("js/app/views/home/home.directives.js");
-
+    console.log('[App] DEBUG MODE');		$$.includeCSS("css/libs/normalize.css");		$$.includeCSS("css/app/app.css");		$$.includeCSS("css/app/base/layout/layout.css");		$$.includeCSS("css/app/base/popups/popup.css");		$$.includeCSS("css/app/views/home/home.css");		$$.includeJS("js/libs/jquery-1.11.1.min.js");		$$.includeJS("js/libs/underscore-min.js");		$$.includeJS("js/libs/json2.min.js");		$$.includeJS("js/libs/angular.js");		$$.includeJS("js/libs/angular-cookies.min.js");		$$.includeJS("js/libs/form.js");		$$.includeJS("js/libs/jquery.tinyscrollbar.min.js");		$$.includeJS("js/libs/popup.js");		$$.includeJS("js/app/app.js");		$$.includeJS("js/app/app.config.js");		$$.includeJS("js/app/app.router.js");		$$.includeJS("js/app/app.run.js");		$$.includeJS("js/app/app.services.js");		$$.includeJS("js/app/base/layout/layout.controllers.js");		$$.includeJS("js/app/base/layout/layout.directives.js");		$$.includeJS("js/app/base/popups/popups.controllers.js");		$$.includeJS("js/app/base/popups/popups.directives.js");		$$.includeJS("js/app/views/home/home.controllers.js");		$$.includeJS("js/app/views/home/home.directives.js");
     } else {
     console.log('[App] PRODUCTION MODE (Console is disabled)');
-    $$.disableConsole();
-    $$.includeCSS("css/project/project.css");
-    $$.includeJS("js/project/project.min.js");
+    $$.disableConsole();		$$.includeCSS("css/project/project.css");		$$.includeJS("js/project/project.min.js");
     };
     </script>
   </head>
@@ -100,10 +52,10 @@ $$.includeJS("js/app/views/home/home.directives.js");
           </div>
         </div>
       </header>
-      <!-- Header end-->
+      <!-- /Header-->
       <div ng-controller="viewsLayoutCtrl" class="views">
         <!-- View-->
-        <!-- View end-->
+        <!-- /View-->
       </div>
       <!-- Footer-->
       <footer ng-controller="footerLayoutCtrl">
@@ -113,7 +65,7 @@ $$.includeJS("js/app/views/home/home.directives.js");
           </div>
         </div>
       </footer>
-      <!-- Footer end-->
+      <!-- /Footer-->
     </main>
     <!-- Popups-->
     <div id="popups" data-ng-controller="popupsCtrl">
@@ -127,6 +79,6 @@ $$.includeJS("js/app/views/home/home.directives.js");
       </div>
       <div class="background"></div>
     </div>
-    <!-- Popups end-->
+    <!-- /Popups-->
   </body>
 </html>

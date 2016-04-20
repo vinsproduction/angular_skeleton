@@ -5,11 +5,8 @@ appDirectives.directive('[componentName]ComponentDirective', ['APP','Api','$root
 	transclude: true
 	scope: {}
 	controller: ($scope) ->
-	templateUrl: 'js/app/components/[componentDir]/index.html'
+	templateUrl: 'js/app/components/[componentDir]/[componentDir].html'
 	link: (scope, el, attr, ctrl, transclude) ->
-
-		# transclude scope, (clone) ->
-		# 	el.html(clone)
 
 		return
 
