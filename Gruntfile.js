@@ -163,30 +163,30 @@ module.exports = function(grunt) {
 
 						includeCssProd: function(block) {
 							var line;
-   						line = '		$$.includeCSS("css/project/project.css");';
-   						return "\r" + line;
+   						line = '    $$.includeCSS("css/project/project.css");';
+   						return "\r\n" + line;
 	   				},
 
    					includeJsProd: function(block) {
    						var line;
-   						line = '		$$.includeJS("js/project/project.min.js");';
-   						return "\r" + line + "\r";
+   						line = '    $$.includeJS("js/project/project.min.js");';
+   						return "\r\n" + line + "\r\n";
 	   				},
 
 
 						includeCssDev: function(block) {
    						var lines = [], line;
-   						lines.push("\r");
+   						lines.push("\r\n");
    						css.libs.forEach(function(src) {
-   							line = '		$$.includeCSS("' + src + '");';
+   							line = '    $$.includeCSS("' + src + '");';
    							lines.push(line);
-   							lines.push("\r");
+   							lines.push("\r\n");
    						});
 
    						css.app.forEach(function(src) {
-   							line = '		$$.includeCSS("' + src + '");';
+   							line = '    $$.includeCSS("' + src + '");';
    							lines.push(line);
-   							lines.push("\r");
+   							lines.push("\r\n");
    						});
 
    						return lines.join("");
@@ -195,15 +195,15 @@ module.exports = function(grunt) {
    					includeJsDev: function(block) {
    						var lines = [], line;
    						js.libs.forEach(function(src) {
-   							line = '		$$.includeJS("' + src + '");';
+   							line = '    $$.includeJS("' + src + '");';
    							lines.push(line);
-   							lines.push("\r");
+   							lines.push("\r\n");
    						});
 
    						js.app.forEach(function(src) {
-   							line = '		$$.includeJS("' + src + '");';
+   							line = '    $$.includeJS("' + src + '");';
    							lines.push(line);
-   							lines.push("\r");
+   							lines.push("\r\n");
    						});
 
    						return lines.join("");
