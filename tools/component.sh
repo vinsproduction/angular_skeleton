@@ -9,12 +9,12 @@ lower () {
 
 tools="./tools/templates"
 
-echo "\\n"
+echo "\\r"
 
 if [ "$1" = "" ]
 	then
     echo "!!! Enter [ComponentName]"
-    echo "\\n"
+    echo "\\r"
     exit 1
 fi
 
@@ -25,7 +25,7 @@ template_path="$component_path/$(lower $name).jade"
 if [ -d $component_path ]
 	then
 		echo "!!! $component_path allready exist"
-		echo "\\n"
+		echo "\\r"
 		exit 1
 	else
     mkdir -p $component_path
@@ -35,7 +35,7 @@ if [ -d $component_path ]
     		cat $tools/component/index.jade | sed "s/\[componentName\]/$(lower $name)/g" | sed "s/\[controllerName\]/$name/g" > $template_path
    			
    			echo ">> $template_path created"
-				echo "\\n"
+				echo "\\r"
    fi
 
 fi
@@ -47,7 +47,7 @@ if [ ! -f $controller_path ]
 	then
 		cat $tools/component/controller.coffee | sed "s/\[componentName\]/$name/g" > $controller_path
 		echo ">> $controller_path created"
-		echo "\\n"
+		echo "\\r"
 fi
 
 directive_path="$component_path/$(lower $name).directives.coffee"
@@ -56,7 +56,7 @@ if [ ! -f $directive_path ]
 	then
 		cat $tools/component/directive.coffee | sed "s/\[componentDir\]/$(lower $name)/g" | sed "s/\[componentName\]/$name/g" > $directive_path
 		echo ">> $directive_path created"
-		echo "\\n"
+		echo "\\r"
 fi
 
 styl_path="$component_path/$(lower $name).styl"
@@ -65,16 +65,16 @@ if [ ! -f $styl_path ]
 	then
 		cat $tools/component/index.styl | sed "s/\[componentName\]/$(lower $name)/g" > $styl_path
 		echo ">> $styl_path created"
-		echo "\\n"
+		echo "\\r"
 fi
 
 echo ">> grunt build"
-echo "\\n"
+echo "\\r"
 
 grunt build
 
-echo "\\n"
+echo "\\r"
 echo ">> Component $name created. Use 'grunt' to continue"
-echo "\\n"
+echo "\\r"
 exit 1
 

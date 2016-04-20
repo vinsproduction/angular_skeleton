@@ -1,1 +1,1 @@
-appControllers.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', function(APP, Api, $rootScope) {}]);
+appControllers.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);

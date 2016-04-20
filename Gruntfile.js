@@ -1,75 +1,93 @@
 module.exports = function(grunt) {
 
-	var css, js;
-
 	// BUILD!
-
-	// В массивах указывается порядок подключения
+	// В массивах указывается порядок подключения (опционально)
 	// По умолчанию собирается неотсортированный массив из директории файлов
-	// (!) - не подключаются в автоматически из директории 
+	// path с префиксом (!) - не подключаeтся автоматически из директории
 
-	var css = {
-		base: [],
-		views: [],
-		libs: [],
+	var build = {
+
+		css: {
+			base: [],
+			views: [],
+			libs: [],
+		},
+
+		js: {
+			main: [
+				'js/app/app.js'
+			],
+			base: [],
+			views: [],
+			components: [],
+			libs: [
+				'js/libs/jquery-1.11.1.min.js',
+				'js/libs/underscore-min.js',
+				'js/libs/json2.min.js',
+				'js/libs/angular.js',
+
+				'!js/libs/helpers.js',
+				'!js/libs/html5shiv.js'
+			],
+		}
+
 	};
 
-	var js = {
-		main: [
-			'js/app/app.js'
-		],
-		base: [],
-		views: [],
-		components: [],
-		libs: [
-			'js/libs/jquery-1.11.1.min.js',
-			'js/libs/underscore-min.js',
-			'js/libs/json2.min.js',
-			'js/libs/angular.js',
+	var css = {}, js 	= {};
 
-			'!js/libs/helpers.js',
-			'!js/libs/html5shiv.js'
-		],
+	function buildit() {
+
+		function order(arr,source){
+
+			var files = grunt.file.expand(source);
+			var list 	= [];
+
+			arr.forEach(function(src, i) {
+				if( src.indexOf('!') < 0 ){
+					list.push(src);
+				}
+			});
+
+			files.forEach(function(src, i) {
+				if( arr.indexOf(src) < 0 && arr.indexOf('!' + src) < 0 && src.indexOf('!') < 0 ){
+					list.push(src);
+				}
+			});
+
+			return list;
+		}
+
+		// CSS
+
+		css.libs 	= order(build.css.libs,"css/libs/**/*.css");
+
+		css.base 	= order(build.css.base,"css/app/base/**/*.css");
+		css.views = order(build.css.views,"css/app/views/**/*.css");
+
+		css.app =
+			css.base
+			.concat(css.views);
+
+		// JS
+
+		js.libs 	= order(build.js.libs,"js/libs/**/*.js");
+
+		js.main 	= order(build.js.main,"js/app/*.js");
+		js.base 	= order(build.js.base,"js/app/base/**/*.js");
+		js.views 	= order(build.js.views,"js/app/views/**/*.js");
+		js.components = order(build.js.components,"js/app/components/**/*.js");
+
+		js.app =
+			js.main
+			.concat(js.base)
+			.concat(js.views)
+			.concat(js.components);
+
 	};
 
 
-	var order = function(arr,source){
-
-		var files = grunt.file.expand(source);
-		var list 	= [];
-
-		arr.forEach(function(src, i) {
-			if( src.indexOf('!') < 0 ){
-				list.push(src);
-			}
-		});
-
-		files.forEach(function(src, i) {
-			if( arr.indexOf(src) < 0 && arr.indexOf('!' + src) < 0 && src.indexOf('!') < 0 ){
-				list.push(src);
-			}
-		});
-
-		return list;
-	}
-
-	// CSS
-
-	css.libs 	= order(css.libs,"css/libs/**/*.css");
-	css.base 	= order(css.base,"css/app/base/**/*.css");
-	css.views = order(css.views,"css/app/views/**/*.css");
-
-	css.app = css.base.concat(css.views);
-
-	// JS
-
-	js.libs 	= order(js.libs,"js/libs/**/*.js");
-	js.main 	= order(js.main,"js/app/*.js");
-	js.base 	= order(js.base,"js/app/base/**/*.js");
-	js.views 	= order(js.views,"js/app/views/**/*.js");
-	js.components = order(js.components,"js/app/components/**/*.js");
-
-	js.app = js.main.concat(js.base).concat(js.views).concat(js.components);
+	// Run build!
+	buildit();
 
 
 	grunt.initConfig({
@@ -395,26 +413,43 @@ module.exports = function(grunt) {
 	grunt.file.expand('node_modules/grunt-*/tasks').forEach(grunt.loadTasks);
 
 
-	grunt.registerTask('build_log', 'Build log', function() {
+	grunt.registerTask('structure', 'Build', function() {
 
-		console.log('\n============== APP ================');
+		buildit();
+
+		console.log('\r');
+		console.log('============== APP ================');
+
 		css.app.forEach(function(src, i) {
 			console.log(src);
 		});
 		js.app.forEach(function(src, i) {
 			console.log(src);
 		});
-		console.log('===================================');
 
+		console.log('\r');
 		console.log('============== LIBS ===============');
+
 		css.libs.forEach(function(src, i) {
 			console.log(src);
 		});
 		js.libs.forEach(function(src, i) {
 			console.log(src);
 		});
-		console.log('===================================\n');
 
+		console.log('\r');
+		console.log('============= PROJECT =============');
+
+		grunt.file.expand("js/project/*.css").forEach(function(src, i) {
+			console.log(src);
+		});
+
+		grunt.file.expand("js/project/*.js").forEach(function(src, i) {
+			console.log(src);
+		});
+
+		console.log('===================================');
+		console.log('\r');
 
 	});
 
@@ -425,7 +460,8 @@ module.exports = function(grunt) {
 		require('./server/server.js')(port)
 	});
 
-	grunt.registerTask('build', ['coffee', 'stylus', 'pug', 'concat', 'uglify', 'build_log']);
+
+	grunt.registerTask('build', ['coffee', 'stylus', 'pug', 'concat', 'uglify', 'structure']);
 	
 	grunt.registerTask('default', ['build', 'server', 'watch']);
 

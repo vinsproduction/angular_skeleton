@@ -9,12 +9,12 @@ lower () {
 
 tools="./tools/templates"
 
-echo "\\n"
+echo "\\r"
 
 if [ "$1" = "" ]
 	then
     echo "!!! Enter [ViewName]"
-    echo "\\n"
+    echo "\\r"
     exit 1
 fi
 
@@ -24,7 +24,7 @@ view_path="./ppc/coffee/app/views/$(lower $name)"
 if [ -d $view_path ]
 	then
 		echo "!!! $view_path allready exist"
-		echo "\\n"
+		echo "\\r"
 		exit 1
 	else
     mkdir -p $view_path
@@ -37,7 +37,7 @@ if [ ! -f $template_path ]
 		cat $tools/view/index.jade | sed "s/\[viewName\]/$(lower $name)/g" | sed "s/\[controllerName\]/$name/g" > $template_path
 			
 		echo ">> $template_path created"
-		echo "\\n"
+		echo "\\r"
 fi
 
 
@@ -47,7 +47,7 @@ if [ ! -f $controller_path ]
 	then
 		cat $tools/view/controller.coffee | sed "s/\[viewName\]/$name/g" > $controller_path
 		echo ">> $controller_path created"
-		echo "\\n"
+		echo "\\r"
 
 fi
 
@@ -58,7 +58,7 @@ if [ ! -f $directive_path ]
 	then
 		cat $tools/view/directive.coffee | sed "s/\[viewName\]/$name/g" > $directive_path
 		echo ">> $directive_path created"
-		echo "\\n"
+		echo "\\r"
 fi
 
 styl_dir="./ppc/styl/app/views/$(lower $name)"
@@ -74,7 +74,7 @@ if [ ! -f $styl_path ]
 	then
 		cat $tools/view/index.styl | sed "s/\[viewName\]/$(lower $name)/g" > $styl_path
 		echo ">> $styl_path created"
-		echo "\\n"
+		echo "\\r"
 fi
 
 styl_requires_dir="$styl_dir/requires"
@@ -90,16 +90,16 @@ if [ ! -f $styl_meida_path ]
 	then
 		cat $tools/view/media.styl | sed "s/\[viewName\]/$(lower $name)/g" > $styl_meida_path
 		echo ">> $styl_meida_path media created"
-		echo "\\n"
+		echo "\\r"
 fi
 
 echo ">> grunt build"
-echo "\\n"
+echo "\\r"
 
 grunt build
 
-echo "\\n"
+echo "\\r"
 echo ">> View $name created. Use 'grunt' to continue"
-echo "\\n"
+echo "\\r"
 exit 1
 

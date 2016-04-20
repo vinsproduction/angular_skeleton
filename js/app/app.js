@@ -4,6 +4,9 @@ var app, appControllers, appDirectives, appServices;
 
 app = angular.module('app', ['ngCookies', 'appControllers', 'appDirectives', 'appServices']);
 
+
+/* App Modules */
+
 appControllers = angular.module('appControllers', []);
 
 appDirectives = angular.module('appDirectives', []);
@@ -18,10 +21,9 @@ angular.element(document).ready(function() {
 });
 
 
-/* Дефолтные настройки для приложения */
+/* App Constants */
 
 app.constant('APP', {
-  project: 'Angular Skeleton',
   debug: /debug/.test(window.location.search),
   test: /\^?debug=test$/.test(location.search),
   local: window.location.host === "" || /localhost/.test(window.location.host),
@@ -30,28 +32,9 @@ app.constant('APP', {
   staticUrl: ''
 });
 
-
-/* Установки шаблонизатора */
-
-app.config([
-  '$interpolateProvider', function($interpolateProvider) {
-    $interpolateProvider.startSymbol('[[');
-    $interpolateProvider.endSymbol(']]');
-  }
-]);
-
-
-/* Отображать теги */
-
-app.config([
-  '$sceProvider', function($sceProvider) {
-    $sceProvider.enabled(false);
-  }
-]);
-
 app.run([
-  'APP', '$rootScope', '$location', function(APP, $rootScope, $location) {
-    window.console.groupCollapsed("[App] " + APP.project + " run");
+  'APP', function(APP) {
+    window.console.groupCollapsed("[App] init");
     window.console.log("APP:", APP);
     window.console.log("app:", app);
     window.console.groupEnd();

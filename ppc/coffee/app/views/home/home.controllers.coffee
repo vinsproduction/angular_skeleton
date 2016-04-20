@@ -1,4 +1,4 @@
 
-appControllers.controller('homeViewCtrl', ['APP','Api','$rootScope', (APP,Api,$rootScope) -> 
+appControllers.controller('homeViewCtrl', ['APP','Api','$rootScope','$scope', (APP,Api,$rootScope,$scope) -> 
 
 ])

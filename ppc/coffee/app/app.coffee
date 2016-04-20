@@ -10,6 +10,8 @@ app = angular.module 'app',
 	]
 
 
+### App Modules ###
+
 appControllers 	= angular.module('appControllers', [])
 appDirectives 	= angular.module('appDirectives', [])
 appServices 		= angular.module('appServices', [])
@@ -22,10 +24,10 @@ angular.element(document).ready ->
 	angular.bootstrap document, ['app']
 
 
-### Дефолтные настройки для приложения ###	
+### App Constants ###	
+
 app.constant 'APP',
 
-	project: 'Angular Skeleton'
 	debug: 	/debug/.test(window.location.search)
 	test: 	/\^?debug=test$/.test(location.search)
 	local: 	window.location.host is "" or /localhost/.test window.location.host
@@ -34,26 +36,12 @@ app.constant 'APP',
 	staticUrl: ''
 
 
-### Установки шаблонизатора ###
-app.config ['$interpolateProvider', ($interpolateProvider) ->
-	$interpolateProvider.startSymbol('[[')
-	$interpolateProvider.endSymbol(']]')
-	return
-]
 
-### Отображать теги ###
-app.config ['$sceProvider', ($sceProvider) ->
-	$sceProvider.enabled(false)
-	return
-]
+app.run ['APP',(APP) ->
 
-
-
-app.run ['APP','$rootScope', '$location',  (APP, $rootScope, $location) ->
-
-	window.console.groupCollapsed "[App] #{APP.project} run"
+	window.console.groupCollapsed "[App] init"
 	window.console.log "APP:", APP
-	window.console.log "app:", app
+	window.console.log "app:", app	
 	window.console.groupEnd()
 
 	return
