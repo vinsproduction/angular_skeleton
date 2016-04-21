@@ -1,4 +1,4 @@
-appDirectives.directive('homeViewDirective', [
+app.directive('homeViewDirective', [
   'APP', 'Api', '$rootScope', function(APP, Api, $rootScope) {
     return {
       restrict: 'A',

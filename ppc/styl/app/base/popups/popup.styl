@@ -1,8 +1,8 @@
-// __________ ROOT __________
+// ROOT 
 $root = '../../../../'
-// ______ GLOBAL MIXINS _____
+// GLOBAL MIXINS
 @require '../../../requires/mixins'
-// _______ APP MIXINS ______
+// APP MIXINS
 @require '../../requires/mixins'
 
 
@@ -64,7 +64,10 @@ body.popup-open
 				bg 'popup-close.png'
 				background-position left 0px
 				text-decoration none !important
-				
+		
+		&.popup-close-disabled
+			.close
+				display none	
 
 #popups .popup
 	

@@ -1,5 +1,5 @@
 
-appDirectives.directive('[viewName]ViewDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) -> 
+app.directive('[viewName]ViewDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) -> 
 
 	restrict: 'A'
 	# transclude: true

@@ -9,7 +9,7 @@ html
 		meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
 
 		//SEO
-		title ANGULAR SKELETON - [[title]]
+		title ANGULAR SKELETON
 		meta(name='description' content='')
 		meta(name='keywords' content='')
 
@@ -49,27 +49,6 @@ html
 		script(src='js/libs/helpers.js')
 
 		//Include JS/CSS
-
-		//- |<script>
-
-		//- |if(/^\?debug=1$/.test(window.location.search)){
-		//- |console.log('[App] DEBUG MODE - 1');
-		//- |$$.includeCSS("css/project/libs.css");
-		//- |$$.includeCSS("css/project/app.css");
-		//- |$$.includeJS("js/project/libs.js");
-		//- |$$.includeJS("js/project/app.js");
-
-		//- |} else if(/^\?debug=2$/.test(window.location.search)){
-		//- |console.log('[App] DEBUG MODE - 2');
-		//- |$$.includeCSS("css/project/project.css");
-		//- |$$.includeJS("js/project/project.js");
-
-		//- |} else if(/^\?debug=2$/.test(window.location.search)){
-		//- |console.log('[App] DEBUG MODE - Production');
-		//- |$$.includeCSS("css/project/project.css");
-		//- |$$.includeJS("js/project/project.min.js");
-		//- |}else 
-
 		|<script>
 
 		|if(/^\?debug/.test(window.location.search)){
@@ -105,14 +84,11 @@ html
 		//- #fb-root
 		//- script(src='http://connect.facebook.net/en_US/all.js')
 
-		main
+		main(ng-controller="mainLayoutCtrl")
 
 			// Header
 			include header
 			// /Header
-
-			//- Для синглпейджа
-			//- .views(data-ng-view)
 
 			.views(ng-controller="viewsLayoutCtrl")
 

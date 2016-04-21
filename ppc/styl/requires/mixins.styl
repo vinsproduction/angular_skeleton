@@ -1,5 +1,7 @@
 
-/*_________ MIXINS ________*/
+// MIXINS
+
+support-for-ie ?= true
 
 vendor(prop, args)
 	-webkit-{prop} args
@@ -50,19 +52,20 @@ background-linear-gradient(startPoint, startColor, startInterval, endColor, endI
 
 opacity(n)
 	opacity n
-	filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
+	if support-for-ie
+		filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
 
 rgb(r,g,b)
 	s('rgb(%s, %s, %s)', r, g, b)
 
 
-//background_rgba(#000000,'000000',0.5)
-background_rgba(color,colorms,a)
-
-	background transparent
-	filter unquote('progid:DXImageTransform.Microsoft.gradient(startColorstr=#' + round(a * 100) + replace('#','',colorms) + ',endColorstr=#' + round(a * 100) + replace('#','',colorms)  + ')')
+//background-rgba(#000000,'000000',0.5)
+background-rgba(color,colorms,a)
 	background rgba(color,a)
-
+	if support-for-ie
+		background transparent
+		filter unquote('progid:DXImageTransform.Microsoft.gradient(startColorstr=#' + round(a * 100) + replace('#','',colorms) + ',endColorstr=#' + round(a * 100) + replace('#','',colorms)  + ')')
+	
 
 import-font(originalname, newname)
 
@@ -92,8 +95,6 @@ sizepx(w = false,h = false)
 	if h
 		height (h)px
 
-
-
 block(w = false,h = false)
 	display block
 	sizepx(w,h)
@@ -111,14 +112,6 @@ block-inline(w = false,h = false)
 	*display inline
 	sizepx(w,h)
 
-box-left(w = false,h = false)
-	float left
-	sizepx(w,h)
-
-box-right(w = false,h = false)
-	float right
-	sizepx(w,h)
-
 block-left(w = false,h = false)
 	float left
 	block-inline(w,h)
@@ -126,3 +119,4 @@ block-left(w = false,h = false)
 block-right(w = false,h = false)
 	float right
 	block-inline(w,h)
+	

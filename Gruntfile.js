@@ -27,8 +27,8 @@ module.exports = function(grunt) {
 			libs: [
 				'js/libs/jquery-1.11.1.min.js',
 				'js/libs/underscore-min.js',
-				'js/libs/json2.min.js',
 				'js/libs/angular.js',
+				'js/libs/angular-underscore.min.js',
 
 				'!js/libs/helpers.js',
 				'!js/libs/html5shiv.js'

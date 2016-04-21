@@ -1,11 +1,15 @@
 
 /* App Run */
 app.run([
-  'APP', '$rootScope', '$location', function(APP, $rootScope, $location) {
+  'APP', 'Camelcase', '$rootScope', '$location', function(APP, Camelcase, $rootScope, $location) {
 
     /* HELPERS */
-    $rootScope.isEmpty = function(val) {
-      return val && _.isEmpty(val);
-    };
+
+    /* POPUPS */
+    popup.logs = false;
+    $rootScope.popups = {};
+    _.each(popup.popups, function(data) {
+      return $rootScope.popups[Camelcase(data.name)] = {};
+    });
   }
 ]);

@@ -1,4 +1,4 @@
 
-appControllers.controller('[viewName]ViewCtrl', ['APP','Api','$rootScope','$scope', (APP,Api,$rootScope,$scope) -> 
+app.controller('[viewName]ViewCtrl', ['APP','Api','$rootScope','$scope', (APP,Api,$rootScope,$scope) -> 
 
 ])

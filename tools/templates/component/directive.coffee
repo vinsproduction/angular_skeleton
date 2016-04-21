@@ -1,5 +1,5 @@
 
-appDirectives.directive('[componentName]ComponentDirective', ['APP','Api','$rootScope',(APP,Api,$rootScope) -> 
+app.directive('[componentName]ComponentDirective', ['APP','Api','$rootScope',(APP,Api,$rootScope) -> 
 
 	restrict: 'A'
 	transclude: true

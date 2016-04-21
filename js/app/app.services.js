@@ -5,7 +5,7 @@
 	Обертка для $http
 	Http({url:'/'}).success((res) -> ).error((res) -> )
  */
-appServices.factory("Http", [
+app.factory("Http", [
   '$http', function($http) {
     var defaultOptions, request;
     defaultOptions = {
@@ -46,7 +46,7 @@ appServices.factory("Http", [
 			return if res.status isnt 'success'
  */
 
-appServices.factory("Api", [
+app.factory("Api", [
   'Http', 'APP', '$cookieStore', function(Http, APP, $cookieStore) {
     var request;
     request = function(options) {
@@ -59,11 +59,28 @@ appServices.factory("Api", [
       if (!options.headers) {
         options.headers = {};
       }
+      if (!options.data) {
+        options.data = {};
+      }
       request = Http(options);
       request.success(function(response, status, headers, config) {});
       request.error(function(response, status, headers, config) {});
       return request;
     };
     return request;
+  }
+]);
+
+app.factory('Camelcase', [
+  function() {
+    return function(str) {
+      return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+        if (index === 0) {
+          return letter.toLowerCase();
+        } else {
+          return letter.toUpperCase();
+        }
+      }).replace(/\s+/g, '');
+    };
   }
 ]);

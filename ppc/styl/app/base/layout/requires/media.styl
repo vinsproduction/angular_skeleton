@@ -1,20 +1,43 @@
 
-// iPhone (portrait)
-@media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait)
-	//
+// // iPhone (portrait)
+// @media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait)
+// 	//
 
-// iPhone (landscape)
-@media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape)
-	//
+// // iPhone (landscape)
+// @media (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape)
+// 	//
 
-// iPad (portrait)
-@media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait)
-	//
+// // iPad (portrait)
+// @media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait)
+// 	//
 
-// iPad (landscape)
-@media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape)
-	//
+// // iPad (landscape)
+// @media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape)
+// 	//
 
+
+@media (max-width: ($mainWidth)px)
+
+	body > main
+		.main-container
+			width auto
+			
+	body > main > header
+		.inner
+			padding-left 10px
+			padding-right 10px
+	
+	body > main > footer
+		.inner
+			padding-left 10px
+			padding-right 10px
+
+	body > main > .views
+		> .view
+			.view-content
+				padding-left 10px
+				padding-right 10px
+	
 
 
 

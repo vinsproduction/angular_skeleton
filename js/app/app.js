@@ -1,17 +1,8 @@
 
 /* App */
-var app, appControllers, appDirectives, appServices;
+var app;
 
-app = angular.module('app', ['ngCookies', 'appControllers', 'appDirectives', 'appServices']);
-
-
-/* App Modules */
-
-appControllers = angular.module('appControllers', []);
-
-appDirectives = angular.module('appDirectives', []);
-
-appServices = angular.module('appServices', []);
+app = angular.module('app', ['ngCookies', 'angular-underscore']);
 
 
 /* App Init */

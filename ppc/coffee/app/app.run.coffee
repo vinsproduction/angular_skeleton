@@ -1,10 +1,19 @@
 ### App Run ###
 
-app.run ['APP','$rootScope', '$location',  (APP, $rootScope, $location) ->
+app.run ['APP','Camelcase','$rootScope', '$location',  (APP, Camelcase, $rootScope, $location) ->
 
 	### HELPERS ###
-	$rootScope.isEmpty 	= (val) -> val and _.isEmpty val
 	# $rootScope.declOfViews 		= (val) -> $$.declOfNum(val, ['Просмотр', 'Просмотра', 'Просмотров'])
+
+	
+	### POPUPS ###
+
+	popup.logs = false
+
+	$rootScope.popups = {}
+
+	_.each  popup.popups, (data) ->
+		$rootScope.popups[Camelcase(data.name)] = {}
 
 	return
 

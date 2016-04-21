@@ -1,17 +1,8 @@
 
 /* App */
-var app, appControllers, appDirectives, appServices;
+var app;
 
-app = angular.module('app', ['ngCookies', 'appControllers', 'appDirectives', 'appServices']);
-
-
-/* App Modules */
-
-appControllers = angular.module('appControllers', []);
-
-appDirectives = angular.module('appDirectives', []);
-
-appServices = angular.module('appServices', []);
+app = angular.module('app', ['ngCookies', 'angular-underscore']);
 
 
 /* App Init */
@@ -66,12 +57,16 @@ app.config([
 
 /* App Run */
 app.run([
-  'APP', '$rootScope', '$location', function(APP, $rootScope, $location) {
+  'APP', 'Camelcase', '$rootScope', '$location', function(APP, Camelcase, $rootScope, $location) {
 
     /* HELPERS */
-    $rootScope.isEmpty = function(val) {
-      return val && _.isEmpty(val);
-    };
+
+    /* POPUPS */
+    popup.logs = false;
+    $rootScope.popups = {};
+    _.each(popup.popups, function(data) {
+      return $rootScope.popups[Camelcase(data.name)] = {};
+    });
   }
 ]);
 
@@ -82,7 +77,7 @@ app.run([
 	Обертка для $http
 	Http({url:'/'}).success((res) -> ).error((res) -> )
  */
-appServices.factory("Http", [
+app.factory("Http", [
   '$http', function($http) {
     var defaultOptions, request;
     defaultOptions = {
@@ -123,7 +118,7 @@ appServices.factory("Http", [
 			return if res.status isnt 'success'
  */
 
-appServices.factory("Api", [
+app.factory("Api", [
   'Http', 'APP', '$cookieStore', function(Http, APP, $cookieStore) {
     var request;
     request = function(options) {
@@ -136,6 +131,9 @@ appServices.factory("Api", [
       if (!options.headers) {
         options.headers = {};
       }
+      if (!options.data) {
+        options.data = {};
+      }
       request = Http(options);
       request.success(function(response, status, headers, config) {});
       request.error(function(response, status, headers, config) {});
@@ -145,21 +143,37 @@ appServices.factory("Api", [
   }
 ]);
 
-appControllers.controller('headerLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+app.factory('Camelcase', [
+  function() {
+    return function(str) {
+      return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+        if (index === 0) {
+          return letter.toLowerCase();
+        } else {
+          return letter.toUpperCase();
+        }
+      }).replace(/\s+/g, '');
+    };
+  }
+]);
 
-appControllers.controller('footerLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+app.controller('headerLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
 
-appControllers.controller('viewsLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+app.controller('footerLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+
+app.controller('mainLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+
+app.controller('viewsLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
 
 
 
-appControllers.controller('popupsCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+app.controller('popupsCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
 
 
 
-appControllers.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+app.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
 
-appDirectives.directive('homeViewDirective', [
+app.directive('homeViewDirective', [
   'APP', 'Api', '$rootScope', function(APP, Api, $rootScope) {
     return {
       restrict: 'A',

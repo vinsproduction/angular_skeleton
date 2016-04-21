@@ -4,17 +4,8 @@ app = angular.module 'app',
 
 	[	
 		'ngCookies',
-		'appControllers',
-		'appDirectives',
-		'appServices'
+		'angular-underscore',
 	]
-
-
-### App Modules ###
-
-appControllers 	= angular.module('appControllers', [])
-appDirectives 	= angular.module('appDirectives', [])
-appServices 		= angular.module('appServices', [])
 
 
 

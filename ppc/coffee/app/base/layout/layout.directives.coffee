@@ -1,5 +1,5 @@
 
-# appDirectives.directive('[name]LayoutDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) ->
+# app.directive('[name]LayoutDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) ->
 
 # 	restrict: 'A'
 # 	controller: ($scope) ->

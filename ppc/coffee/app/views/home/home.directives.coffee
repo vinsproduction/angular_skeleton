@@ -1,5 +1,5 @@
 
-appDirectives.directive('homeViewDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) -> 
+app.directive('homeViewDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) -> 
 
 	restrict: 'A'
 	# transclude: true

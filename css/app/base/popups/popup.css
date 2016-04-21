@@ -64,6 +64,9 @@ body.popup-open {
   background-position: left 0px;
   text-decoration: none !important;
 }
+#popups .popup.popup-close-disabled .close {
+  display: none;
+}
 #popups .popup .inner .title {
   text-align: center;
   color: #000;

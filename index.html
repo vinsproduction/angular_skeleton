@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!--SEO-->
-    <title>ANGULAR SKELETON - [[title]]</title>
+    <title>ANGULAR SKELETON</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- Open Graph-->
@@ -32,8 +32,7 @@
     <script src="js/libs/html5shiv.js"></script><![endif]-->
     <!--JS helpers -->
     <script src="js/libs/helpers.js"></script>
-    <!--Include JS/CSS-->
-    <script>
+    <!--Include JS/CSS--><script>
     if(/^\?debug/.test(window.location.search)){
     console.log('[App] DEBUG MODE');
     $$.includeCSS("css/libs/normalize.css");
@@ -43,8 +42,8 @@
     $$.includeCSS("css/app/views/home/home.css");
     $$.includeJS("js/libs/jquery-1.11.1.min.js");
     $$.includeJS("js/libs/underscore-min.js");
-    $$.includeJS("js/libs/json2.min.js");
     $$.includeJS("js/libs/angular.js");
+    $$.includeJS("js/libs/angular-underscore.min.js");
     $$.includeJS("js/libs/angular-cookies.min.js");
     $$.includeJS("js/libs/form.js");
     $$.includeJS("js/libs/jquery.tinyscrollbar.min.js");
@@ -71,7 +70,7 @@
     </script>
   </head>
   <body>
-    <main>
+    <main ng-controller="mainLayoutCtrl">
       <!-- Header-->
       <header ng-controller="headerLayoutCtrl">
         <div class="main-container">
@@ -86,7 +85,7 @@
         <div id="view-home" ng-controller="homeViewCtrl" class="view">
           <div class="main-container">
             <div class="view-content">
-              <h1>Content</h1>
+              <h1>home</h1>
             </div>
           </div>
         </div>

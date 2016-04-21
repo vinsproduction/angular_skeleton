@@ -1,4 +1,4 @@
-# appDirectives.directive('[name]PopupDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) ->
+# app.directive('[name]PopupDirective', ['APP','Api','$rootScope', (APP,Api,$rootScope) ->
 
 # 	restrict: 'A'
 # 	controller: ($scope) ->

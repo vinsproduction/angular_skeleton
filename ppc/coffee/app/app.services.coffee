@@ -6,7 +6,7 @@
 ###
 
 
-appServices.factory "Http", ['$http', ($http) ->
+app.factory "Http", ['$http', ($http) ->
 
 	defaultOptions =
 		log: true # логировать запросы
@@ -43,7 +43,7 @@ appServices.factory "Http", ['$http', ($http) ->
 			return if res.status isnt 'success'
 ###
 
-appServices.factory "Api", ['Http','APP','$cookieStore',(Http,APP,$cookieStore) ->
+app.factory "Api", ['Http','APP','$cookieStore',(Http,APP,$cookieStore) ->
 
 	request = (options={}) ->
 
@@ -55,6 +55,7 @@ appServices.factory "Api", ['Http','APP','$cookieStore',(Http,APP,$cookieStore) 
 		options.xsrfCookieName = 'csrftoken'
 
 		options.headers = {} if !options.headers
+		options.data = {} if !options.data
 
 		# options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 		# options.data = $.param(options.data) if options.data
@@ -66,5 +67,16 @@ appServices.factory "Api", ['Http','APP','$cookieStore',(Http,APP,$cookieStore) 
 		return request
 
 	return request
+
+]
+
+# Camelcase string
+
+app.factory 'Camelcase', [->
+
+	(str) ->
+		str.replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index)  ->
+			if index is 0 then letter.toLowerCase() else letter.toUpperCase()
+		).replace(/\s+/g, '')
 
 ]

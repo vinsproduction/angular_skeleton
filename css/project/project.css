@@ -405,7 +405,7 @@ table {
     border-spacing: 0;
 }
 
-/* PROJECT */
+/* __________ APP _________ */
 /* _________ FONTS _________ */
 @font-face {
   font-family: 'Ubuntu';
@@ -1007,6 +1007,23 @@ body > main > .views > .view .view-content {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+@media (max-width: 900px) {
+  body > main .main-container {
+    width: auto;
+  }
+  body > main > header .inner {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  body > main > footer .inner {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  body > main > .views > .view .view-content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 
 /* _________ POPUPS _________ */
 body.popup-open {
@@ -1073,6 +1090,9 @@ body.popup-open {
   background: url("../../../../img/popup-close.png") no-repeat center center;
   background-position: left 0px;
   text-decoration: none !important;
+}
+#popups .popup.popup-close-disabled .close {
+  display: none;
 }
 #popups .popup .inner .title {
   text-align: center;
