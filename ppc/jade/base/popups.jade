@@ -1,5 +1,5 @@
-#popups(data-ng-controller="popupsCtrl")
 
+#popups(data-ng-controller="popupsCtrl")
 	.popup(data-popup-name="custom")
 		.inner
 			.close(data-popup-close)
@@ -7,5 +7,22 @@
 			.body(data-popup-body)
 			.button(data-popup-button)
 				span(data-popup-button-name) Закрыть
+
+	.popup(data-popup-name="example" example-popup-directive)
+		.inner
+			.close(data-popup-close)
+			.title
+				h3 [[title]]
+			.body
+				h4 [[body]]
+				p home scope: [[homeScope.test]]
+				p directive controller: [[controller]]
+				p directive link: [[directive]]
+				p popup scope: [[test]]
+				p: a(href="" ng-click="test = test+1") popup scope
+				p: a(href="" ng-click="homeScope.test = 'home scope 1'") home scope 1
+				p: a(href="" ng-click="homeScope.test = 'home scope 2'") home scope 2
+			.button(data-popup-close)
+				span Закрыть
 
 	.background

@@ -4,7 +4,6 @@ app = angular.module 'app',
 
 	[	
 		'ngCookies',
-		'angular-underscore',
 	]
 
 

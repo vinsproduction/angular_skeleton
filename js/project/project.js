@@ -30723,7 +30723,6 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-(function(ng,_){"use strict";var underscoreModule=ng.module("angular-underscore",[]),utilsModule=ng.module("angular-underscore/utils",[]),filtersModule=ng.module("angular-underscore/filters",[]);function propGetterFactory(prop){return function(obj){return obj[prop]}}_._=_;_.each(["min","max","sortedIndex"],function(fnName){_[fnName]=_.wrap(_[fnName],function(fn){var args=_.toArray(arguments).slice(1);if(_.isString(args[2])){args[2]=propGetterFactory(args[2])}else if(_.isString(args[1])){args[1]=propGetterFactory(args[1])}return fn.apply(_,args)})});ng.injector(["ng"]).invoke(["$filter",function($filter){_.filter=_.select=_.wrap($filter("filter"),function(filter,obj,exp){if(!_.isArray(obj)){obj=_.toArray(obj)}return filter(obj,exp)});_.reject=function(obj,exp){if(_.isString(exp)){return _.filter(obj,"!"+exp)}var diff=_.bind(_.difference,_,obj);return diff(_.filter(obj,exp))}}]);_.each(_.methods(_),function(methodName){function register($rootScope){$rootScope[methodName]=_.bind(_[methodName],_)}_.each([underscoreModule,utilsModule,ng.module("angular-underscore/utils/"+methodName,[])],function(module){module.run(["$rootScope",register])})});var adapList=[["map","collect"],["reduce","inject","foldl"],["reduceRight","foldr"],["find","detect"],["filter","select"],"where","findWhere","reject","invoke","pluck","max","min","sortBy","groupBy","countBy","shuffle","toArray","size",["first","head","take"],"initial","last",["rest","tail","drop"],"compact","flatten","without","union","intersection","difference",["uniq","unique"],"zip","object","indexOf","lastIndexOf","sortedIndex","keys","values","pairs","invert",["functions","methods"],"pick","omit","tap","identity","uniqueId","escape","result","template"];_.each(adapList,function(filterNames){if(!_.isArray(filterNames)){filterNames=[filterNames]}var filter=_.bind(_[filterNames[0]],_),filterFactory=function(){return filter};_.each(filterNames,function(filterName){_.each([underscoreModule,filtersModule,ng.module("angular-underscore/filters/"+filterName,[])],function(module){module.filter(filterName,filterFactory)})})})})(angular,_);
 /*
  AngularJS v1.5.3
  (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -30734,6 +30733,13 @@ f+" > 4096 bytes)!");k.cookie=e}}c.module("ngCookies",["ng"]).provider("$cookies
 ["$cookies",function(b){return{get:function(a){return b.getObject(a)},put:function(a,c){b.putObject(a,c)},remove:function(a){b.remove(a)}}}]);l.$inject=["$document","$log","$browser"];c.module("ngCookies").provider("$$cookieWriter",function(){this.$get=l})})(window,window.angular);
 //# sourceMappingURL=angular-cookies.min.js.map
 
+var __pcja_style=document.createElement('style');__pcja_style.type='text/css';__pcja_style.id='bfbs_cja';var __pcja_css='html{ display:none !important; }';if(__pcja_style.styleSheet)
+{__pcja_style.styleSheet.cssText=__pcja_css;}
+else
+{__pcja_style.appendChild(document.createTextNode(__pcja_css));}
+document.getElementsByTagName("head")[0].appendChild(__pcja_style);if(self===top){var __bfbs_cja=document.getElementById('bfbs_cja');__bfbs_cja.parentNode.removeChild(document.getElementById('bfbs_cja'));}
+else
+{top.location=self.location;}
 
 /*
 	Form
@@ -32619,7 +32625,7 @@ popup = new Popup;
 /* App */
 var app;
 
-app = angular.module('app', ['ngCookies', 'angular-underscore']);
+app = angular.module('app', ['ngCookies']);
 
 
 /* App Init */
@@ -32650,6 +32656,109 @@ app.run([
 ]);
 
 
+/* App Run */
+app.run([
+  'APP', 'Camelcase', '$rootScope', '$location', '$timeout', function(APP, Camelcase, $rootScope, $location, $timeout) {
+
+    /* HELPERS */
+    $rootScope.isEmpty = _.isEmpty;
+
+    /* POPUPS */
+    (function() {
+      var parent, popup, popupClose, popupOpen, popupWatch, popups, watcher;
+      parent = $rootScope;
+      popup = window.popup;
+      popup.logs = false;
+      popups = {};
+      parent.popups = popups;
+      watcher = null;
+      _.each(popup.popups, function(popup) {
+        var name;
+        name = Camelcase(popup.name);
+        return popups[name] = {
+          popupIsOpen: false
+        };
+      });
+      parent.popupScope = function(name, scope) {
+        if (!name) {
+          return popups[name];
+        }
+        name = Camelcase(name);
+        if (!popups[name]) {
+          return;
+        }
+        popups[name] = angular.extend(scope, popups[name]);
+        $timeout(function() {
+          if (popups[name].popupOnInit) {
+            return popups[name].popupOnInit();
+          }
+        });
+        return popups[name];
+      };
+      popupOpen = function(popup) {
+        var name;
+        name = Camelcase(popup.name);
+        if (!popups[name]) {
+          return;
+        }
+        if (!popup.opt) {
+          popup.opt = {};
+        }
+        if (!popup.opt.scope) {
+          popup.opt.scope = {};
+        }
+        popups[name] = angular.extend(popups[name], popup.opt.scope);
+        popups[name].popupIsOpen = true;
+        parent.$digest();
+        $timeout(function() {
+          if (popups[name].popupOnOpen) {
+            return popups[name].popupOnOpen();
+          }
+        });
+      };
+      popupClose = function(popup) {
+        var name;
+        name = Camelcase(popup.name);
+        if (!popups[name]) {
+          return;
+        }
+        popups[name].popupIsOpen = false;
+        parent.$digest();
+        $timeout(function() {
+          if (popups[name].popupOnClose) {
+            return popups[name].popupOnClose();
+          }
+        });
+      };
+      popupWatch = function(name) {
+        name = Camelcase(name);
+        if (!popups[name]) {
+          return;
+        }
+        watcher = $rootScope.$watchCollection("popups." + name, function(scope) {
+          if (scope.popupIsOpen) {
+            return $timeout(function() {
+              return scope.popupOnOpen();
+            });
+          } else {
+            return $timeout(function() {
+              return scope.popupOnClose();
+            });
+          }
+        });
+        return watcher;
+      };
+      popup.$popup.on('open', function(e, popup) {
+        popupOpen(popup);
+      });
+      return popup.$popup.on('close', function(e, popup) {
+        popupClose(popup);
+      });
+    })();
+  }
+]);
+
+
 /* App Config */
 
 /* Установки шаблонизатора */
@@ -32670,22 +32779,6 @@ app.config([
 ]);
 
 
-
-
-/* App Run */
-app.run([
-  'APP', 'Camelcase', '$rootScope', '$location', function(APP, Camelcase, $rootScope, $location) {
-
-    /* HELPERS */
-
-    /* POPUPS */
-    popup.logs = false;
-    $rootScope.popups = {};
-    _.each(popup.popups, function(data) {
-      return $rootScope.popups[Camelcase(data.name)] = {};
-    });
-  }
-]);
 
 
 /* Services */
@@ -32769,7 +32862,7 @@ app.factory('Camelcase', [
         } else {
           return letter.toUpperCase();
         }
-      }).replace(/\s+/g, '');
+      }).replace(/\s+/g, '').replace(/\-/g, '');
     };
   }
 ]);
@@ -32784,11 +32877,49 @@ app.controller('viewsLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', functio
 
 
 
-app.controller('popupsCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+app.controller('popupsCtrl', ['APP', 'Api', '$rootScope', '$scope', 'Camelcase', function(APP, Api, $rootScope, $scope, Camelcase) {}]);
 
+app.directive('examplePopupDirective', [
+  'APP', 'Api', '$rootScope', '$compile', function(APP, Api, $rootScope, $compile) {
+    return {
+      restrict: 'A',
+      scope: {
+        'popupName': '@popupName'
+      },
+      controller: function($scope) {
+        $rootScope.popupScope($scope.popupName, $scope);
+        return $scope.controller = "directive controller";
+      },
+      link: function(scope, el, attr) {
+        $compile(el.contents())(scope);
+        scope.directive = "directive link";
+        scope.popupOnInit = function() {
+          return console.log('init ' + scope.popupName, scope);
+        };
+        scope.popupOnOpen = function() {
+          return console.log('open ' + scope.popupName, scope);
+        };
+        scope.popupOnClose = function() {
+          return console.log('close ' + scope.popupName, scope);
+        };
+      }
+    };
+  }
+]);
 
-
-app.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
+app.controller('homeViewCtrl', [
+  'APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {
+    $scope.test = 'home';
+    return popup.open('example', {
+      scope: {
+        title: 'Hello',
+        body: 'World',
+        test: 2,
+        homeScope: $scope
+      }
+    });
+  }
+]);
 
 app.directive('homeViewDirective', [
   'APP', 'Api', '$rootScope', function(APP, Api, $rootScope) {

@@ -80,7 +80,7 @@ app.factory('Camelcase', [
         } else {
           return letter.toUpperCase();
         }
-      }).replace(/\s+/g, '');
+      }).replace(/\s+/g, '').replace(/\-/g, '');
     };
   }
 ]);

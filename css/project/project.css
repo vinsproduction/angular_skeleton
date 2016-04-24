@@ -1095,7 +1095,6 @@ body.popup-open {
   display: none;
 }
 #popups .popup .inner .title {
-  text-align: center;
   color: #000;
   font-size: 18px;
   line-height: 1;
@@ -1103,7 +1102,6 @@ body.popup-open {
   line-height: 1.4;
 }
 #popups .popup .inner .body {
-  text-align: center;
   color: #000;
   font-size: 16px;
   line-height: 1;
@@ -1140,6 +1138,9 @@ body.popup-open {
 }
 #popups .popup .inner .button:hover {
   background: #004677;
+}
+#popups .popup[data-popup-name="custom"] .inner {
+  text-align: center;
 }
 #popups .popup[data-popup-name="custom"] .inner .body p {
   font-size: 22px;

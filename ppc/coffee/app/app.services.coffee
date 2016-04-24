@@ -77,6 +77,6 @@ app.factory 'Camelcase', [->
 	(str) ->
 		str.replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index)  ->
 			if index is 0 then letter.toLowerCase() else letter.toUpperCase()
-		).replace(/\s+/g, '')
+		).replace(/\s+/g, '').replace(/\-/g, '')
 
 ]

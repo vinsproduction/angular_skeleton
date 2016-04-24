@@ -2,7 +2,7 @@
 /* App */
 var app;
 
-app = angular.module('app', ['ngCookies', 'angular-underscore']);
+app = angular.module('app', ['ngCookies']);
 
 
 /* App Init */

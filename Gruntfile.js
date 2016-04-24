@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
 		js: {
 			main: [
-				'js/app/app.js'
+				'js/app/app.js',
 			],
 			base: [],
 			views: [],
@@ -28,7 +28,6 @@ module.exports = function(grunt) {
 				'js/libs/jquery-1.11.1.min.js',
 				'js/libs/underscore-min.js',
 				'js/libs/angular.js',
-				'js/libs/angular-underscore.min.js',
 
 				'!js/libs/helpers.js',
 				'!js/libs/html5shiv.js'
