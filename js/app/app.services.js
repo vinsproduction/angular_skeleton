@@ -79,14 +79,23 @@ app.factory("Api", [
 
 app.factory("Popup", [
   '$rootScope', 'Camelcase', '$timeout', function($rootScope, Camelcase, $timeout) {
-    var close, obj, open, parent, popup, popups;
+    var close, obj, open, parent, popup, popupParent, popups;
     parent = $rootScope;
-    popup = window.popup;
-    popup.logs = false;
+    popupParent = window.popup;
+    popupParent.logs = false;
+    popup = {};
+    popup = {
+      open: function(name, opt) {
+        return popupParent.open.call(popupParent, name, opt);
+      },
+      close: function() {
+        return popupParent.close.call(popupParent);
+      }
+    };
     parent.popup = popup;
     popups = {};
     parent.popups = popups;
-    _.each(popup.popups, function(popup) {
+    _.each(popupParent.popups, function(popup) {
       var name;
       name = Camelcase(popup.name);
       return popups[name] = {
@@ -126,10 +135,10 @@ app.factory("Popup", [
         }
       });
     };
-    popup.$popup.on('open', function(e, popup) {
+    popupParent.$popup.on('open', function(e, popup) {
       open(popup);
     });
-    popup.$popup.on('close', function(e, popup) {
+    popupParent.$popup.on('close', function(e, popup) {
       close(popup);
     });
     obj = {

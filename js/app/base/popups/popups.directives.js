@@ -6,12 +6,10 @@ app.directive('examplePopupDirective', [
         'popupName': '@popupName'
       },
       controller: function($scope) {
-        Popup.scope($scope.popupName, $scope);
-        return $scope.controller = "directive controller";
+        return Popup.scope($scope.popupName, $scope);
       },
       link: function(scope, el, attr) {
         $compile(el.contents())(scope);
-        scope.directive = "directive link";
         scope.popupOnInit = function() {
           return console.log('init ' + scope.popupName, scope);
         };

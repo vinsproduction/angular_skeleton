@@ -39,6 +39,7 @@ app.run([
 
     /* HELPERS */
     $rootScope.isEmpty = _.isEmpty;
+    $rootScope.size = _.size;
   }
 ]);
 
@@ -59,6 +60,43 @@ app.config([
 app.config([
   '$sceProvider', function($sceProvider) {
     $sceProvider.enabled(false);
+  }
+]);
+
+
+/* Directives */
+app.directive('tabsDirective', [
+  '$rootScope', '$window', '$location', function($rootScope, $window, $location) {
+    return {
+      restrict: 'A',
+      link: function(scope, el, attr) {
+        var $labels, $tabs, openTab;
+        $tabs = $(el);
+        $labels = $tabs.find('> .labels');
+        $rootScope.$on('$locationChangeStart', function(next, current) {
+          var name;
+          name = $location.path().replace('/', '');
+          openTab(name);
+        });
+        $labels.on('click', '.label', function() {
+          var name;
+          name = $(this).attr('data-tab');
+          $location.path(name);
+          $rootScope.$apply();
+        });
+        openTab = function(name) {
+          var $content, $label;
+          $label = $labels.find('> .label');
+          $content = $tabs.find('> .contents > .content');
+          if ($label.filter("[data-tab='" + name + "']").size()) {
+            $label.removeClass('active');
+            $content.removeClass('active');
+            $label.filter("[data-tab='" + name + "']").addClass('active');
+            $content.filter("[data-tab='" + name + "']").addClass('active');
+          }
+        };
+      }
+    };
   }
 ]);
 
@@ -145,14 +183,23 @@ app.factory("Api", [
 
 app.factory("Popup", [
   '$rootScope', 'Camelcase', '$timeout', function($rootScope, Camelcase, $timeout) {
-    var close, obj, open, parent, popup, popups;
+    var close, obj, open, parent, popup, popupParent, popups;
     parent = $rootScope;
-    popup = window.popup;
-    popup.logs = false;
+    popupParent = window.popup;
+    popupParent.logs = false;
+    popup = {};
+    popup = {
+      open: function(name, opt) {
+        return popupParent.open.call(popupParent, name, opt);
+      },
+      close: function() {
+        return popupParent.close.call(popupParent);
+      }
+    };
     parent.popup = popup;
     popups = {};
     parent.popups = popups;
-    _.each(popup.popups, function(popup) {
+    _.each(popupParent.popups, function(popup) {
       var name;
       name = Camelcase(popup.name);
       return popups[name] = {
@@ -192,10 +239,10 @@ app.factory("Popup", [
         }
       });
     };
-    popup.$popup.on('open', function(e, popup) {
+    popupParent.$popup.on('open', function(e, popup) {
       open(popup);
     });
-    popup.$popup.on('close', function(e, popup) {
+    popupParent.$popup.on('close', function(e, popup) {
       close(popup);
     });
     obj = {
@@ -274,12 +321,10 @@ app.directive('examplePopupDirective', [
         'popupName': '@popupName'
       },
       controller: function($scope) {
-        Popup.scope($scope.popupName, $scope);
-        return $scope.controller = "directive controller";
+        return Popup.scope($scope.popupName, $scope);
       },
       link: function(scope, el, attr) {
         $compile(el.contents())(scope);
-        scope.directive = "directive link";
         scope.popupOnInit = function() {
           return console.log('init ' + scope.popupName, scope);
         };
@@ -294,19 +339,7 @@ app.directive('examplePopupDirective', [
   }
 ]);
 
-app.controller('homeViewCtrl', [
-  'APP', 'Api', '$rootScope', '$scope', '$timeout', function(APP, Api, $rootScope, $scope, $timeout) {
-    $scope.test = 'home';
-    return popup.open('example', {
-      scope: {
-        title: 'Hello',
-        body: 'World',
-        test: 2,
-        homeScope: $scope
-      }
-    });
-  }
-]);
+app.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', '$timeout', function(APP, Api, $rootScope, $scope, $timeout) {}]);
 
 app.directive('homeViewDirective', [
   'APP', 'Api', '$rootScope', function(APP, Api, $rootScope) {

@@ -51,6 +51,7 @@
     $$.includeJS("js/app/app.js");
     $$.includeJS("js/app/app.commons.js");
     $$.includeJS("js/app/app.config.js");
+    $$.includeJS("js/app/app.directives.js");
     $$.includeJS("js/app/app.router.js");
     $$.includeJS("js/app/app.services.js");
     $$.includeJS("js/app/base/layout/layout.controllers.js");
@@ -101,25 +102,14 @@
           <div data-popup-close class="close"></div>
           <div data-popup-title class="title"></div>
           <div data-popup-body class="body"></div>
-          <div data-popup-button class="button"><span data-popup-button-name>Закрыть</span></div>
+          <div data-popup-button class="button"><span data-popup-button-name></span></div>
         </div>
       </div>
       <div data-popup-name="example" example-popup-directive class="popup">
         <div class="inner">
           <div data-popup-close class="close"></div>
-          <div class="title">
-            <h3>[[title]]</h3>
-          </div>
-          <div class="body">
-            <h4>[[body]]</h4>
-            <p>home scope: [[homeScope.test]]</p>
-            <p>directive controller: [[controller]]</p>
-            <p>directive link: [[directive]]</p>
-            <p>popup scope: [[test]]</p>
-            <p><a href="" ng-click="test = test+1">popup scope</a></p>
-            <p><a href="" ng-click="homeScope.test = 'home scope 1'">home scope 1</a></p>
-            <p><a href="" ng-click="homeScope.test = 'home scope 2'">home scope 2</a></p>
-          </div>
+          <div class="title">[[title]]</div>
+          <div class="body">[[body]]</div>
           <div data-popup-close class="button"><span>Закрыть</span></div>
         </div>
       </div>

@@ -11,13 +11,9 @@ app.directive('examplePopupDirective', ['APP','Api','Popup','$rootScope','$compi
 		Popup.scope($scope.popupName, $scope)
 		# Popup.watch($scope.popupName)
 
-		$scope.controller = "directive controller"
-
 	link: (scope, el, attr) ->
 
 		$compile(el.contents())(scope)
-
-		scope.directive = "directive link"
 
 		scope.popupOnInit = ->
 			console.log 'init ' + scope.popupName, scope

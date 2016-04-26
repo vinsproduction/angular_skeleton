@@ -5,5 +5,6 @@ app.run([
 
     /* HELPERS */
     $rootScope.isEmpty = _.isEmpty;
+    $rootScope.size = _.size;
   }
 ]);
