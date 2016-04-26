@@ -1,9 +1,9 @@
 
-app.controller('popupsCtrl', ['APP','Api','$rootScope','$scope', 'Camelcase', (APP,Api,$rootScope,$scope,Camelcase) ->
+app.controller('popupsCtrl', ['APP','Api','Popup','$rootScope','$scope','$timeout', (APP,Api,Popup,$rootScope,$scope,$timeout) ->
 	
 	# $rootScope.popups.custom.scope  <-- scope popup custom
 
-	# _.defer ->
+	# $timeout ->
 	# 	popup.open('custom', {title:'Hello',body: 'world!'}, {}  <-- scope)
 
 	

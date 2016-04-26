@@ -1,5 +1,5 @@
 app.controller('homeViewCtrl', [
-  'APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {
+  'APP', 'Api', '$rootScope', '$scope', '$timeout', function(APP, Api, $rootScope, $scope, $timeout) {
     $scope.test = 'home';
     return popup.open('example', {
       scope: {

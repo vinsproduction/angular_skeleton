@@ -9,7 +9,12 @@
 app.factory "Http", ['$http', ($http) ->
 
 	defaultOptions =
+
 		log: true # логировать запросы
+		method: 'GET'
+		url: ""
+		headers: {}
+		data: {}
 
 	request = (options={}) ->
 
@@ -22,7 +27,7 @@ app.factory "Http", ['$http', ($http) ->
 		request = $http(params)
 
 		request.success (response, status, headers, config) ->
-			if log then console.debug "[#{config.method} #{status}] #{config.url} | success:", response, "| config:", config
+			if log then console.debug "[#{config.method} #{status}] #{config.url} | success:", response
 		
 		request.error (response, status, headers, config) ->
 			if log then console.error "[#{config.method} #{status}] #{config.url} | error:", response, "| config:", config
@@ -43,22 +48,14 @@ app.factory "Http", ['$http', ($http) ->
 			return if res.status isnt 'success'
 ###
 
-app.factory "Api", ['Http','APP','$cookieStore',(Http,APP,$cookieStore) ->
+app.factory "Api", ['Http','APP',(Http,APP) ->
 
 	request = (options={}) ->
 
-		# host = if APP.local then APP.remoteHost else APP.host
-
-		options.url = host + '/' + options.url
+		options.url = APP.host + '/api/' + options.url
 
 		options.xsrfHeaderName = 'X-CSRFToken'
 		options.xsrfCookieName = 'csrftoken'
-
-		options.headers = {} if !options.headers
-		options.data = {} if !options.data
-
-		# options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-		# options.data = $.param(options.data) if options.data
 
 		request = Http(options)
 		request.success (response, status, headers, config) ->
@@ -67,6 +64,119 @@ app.factory "Api", ['Http','APP','$cookieStore',(Http,APP,$cookieStore) ->
 		return request
 
 	return request
+
+]
+
+
+###
+	POPUPS (adapter for window.popup)
+
+	popup.open('example',{scope:{test:1}}) # open popup
+	Popup.scope(popupName, $scope) # merge popup scope
+###
+
+app.factory "Popup", ['$rootScope','Camelcase', '$timeout', ($rootScope, Camelcase,$timeout) ->
+
+	parent = $rootScope
+
+	popupParent = window.popup
+	popupParent.logs = false
+
+	popup = {}
+	popup =
+		open: (name,opt) -> popupParent.open.call(popupParent,name,opt)
+		close: -> popupParent.close.call(popupParent)
+		
+	parent.popup = popup
+
+	popups = {}
+	parent.popups = popups
+
+	_.each popupParent.popups, (popup) ->
+		name = Camelcase(popup.name)
+		popups[name] =
+			popupIsOpen: false
+
+	open = (popup) ->
+
+		name = Camelcase(popup.name)
+		return if !popups[name]
+
+		popup.opt = {} if !popup.opt	
+		popup.opt.scope = {} if !popup.opt.scope
+
+		popups[name]  = angular.extend popups[name], popup.opt.scope
+
+		popups[name].popupIsOpen = true
+
+		# console.log 'open__', popups[name]
+
+		$timeout ->
+			popups[name].popupOnOpen() if popups[name].popupOnOpen
+
+		return
+
+	close = (popup) ->
+
+		name = Camelcase(popup.name)
+		return if !popups[name]
+
+		popups[name].popupIsOpen = false
+
+		# console.log 'close__', parent.popups[name]
+
+		$timeout ->
+			popups[name].popupOnClose() if popups[name].popupOnClose
+
+		return
+
+	popupParent.$popup.on 'open', (e,popup) ->
+		open(popup)
+		return
+
+	popupParent.$popup.on 'close', (e,popup) ->
+		close(popup)
+		return
+
+	obj =
+
+		watch: (name)  ->
+
+			name = Camelcase(name)
+			return if !popups[name]
+
+			watcher = parent.$watchCollection "popups.#{name}", (scope) ->
+
+				console.log 'Popup watch:change', scope
+
+				if scope.popupIsOpen
+					$timeout ->
+						console.log 'Popup watch:open', scope
+				else
+					$timeout ->
+						console.log 'Popup watch:close', scope
+
+			return watcher
+
+		scope: (name,scope) ->
+
+			if !name
+				return popups[name]
+
+			name = Camelcase(name)
+			return if !popups[name]
+
+			# watcher = popupWatch(name) # add wacther
+			# watcher() # remove wacther
+
+			popups[name] = angular.extend scope, popups[name]
+
+			$timeout ->
+				popups[name].popupOnInit() if popups[name].popupOnInit
+
+			return popups[name]
+
+	return obj
 
 ]
 

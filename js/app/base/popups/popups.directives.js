@@ -1,12 +1,12 @@
 app.directive('examplePopupDirective', [
-  'APP', 'Api', '$rootScope', '$compile', function(APP, Api, $rootScope, $compile) {
+  'APP', 'Api', 'Popup', '$rootScope', '$compile', function(APP, Api, Popup, $rootScope, $compile) {
     return {
       restrict: 'A',
       scope: {
         'popupName': '@popupName'
       },
       controller: function($scope) {
-        $rootScope.popupScope($scope.popupName, $scope);
+        Popup.scope($scope.popupName, $scope);
         return $scope.controller = "directive controller";
       },
       link: function(scope, el, attr) {

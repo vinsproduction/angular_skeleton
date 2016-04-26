@@ -9,7 +9,11 @@ app.factory("Http", [
   '$http', function($http) {
     var defaultOptions, request;
     defaultOptions = {
-      log: true
+      log: true,
+      method: 'GET',
+      url: "",
+      headers: {},
+      data: {}
     };
     request = function(options) {
       var log, params, ref;
@@ -22,7 +26,7 @@ app.factory("Http", [
       request = $http(params);
       request.success(function(response, status, headers, config) {
         if (log) {
-          return console.debug("[" + config.method + " " + status + "] " + config.url + " | success:", response, "| config:", config);
+          return console.debug("[" + config.method + " " + status + "] " + config.url + " | success:", response);
         }
       });
       request.error(function(response, status, headers, config) {
@@ -47,27 +51,126 @@ app.factory("Http", [
  */
 
 app.factory("Api", [
-  'Http', 'APP', '$cookieStore', function(Http, APP, $cookieStore) {
+  'Http', 'APP', function(Http, APP) {
     var request;
     request = function(options) {
       if (options == null) {
         options = {};
       }
-      options.url = host + '/' + options.url;
+      options.url = APP.host + '/api/' + options.url;
       options.xsrfHeaderName = 'X-CSRFToken';
       options.xsrfCookieName = 'csrftoken';
-      if (!options.headers) {
-        options.headers = {};
-      }
-      if (!options.data) {
-        options.data = {};
-      }
       request = Http(options);
       request.success(function(response, status, headers, config) {});
       request.error(function(response, status, headers, config) {});
       return request;
     };
     return request;
+  }
+]);
+
+
+/*
+	POPUPS (adapter for window.popup)
+
+	popup.open('example',{scope:{test:1}}) # open popup
+	Popup.scope(popupName, $scope) # merge popup scope
+ */
+
+app.factory("Popup", [
+  '$rootScope', 'Camelcase', '$timeout', function($rootScope, Camelcase, $timeout) {
+    var close, obj, open, parent, popup, popups;
+    parent = $rootScope;
+    popup = window.popup;
+    popup.logs = false;
+    parent.popup = popup;
+    popups = {};
+    parent.popups = popups;
+    _.each(popup.popups, function(popup) {
+      var name;
+      name = Camelcase(popup.name);
+      return popups[name] = {
+        popupIsOpen: false
+      };
+    });
+    open = function(popup) {
+      var name;
+      name = Camelcase(popup.name);
+      if (!popups[name]) {
+        return;
+      }
+      if (!popup.opt) {
+        popup.opt = {};
+      }
+      if (!popup.opt.scope) {
+        popup.opt.scope = {};
+      }
+      popups[name] = angular.extend(popups[name], popup.opt.scope);
+      popups[name].popupIsOpen = true;
+      $timeout(function() {
+        if (popups[name].popupOnOpen) {
+          return popups[name].popupOnOpen();
+        }
+      });
+    };
+    close = function(popup) {
+      var name;
+      name = Camelcase(popup.name);
+      if (!popups[name]) {
+        return;
+      }
+      popups[name].popupIsOpen = false;
+      $timeout(function() {
+        if (popups[name].popupOnClose) {
+          return popups[name].popupOnClose();
+        }
+      });
+    };
+    popup.$popup.on('open', function(e, popup) {
+      open(popup);
+    });
+    popup.$popup.on('close', function(e, popup) {
+      close(popup);
+    });
+    obj = {
+      watch: function(name) {
+        var watcher;
+        name = Camelcase(name);
+        if (!popups[name]) {
+          return;
+        }
+        watcher = parent.$watchCollection("popups." + name, function(scope) {
+          console.log('Popup watch:change', scope);
+          if (scope.popupIsOpen) {
+            return $timeout(function() {
+              return console.log('Popup watch:open', scope);
+            });
+          } else {
+            return $timeout(function() {
+              return console.log('Popup watch:close', scope);
+            });
+          }
+        });
+        return watcher;
+      },
+      scope: function(name, scope) {
+        if (!name) {
+          return popups[name];
+        }
+        name = Camelcase(name);
+        if (!popups[name]) {
+          return;
+        }
+        popups[name] = angular.extend(scope, popups[name]);
+        $timeout(function() {
+          if (popups[name].popupOnInit) {
+            return popups[name].popupOnInit();
+          }
+        });
+        return popups[name];
+      }
+    };
+    return obj;
   }
 ]);
 

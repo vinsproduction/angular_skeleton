@@ -1,6 +1,6 @@
 
 
-app.directive('examplePopupDirective', ['APP','Api','$rootScope','$compile', (APP,Api,$rootScope,$compile) ->
+app.directive('examplePopupDirective', ['APP','Api','Popup','$rootScope','$compile', (APP,Api,Popup,$rootScope,$compile) ->
 
 	restrict: 'A'
 	scope:
@@ -8,7 +8,8 @@ app.directive('examplePopupDirective', ['APP','Api','$rootScope','$compile', (AP
 
 	controller: ($scope) ->
 
-		$rootScope.popupScope($scope.popupName, $scope)
+		Popup.scope($scope.popupName, $scope)
+		# Popup.watch($scope.popupName)
 
 		$scope.controller = "directive controller"
 

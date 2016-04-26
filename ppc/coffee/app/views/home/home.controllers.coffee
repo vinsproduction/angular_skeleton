@@ -1,5 +1,5 @@
 
-app.controller('homeViewCtrl', ['APP','Api','$rootScope','$scope', (APP,Api,$rootScope,$scope) -> 
+app.controller('homeViewCtrl', ['APP','Api','$rootScope','$scope','$timeout', (APP,Api,$rootScope,$scope,$timeout) -> 
 
 	$scope.test = 'home'
 
