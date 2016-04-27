@@ -19,6 +19,14 @@ sh tools/view.sh test
 ```
 sh tools/component.sh test
 ```
+##### DEBUG MODE
+
+Add prefix 'debug' to URL
+
+example
+```
+http://localhost:8888/?debug
+```
 
 ## APP Directory structure
 
