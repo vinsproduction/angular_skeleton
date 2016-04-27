@@ -18,18 +18,22 @@ app = module.exports = function (port){
 	// 	res.contentType('text/plain'); // For stupid ie
 	// 	next();
 	// });
+	
+	app.get('/api/*', function(req, res){
+		res.send("Hello Api! I'm Node server");
+	});
+
 
 	var views = path.resolve( './html/');
 
 	app.get('*', function(req, res){
-		// console.log(req.route.params);
+		// console.log(req.path);
 		var template;
-		if(!req.route.params){
+		if(!req.path){
 			template = 'index';
 		}else{
-			template = req.route.params[0];
+			template = req.path.replace('/','');
 		}
-		template = template.replace('/','');
 		res.sendFile(template + '.html', {root: views})
 	});
 
