@@ -1,4 +1,4 @@
-Angular Skeleton
+# Angular Skeleton
 
 https://github.com/vinsproduction/angular_skeleton/wiki
 
@@ -20,10 +20,10 @@ sh tools/view.sh test
 sh tools/component.sh test
 ```
 
-# APP Directory structure
+## APP Directory structure
 
 
-## jade
+### jade
 
 ```
 ppc
@@ -45,7 +45,7 @@ ppc
 |       └── about.jade
 |
 ```
-## styl
+### styl
 
 ```
 ppc
@@ -81,7 +81,7 @@ ppc
 |
 |
 ```
-## coffee
+### coffee
 
 ```
 ppc
