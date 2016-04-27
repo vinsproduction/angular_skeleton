@@ -28,7 +28,7 @@ example
 http://localhost:8888/?debug
 ```
 
-## APP Directory structure
+## App directory structure
 
 
 ### Jade
