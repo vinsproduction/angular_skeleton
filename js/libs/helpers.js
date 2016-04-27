@@ -35,12 +35,13 @@ $$; // SHORT NAMESPACE
 	
 	$$ = __helpers__;
 
+
 	/* INCLUDE JAVASCRIPT FILE
 	EXAMPLE includeJS('/js/helpers.js'); */
-	$.includeJS = function(src) { return window.document.write('<script src="' + src + '"></scr' + 'ipt>'); };
+	$.includeJS = function(src) { return window.document.write('<script src="/' + src + '"></scr' + 'ipt>'); };
 	/* INCLUDE CSS FILE
 	EXAMPLE includeCSS('/css/helpers.css'); */
-	$.includeCSS = function(src) { return window.document.write('<link rel="stylesheet" href="' + src + '" />');};
+	$.includeCSS = function(src) { return window.document.write('<link rel="stylesheet" href="/' + src + '" />');};
 
 
 	/* BROWSER */

@@ -16,13 +16,13 @@ app.directive('examplePopupDirective', ['APP','Api','Popup','$rootScope','$compi
 		$compile(el.contents())(scope)
 
 		scope.popupOnInit = ->
-			console.log 'init ' + scope.popupName, scope
+			# console.log 'init ' + scope.popupName, scope
 
 		scope.popupOnOpen = ->
-			console.log 'open ' + scope.popupName, scope
+			# console.log 'open ' + scope.popupName, scope
 
 		scope.popupOnClose = ->
-			console.log 'close ' + scope.popupName, scope
+			# console.log 'close ' + scope.popupName, scope
 
 		return
 

@@ -213,7 +213,7 @@ module.exports = function(grunt) {
 					{
 	          cwd: "ppc/jade",
 	          src: "**/*.jade",
-	          dest: ".",
+	          dest: "html/",
 	          expand: true,
 	          ext: ".html"
 	        },
@@ -409,7 +409,7 @@ module.exports = function(grunt) {
 	      files: [
 		      'js/libs/helpers.js',
 		      'ppc/styl/**/requires/**/*.styl',
-		      '*.html',
+		      'html/**/*.html',
 		      'css/app/**/*.css',
 		      'css/libs/**/*.css',
 		      'js/app/**/*.js',
@@ -468,8 +468,8 @@ module.exports = function(grunt) {
 
 	// server
 	grunt.registerTask('server', 'Start web server', function() {
-		port = 8888
-		require('./server/server.js')(port)
+		port = 8888;
+		require('./server.js')(port);
 	});
 
 

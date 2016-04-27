@@ -29,12 +29,12 @@
       }
     </style><![endif]-->
     <!--[if lt IE 9]>
-    <script src="js/libs/html5shiv.js"></script><![endif]-->
+    <script src="/js/libs/html5shiv.js"></script><![endif]-->
     <!--JS helpers -->
-    <script src="js/libs/helpers.js"></script>
+    <script src="/js/libs/helpers.js"></script>
     <!--Include JS/CSS--><script>
     if(/^\?debug/.test(window.location.search)){
-    console.log('[App] DEBUG MODE');
+    console.debug('[App] DEBUG MODE');
     $$.includeCSS("css/libs/normalize.css");
     $$.includeCSS("css/app/app.css");
     $$.includeCSS("css/app/base/layout/layout.css");
@@ -62,7 +62,7 @@
     $$.includeJS("js/app/views/home/home.directives.js");
 
     } else {
-    console.log('[App] PRODUCTION MODE (Console is disabled)');
+    console.debug('[App] PRODUCTION MODE (Console is disabled)');
     $$.disableConsole();
     $$.includeCSS("css/project/project.css");
     $$.includeJS("js/project/project.min.js");
@@ -83,13 +83,6 @@
       <!-- /Header-->
       <div ng-controller="viewsLayoutCtrl" class="views">
         <!-- View-->
-        <div id="view-home" ng-controller="homeViewCtrl" class="view">
-          <div class="main-container">
-            <div class="view-content">
-              <h1>home</h1>
-            </div>
-          </div>
-        </div>
         <!-- /View-->
       </div>
       <!-- Footer-->

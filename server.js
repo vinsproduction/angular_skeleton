@@ -1,7 +1,4 @@
 
-
-// node server
-
 app = module.exports = function (port){
 
 	var express = require('express')
@@ -13,14 +10,7 @@ app = module.exports = function (port){
 
 	app.set('port', port);
 
-	app.use(express.favicon());
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
-
 	app.use('/', express.static(path.resolve( './')));
-
-	app.use(express.logger('dev'));
-	app.use(express.errorHandler());
 
 	// app.use(function(req, res, next) {
 	// 	res.header("Access-Control-Allow-Origin", "*");
@@ -29,18 +19,20 @@ app = module.exports = function (port){
 	// 	next();
 	// });
 
-	/* Routes */
+	var views = path.resolve( './html/');
 
-	app.logData = true; // Логировать ответы с сервера
-
-	var routes_dir = __dirname + '/routes';
-	fs.readdirSync(routes_dir).forEach(function(file) {
-	   if (file.substr(file.lastIndexOf('.') + 1) !== 'js') return;
-	   require(routes_dir + '/' + file)(app);
+	app.get('*', function(req, res){
+		// console.log(req.route.params);
+		var template;
+		if(!req.route.params){
+			template = 'index';
+		}else{
+			template = req.route.params[0];
+		}
+		template = template.replace('/','');
+		res.sendFile(template + '.html', {root: views})
 	});
 
-
-	/* Create server */
 
 	http.createServer(app).listen(port, function(){
 		console.log('Server listening on port ' + port);

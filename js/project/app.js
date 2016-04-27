@@ -325,15 +325,9 @@ app.directive('examplePopupDirective', [
       },
       link: function(scope, el, attr) {
         $compile(el.contents())(scope);
-        scope.popupOnInit = function() {
-          return console.log('init ' + scope.popupName, scope);
-        };
-        scope.popupOnOpen = function() {
-          return console.log('open ' + scope.popupName, scope);
-        };
-        scope.popupOnClose = function() {
-          return console.log('close ' + scope.popupName, scope);
-        };
+        scope.popupOnInit = function() {};
+        scope.popupOnOpen = function() {};
+        scope.popupOnClose = function() {};
       }
     };
   }
