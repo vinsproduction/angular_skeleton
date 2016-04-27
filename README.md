@@ -12,12 +12,12 @@ sh install.sh
 
 ##### Add new view
 ```
-sh tools/view.sh test
+sh tools/view.sh myNewView
 ```
 
 ##### Add new component
 ```
-sh tools/component.sh test
+sh tools/component.sh myNewComponent
 ```
 ##### DEBUG MODE
 
