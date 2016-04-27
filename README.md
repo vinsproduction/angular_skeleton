@@ -1,4 +1,4 @@
-Angular Skeleton
+# Angular Skeleton
 
 https://github.com/vinsproduction/angular_skeleton/wiki
 
@@ -12,18 +12,26 @@ sh install.sh
 
 ##### Add new view
 ```
-sh tools/view.sh test
+sh tools/view.sh myNewView
 ```
 
 ##### Add new component
 ```
-sh tools/component.sh test
+sh tools/component.sh myNewComponent
+```
+##### DEBUG MODE
+
+Add prefix 'debug' to URL
+
+example
+```
+http://localhost:8888/?debug
 ```
 
-# APP Directory structure
+## APP Directory structure
 
 
-## jade
+### Jade
 
 ```
 ppc
@@ -45,7 +53,7 @@ ppc
 |       └── about.jade
 |
 ```
-## styl
+### Stylus
 
 ```
 ppc
@@ -81,7 +89,7 @@ ppc
 |
 |
 ```
-## coffee
+### CoffeeScript
 
 ```
 ppc
@@ -116,11 +124,11 @@ ppc
 |    |   |   |   └── service.coffee
 |    |   |   |
 |    |   |   └── captha
-|    |   |      ├── index.jade
-|    |   |      ├── index.styl
-|    |   |      ├── controller.coffee
-|    |   |      ├── directive.coffee
-|    |   |      └── service.coffee
+|    |   |       ├── index.jade
+|    |   |       ├── index.styl
+|    |   |       ├── controller.coffee
+|    |   |       ├── directive.coffee
+|    |   |       └── service.coffee
 |    |   |   
 |    |   └── views
 |    |       |
