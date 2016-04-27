@@ -152,6 +152,25 @@ module.exports = function(grunt) {
 
 
 		pug: {
+			views: {
+				options: {
+					pretty: true,
+					data: {
+						debug: true,
+					}
+				},
+				files: [
+					{
+	          cwd: "ppc/jade/views",
+	          src: "*.jade",
+	          dest: "html/views/",
+	          expand: true,
+	          ext: ".html"
+	        },
+	      ]
+			},
+
+
 			compile: {
 				options: {
 					pretty: true,
@@ -207,12 +226,38 @@ module.exports = function(grunt) {
 
    						return lines.join("");
 	   				}
+   				},
+   				processContent: function(content, filename) {
+
+   					if( /ppc\/jade\/views\//.test(filename) ) {
+   						var lines = []
+   						lines.push("extends ../base/layout");
+   						lines.push('\r\n');
+   						lines.push(content);
+   						content = lines.join("");
+   					}
+
+   					return content;
    				}
 				},
 				files: [
 					{
 	          cwd: "ppc/jade",
-	          src: "**/*.jade",
+	          src: "*.jade",
+	          dest: "html/",
+	          expand: true,
+	          ext: ".html"
+	        },
+					{
+	          cwd: "ppc/jade/base",
+	          src: "*.jade",
+	          dest: "html/base/",
+	          expand: true,
+	          ext: ".html"
+	        },
+					{
+	          cwd: "ppc/jade/views",
+	          src: "*.jade",
 	          dest: "html/",
 	          expand: true,
 	          ext: ".html"
@@ -220,7 +265,7 @@ module.exports = function(grunt) {
 	        {
 	          cwd: "ppc/coffee/app/components",
 	          src: "**/*.jade",
-	          dest: 'js/app/components',
+	          dest: 'js/app/components/',
 	          expand: true,
 	          ext: ".html"
 	        }

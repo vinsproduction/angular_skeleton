@@ -333,7 +333,7 @@ app.directive('examplePopupDirective', [
   }
 ]);
 
-app.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', '$timeout', function(APP, Api, $rootScope, $scope, $timeout) {}]);
+app.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
 
 app.directive('homeViewDirective', [
   'APP', 'Api', '$rootScope', function(APP, Api, $rootScope) {

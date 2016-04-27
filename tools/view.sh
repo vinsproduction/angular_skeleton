@@ -30,7 +30,7 @@ if [ -d $view_path ]
     mkdir -p $view_path
 fi
 
-template_path="./ppc/jade/$(lower $name).jade"
+template_path="./ppc/jade/views/$(lower $name).jade"
 
 if [ ! -f $template_path ]
 	then
