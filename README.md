@@ -116,11 +116,11 @@ ppc
 |    |   |   |   └── service.coffee
 |    |   |   |
 |    |   |   └── captha
-|    |   |      ├── index.jade
-|    |   |      ├── index.styl
-|    |   |      ├── controller.coffee
-|    |   |      ├── directive.coffee
-|    |   |      └── service.coffee
+|    |   |       ├── index.jade
+|    |   |       ├── index.styl
+|    |   |       ├── controller.coffee
+|    |   |       ├── directive.coffee
+|    |   |       └── service.coffee
 |    |   |   
 |    |   └── views
 |    |       |
