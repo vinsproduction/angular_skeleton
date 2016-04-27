@@ -23,7 +23,7 @@ sh tools/component.sh test
 ## APP Directory structure
 
 
-### jade
+### Jade
 
 ```
 ppc
@@ -45,7 +45,7 @@ ppc
 |       └── about.jade
 |
 ```
-### styl
+### Stylus
 
 ```
 ppc
@@ -81,7 +81,7 @@ ppc
 |
 |
 ```
-### coffee
+### CoffeeScript
 
 ```
 ppc
