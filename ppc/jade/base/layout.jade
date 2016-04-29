@@ -54,17 +54,19 @@ html
 				console.debug('[DEBUG MODE]');
 				console.log('[Debug] build', build);
 
-				for(var i in build.css.list) {
-					src = build.css.list[i]
-					$$.includeCSS(src);
-				}
-				for(var i in build.js.list) {
-					src = build.js.list[i]
-					$$.includeJS(src);
-				}
+				(function() {
+					for(var i in build.css.list) {
+						var src = build.css.list[i]
+						$$.includeCSS(src);
+					}
+					for(var i in build.js.list) {
+						var src = build.js.list[i]
+						$$.includeJS(src);
+					}
+				})();
 
 			}else{
-				console.debug('[PRODUCTION MODE] Console is disabled');
+				console.debug('[PRODUCTION MODE] console is disabled');
 				$$.disableConsole();
 
 				$$.includeCSS('css/project/project.css');
