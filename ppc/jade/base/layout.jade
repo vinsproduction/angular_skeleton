@@ -47,6 +47,8 @@ html
 
 		//JS helpers 
 		script(src='js/libs/helpers.js')
+
+		//Include JS/CSS
 		script(src='build.js')
 
 		script.
@@ -55,12 +57,13 @@ html
 				console.log('[Debug] build', build);
 
 				(function() {
+					var src;
 					for(var i in build.css.list) {
-						var src = build.css.list[i]
+						src = build.css.list[i]
 						$$.includeCSS(src);
 					}
 					for(var i in build.js.list) {
-						var src = build.js.list[i]
+						src = build.js.list[i]
 						$$.includeJS(src);
 					}
 				})();
