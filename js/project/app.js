@@ -15,16 +15,23 @@ angular.element(document).ready(function() {
 /* App Constants */
 
 app.constant('APP', {
-  debug: /debug/.test(window.location.search),
-  test: /\^?debug=test$/.test(location.search),
+  debug: (function() {
+    var obj;
+    if (!/debug/.test(window.location.search)) {
+      return false;
+    }
+    obj = {
+      test: /\^?debug=test$/.test(location.search),
+      api: /\^?debug=api$/.test(location.search)
+    };
+    return obj;
+  })(),
   local: window.location.host === "" || /localhost/.test(window.location.host),
-  host: window.location.protocol + "//" + window.location.host,
-  remoteHost: '',
-  staticUrl: ''
+  host: window.location.protocol + "//" + window.location.host
 });
 
 app.run([
-  'APP', function(APP) {
+  'APP', '$rootScope', function(APP, $rootScope) {
     window.console.groupCollapsed("[App] init");
     window.console.log("APP:", APP);
     window.console.log("app:", app);
@@ -33,15 +40,49 @@ app.run([
 ]);
 
 
-/* App Run */
+/* App Commons */
 app.run([
   'APP', '$rootScope', function(APP, $rootScope) {
 
     /* HELPERS */
+    var declOfNum;
     $rootScope.isEmpty = _.isEmpty;
     $rootScope.size = _.size;
+    declOfNum = function(number, titles) {
+      var cases;
+      cases = [2, 0, 1, 1, 1, 2];
+      return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]];
+    };
   }
 ]);
+
+
+/* FORMS */
+
+app.forms = {};
+
+app.forms.scroll = function(el) {
+  var $options, $select, $selected;
+  $select = el;
+  $selected = $select.find('[data-selected]');
+  $options = $select.find('[data-options]');
+  if (!$select.find('.scrollbar').size()) {
+    $options.wrapInner("<div class=\"viewport\"><div class=\"overview\"></div></div>");
+    $options.prepend("<div class=\"scrollbar\"><div class=\"track\"><div class=\"thumb\"><div class=\"end\"></div></div></div></div>");
+  }
+  _.defer(function() {
+    var scrollbar;
+    scrollbar = $options.tinyscrollbar({
+      sizethumb: 40,
+      wheel: ($$.browser.mobile ? 2 : 40),
+      invertscroll: $$.browser.mobile
+    });
+    $selected.click(function() {
+      return scrollbar.tinyscrollbar_update();
+    });
+    return scrollbar.tinyscrollbar_update();
+  });
+};
 
 
 /* App Config */
@@ -120,22 +161,23 @@ app.factory("Http", [
       data: {}
     };
     request = function(options) {
-      var log, params, ref;
+      var debug, log, params, ref;
       if (options == null) {
         options = {};
       }
       log = (ref = options.log) != null ? ref : defaultOptions.log;
+      debug = APP.debug.api ? "DEBUG API " : "";
       params = angular.extend({}, defaultOptions, options);
       delete params.log;
       request = $http(params);
       request.success(function(response, status, headers, config) {
         if (log) {
-          return console.debug("[" + config.method + " " + status + "] " + config.url + " | success:", response);
+          return console.debug("[" + debug + config.method + " " + status + "] " + config.url + " | success:", response);
         }
       });
       request.error(function(response, status, headers, config) {
         if (log) {
-          return console.error("[" + config.method + " " + status + "] " + config.url + " | error:", response, "| config:", config);
+          return console.error("[" + debug + config.method + " " + status + "] " + config.url + " | error:", response, "| config:", config);
         }
       });
       return request;

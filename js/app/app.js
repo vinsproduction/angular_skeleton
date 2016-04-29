@@ -15,16 +15,23 @@ angular.element(document).ready(function() {
 /* App Constants */
 
 app.constant('APP', {
-  debug: /debug/.test(window.location.search),
-  test: /\^?debug=test$/.test(location.search),
+  debug: (function() {
+    var obj;
+    if (!/debug/.test(window.location.search)) {
+      return false;
+    }
+    obj = {
+      test: /\^?debug=test$/.test(location.search),
+      api: /\^?debug=api$/.test(location.search)
+    };
+    return obj;
+  })(),
   local: window.location.host === "" || /localhost/.test(window.location.host),
-  host: window.location.protocol + "//" + window.location.host,
-  remoteHost: '',
-  staticUrl: ''
+  host: window.location.protocol + "//" + window.location.host
 });
 
 app.run([
-  'APP', function(APP) {
+  'APP', '$rootScope', function(APP, $rootScope) {
     window.console.groupCollapsed("[App] init");
     window.console.log("APP:", APP);
     window.console.log("app:", app);

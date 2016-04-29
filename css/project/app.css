@@ -210,7 +210,7 @@ input:-webkit-autofill {
   height: 100%;
 }
 .form [data-type='select'] .scrollbar .track .thumb {
-  background: transparent url("../img/bg-scrollbar.png") no-repeat 0 100%;
+  background: transparent url("../../img/bg-scrollbar.png") no-repeat 0 100%;
   cursor: pointer;
   width: 6px;
   overflow: hidden;
@@ -218,7 +218,7 @@ input:-webkit-autofill {
   top: 0;
 }
 .form [data-type='select'] .scrollbar .track .thumb .end {
-  background: transparent url("../img/bg-scrollbar.png") no-repeat 0 0;
+  background: transparent url("../../img/bg-scrollbar.png") no-repeat 0 0;
   height: 5px;
   width: 6px;
 }
@@ -530,7 +530,7 @@ input:-webkit-autofill {
   }
 }
 
-/* LAYOUT */
+/*________ LAYOUT ________*/
 html {
   height: 100%;
 }
@@ -680,7 +680,7 @@ body.popup-open {
   top: 20px;
   width: 14px;
   height: 14px;
-  background: url("../../../../img/popup-close.png") no-repeat center center;
+  background: url("../../img/popup-close.png") no-repeat center center;
   background-position: left 0px;
   text-decoration: none !important;
 }
@@ -709,7 +709,7 @@ body.popup-open {
   line-height: 1.2;
 }
 #popups .popup .inner .button {
-  margin: 30px auto 0 auto;
+  margin-top: 30px;
   display: table;
   height: 50px;
   min-width: 100px;
@@ -735,13 +735,9 @@ body.popup-open {
 #popups .popup[data-popup-name="custom"] .inner {
   text-align: center;
 }
-#popups .popup[data-popup-name="custom"] .inner .body p {
-  font-size: 22px;
-  line-height: 1;
-  font-family: Ubuntu, helvetica, verdana, arial, tahoma;
-  text-align: center;
-  color: #333;
-  line-height: 1.2;
+#popups .popup[data-popup-name="custom"] .button {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ______ View: home ______ */

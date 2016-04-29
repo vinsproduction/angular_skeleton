@@ -42,32 +42,34 @@ html
 		<![endif]-->
 					
 		<!--[if lt IE 9]>
-		script(src='/js/libs/html5shiv.js')
+		script(src='js/libs/html5shiv.js')
 		<![endif]-->
 
 		//JS helpers 
-		script(src='/js/libs/helpers.js')
+		script(src='js/libs/helpers.js')
+		script(src='build.js')
 
-		//Include JS/CSS
-		|<script>
+		script.
+			if(/^\?debug/.test(window.location.search)){
+				console.debug('[DEBUG MODE]');
+				console.log('[Debug] build', build);
 
-		|if(/^\?debug/.test(window.location.search)){
-		|console.debug('[App] DEBUG MODE');
+				for(var i in build.css.list) {
+					src = build.css.list[i]
+					$$.includeCSS(src);
+				}
+				for(var i in build.js.list) {
+					src = build.js.list[i]
+					$$.includeJS(src);
+				}
 
-		:includeCssDev
-		:includeJsDev
+			}else{
+				console.debug('[PRODUCTION MODE] Console is disabled');
+				$$.disableConsole();
 
-		|} else {
-
-		|console.debug('[App] PRODUCTION MODE (Console is disabled)');
-		|$$.disableConsole();
-		
-		:includeCssProd
-		:includeJsProd
-
-		|};
-
-		|</script>
+				$$.includeCSS('css/project/project.css');
+				$$.includeJS('js/project/project.js');
+			}
 
 		block css
 			//-

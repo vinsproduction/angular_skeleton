@@ -16,22 +16,23 @@ app.factory("Http", [
       data: {}
     };
     request = function(options) {
-      var log, params, ref;
+      var debug, log, params, ref;
       if (options == null) {
         options = {};
       }
       log = (ref = options.log) != null ? ref : defaultOptions.log;
+      debug = APP.debug.api ? "DEBUG API " : "";
       params = angular.extend({}, defaultOptions, options);
       delete params.log;
       request = $http(params);
       request.success(function(response, status, headers, config) {
         if (log) {
-          return console.debug("[" + config.method + " " + status + "] " + config.url + " | success:", response);
+          return console.debug("[" + debug + config.method + " " + status + "] " + config.url + " | success:", response);
         }
       });
       request.error(function(response, status, headers, config) {
         if (log) {
-          return console.error("[" + config.method + " " + status + "] " + config.url + " | error:", response, "| config:", config);
+          return console.error("[" + debug + config.method + " " + status + "] " + config.url + " | error:", response, "| config:", config);
         }
       });
       return request;

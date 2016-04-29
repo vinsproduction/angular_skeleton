@@ -20,6 +20,8 @@ app.factory "Http", ['$http', ($http) ->
 
 		log = options.log ? defaultOptions.log
 
+		debug = if APP.debug.api then "DEBUG API " else ""
+
 		params = angular.extend({},defaultOptions,options)
 
 		delete params.log
@@ -27,10 +29,10 @@ app.factory "Http", ['$http', ($http) ->
 		request = $http(params)
 
 		request.success (response, status, headers, config) ->
-			if log then console.debug "[#{config.method} #{status}] #{config.url} | success:", response
+			if log then console.debug "[#{debug}#{config.method} #{status}] #{config.url} | success:", response
 		
 		request.error (response, status, headers, config) ->
-			if log then console.error "[#{config.method} #{status}] #{config.url} | error:", response, "| config:", config
+			if log then console.error "[#{debug}#{config.method} #{status}] #{config.url} | error:", response, "| config:", config
 
 		return request
 

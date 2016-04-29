@@ -18,16 +18,22 @@ angular.element(document).ready ->
 
 app.constant 'APP',
 
-	debug: 	/debug/.test(window.location.search)
-	test: 	/\^?debug=test$/.test(location.search)
+	debug: do ->
+		return false if !/debug/.test(window.location.search)
+		obj = 
+			test:  /\^?debug=test$/.test(location.search)
+			api: 	 /\^?debug=api$/.test(location.search)
+		return obj
+
 	local: 	window.location.host is "" or /localhost/.test window.location.host
 	host: 	window.location.protocol + "//" + window.location.host
-	remoteHost: ''
-	staticUrl: ''
+	# remoteHost: ''
+	# staticUrl: ''
 
 
 
-app.run ['APP',(APP) ->
+app.run ['APP','$rootScope', (APP, $rootScope) ->
+
 
 	window.console.groupCollapsed "[App] init"
 	window.console.log "APP:", APP

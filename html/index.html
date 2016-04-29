@@ -29,45 +29,32 @@
       }
     </style><![endif]-->
     <!--[if lt IE 9]>
-    <script src="/js/libs/html5shiv.js"></script><![endif]-->
+    <script src="js/libs/html5shiv.js"></script><![endif]-->
     <!--JS helpers -->
-    <script src="/js/libs/helpers.js"></script>
-    <!--Include JS/CSS--><script>
-    if(/^\?debug/.test(window.location.search)){
-    console.debug('[App] DEBUG MODE');
-    $$.includeCSS("css/libs/normalize.css");
-    $$.includeCSS("css/app/app.css");
-    $$.includeCSS("css/app/base/layout/layout.css");
-    $$.includeCSS("css/app/base/popups/popup.css");
-    $$.includeCSS("css/app/views/home/home.css");
-    $$.includeJS("js/libs/jquery-1.11.1.min.js");
-    $$.includeJS("js/libs/underscore-min.js");
-    $$.includeJS("js/libs/angular.js");
-    $$.includeJS("js/libs/angular-cookies.min.js");
-    $$.includeJS("js/libs/bfbs.js");
-    $$.includeJS("js/libs/form.js");
-    $$.includeJS("js/libs/jquery.tinyscrollbar.min.js");
-    $$.includeJS("js/libs/popup.js");
-    $$.includeJS("js/app/app.js");
-    $$.includeJS("js/app/app.commons.js");
-    $$.includeJS("js/app/app.config.js");
-    $$.includeJS("js/app/app.directives.js");
-    $$.includeJS("js/app/app.router.js");
-    $$.includeJS("js/app/app.services.js");
-    $$.includeJS("js/app/base/layout/layout.controllers.js");
-    $$.includeJS("js/app/base/layout/layout.directives.js");
-    $$.includeJS("js/app/base/popups/popups.controllers.js");
-    $$.includeJS("js/app/base/popups/popups.directives.js");
-    $$.includeJS("js/app/views/home/home.controllers.js");
-    $$.includeJS("js/app/views/home/home.directives.js");
-
-    } else {
-    console.debug('[App] PRODUCTION MODE (Console is disabled)');
-    $$.disableConsole();
-    $$.includeCSS("css/project/project.css");
-    $$.includeJS("js/project/project.min.js");
-
-    };
+    <script src="js/libs/helpers.js"></script>
+    <script src="build.js"></script>
+    <script>
+      if(/^\?debug/.test(window.location.search)){
+      	console.debug('[DEBUG MODE]');
+      	console.log('[Debug] build', build);
+      
+      	for(var i in build.css.list) {
+      		src = build.css.list[i]
+      		$$.includeCSS(src);
+      	}
+      	for(var i in build.js.list) {
+      		src = build.js.list[i]
+      		$$.includeJS(src);
+      	}
+      
+      }else{
+      	console.debug('[PRODUCTION MODE] Console is disabled');
+      	$$.disableConsole();
+      
+      	$$.includeCSS('css/project/project.css');
+      	$$.includeJS('js/project/project.js');
+      }
+      
     </script>
   </head>
   <body>

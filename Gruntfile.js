@@ -25,8 +25,8 @@ module.exports = function(grunt) {
 			views: [],
 			components: [],
 			libs: [
-				'js/libs/jquery-1.11.1.min.js',
-				'js/libs/underscore-min.js',
+				'js/libs/jquery-1.12.3.js',
+				'js/libs/underscore.js',
 				'js/libs/angular.js',
 
 				'!js/libs/helpers.js',
@@ -76,6 +76,8 @@ module.exports = function(grunt) {
 			.concat(css.views)
 			.concat(css.components);
 
+		css.list = css.libs.concat(css.app);
+
 		// JS
 
 		js.libs 	= order(build.js.libs,"js/libs/**/*.js");
@@ -90,6 +92,8 @@ module.exports = function(grunt) {
 			.concat(js.base)
 			.concat(js.views)
 			.concat(js.components);
+
+		js.list = js.libs.concat(js.app);
 
 	};
 
@@ -179,6 +183,10 @@ module.exports = function(grunt) {
 					},
 					filters: {
 
+						// Use in jade
+						// :includeCssProd
+						// :includeJsProd
+
 						includeCssProd: function(block) {
 							var line;
    						line = '    $$.includeCSS("css/project/project.css");';
@@ -191,6 +199,9 @@ module.exports = function(grunt) {
    						return "\r\n" + line + "\r\n";
 	   				},
 
+	   				// Use in jade
+						// :includeCssDev
+						// :includeJsDev
 
 						includeCssDev: function(block) {
    						var lines = [], line;
@@ -352,6 +363,23 @@ module.exports = function(grunt) {
 			},
 		},
 
+		replace: {
+			css_root_replace: {
+		    files: [{
+		      expand: true,
+		      flatten: true,
+		      src: 'css/project/*.css',
+		      dest: 'css/project/'
+		    }],
+		    options: {
+		      patterns: [{
+		        match: /\"(.*)\/img/g,
+		        replacement: '"../../img'
+		      }]
+		    }
+		  }
+		},
+
 
 		watch: {
 			options: {
@@ -396,7 +424,7 @@ module.exports = function(grunt) {
 				files: [
 					'css/app/**/*.css',
 				],
-				tasks: ['concat:app_css']
+				tasks: ['concat:app_css','replace:css_root_replace']
 			},
 
 
@@ -404,14 +432,14 @@ module.exports = function(grunt) {
 				files: [
 					'css/libs/**/*.css',
 				],
-				tasks: ['concat:libs_css']
+				tasks: ['concat:libs_css','replace:css_root_replace']
 			},
 			project_css: {
 				files: [
 					'css/project/app.css',
 					'css/project/libs.css',
 				],
-				tasks: ['concat:project_css']
+				tasks: ['concat:project_css','replace:css_root_replace']
 			},
 
 			// Concat js
@@ -444,7 +472,7 @@ module.exports = function(grunt) {
 				files: [
 					'js/project/project.js',
 				],
-				tasks: ['uglify:project_js']
+				tasks: ['concat:project_js','uglify:project_js']
 			},
 
 
@@ -497,7 +525,7 @@ module.exports = function(grunt) {
 		console.log('\r');
 		console.log('============= PROJECT =============');
 
-		grunt.file.expand("js/project/*.css").forEach(function(src, i) {
+		grunt.file.expand("css/project/*.css").forEach(function(src, i) {
 			console.log(src);
 		});
 
@@ -507,6 +535,13 @@ module.exports = function(grunt) {
 
 		console.log('===================================');
 		console.log('\r');
+
+		// CREATE build JS
+
+		var buildContent = "window.build=";
+		buildContent += JSON.stringify({js:js,css:css});
+		grunt.file.write('./build.js',buildContent);
+
 
 	});
 
@@ -518,7 +553,7 @@ module.exports = function(grunt) {
 	});
 
 
-	grunt.registerTask('build', ['coffee', 'stylus', 'pug', 'concat', 'uglify', 'structure']);
+	grunt.registerTask('build', ['coffee', 'stylus', 'pug', 'concat', 'uglify', 'replace', 'structure']);
 	
 	grunt.registerTask('default', ['build', 'server', 'watch']);
 
