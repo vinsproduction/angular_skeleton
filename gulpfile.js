@@ -8,6 +8,7 @@ var coffee 	= require('gulp-coffee');
 var pug 		= require('gulp-pug');
 var stylus  = require('gulp-stylus');
 var concat  = require('gulp-concat');
+var header  = require('gulp-header');
 var uglify  = require('gulp-uglify');
 var rename  = require('gulp-rename');
 var replace = require('gulp-replace');
@@ -126,7 +127,24 @@ gulp.task('pug', function(cb) {
   gulp.src(compiled.pug)
     .pipe(pug({
       pretty: true
-    }).on('error', gutil.log))
+    })
+    .on('error', gutil.log))
+    .pipe(gulp.dest('./html/'))
+    .on('end',function(){  
+      cb(null);
+    });
+
+
+});
+
+gulp.task('pug_views', function(cb) {
+
+   gulp.src('./ppc/pug/views/**/*.pug')
+    .pipe(header('extends ../base/layout\r\n'))
+    .pipe(pug({
+      pretty: true
+    })
+    .on('error', gutil.log))
     .pipe(gulp.dest('./html/'))
     .on('end',function(){  
       cb(null);
@@ -335,12 +353,11 @@ gulp.task('server', function() {
 
 // gulp.task('copy', function() {
 
-//   gulp.src([
-//     'css/**',
-//     'js/**',
-//     'img/**',
-//     'fonts/**',
-//   ]).pipe(gulp.dest('./test/'));
+//   gulp.src(['build.js']).pipe(gulp.dest('../app/static/'));
+//   gulp.src(['css/**/*']).pipe(gulp.dest('../app/static/css'));
+//   gulp.src(['js/**/*']).pipe(gulp.dest('../app/static/js'));
+//   gulp.src(['img/**/*']).pipe(gulp.dest('../app/static/img'));
+//   gulp.src(['fonts/**/*']).pipe(gulp.dest('../app/static/fonts'));
 
 // });
 
@@ -364,16 +381,17 @@ gulp.task('watch', function() {
   gulp.watch(css.libs, ['libs_css']);
   gulp.watch(['./css/project/app.css','./css/project/libs.css'], ['project_css']);
 
-  gulp.watch(compiled.pug, ['pug']);
+  gulp.watch(compiled.pug, ['pug','pug_views']);
 
   gulp.watch(compiled.components.pug, ['pug_components']);
 
   // gulp.watch([
 
-  //   './img/**',
-  //   './fonts/**',  
-  //   './js/project/project.min.js',
-  //   './css/project/project.css',
+  // './img/**/*',
+  // './fonts/**/*',  
+  // './js/libs/helpers.js',
+  // './js/project/project.min.js',
+  // './css/project/project.css',
 
   // ], ['copy']);
 
@@ -403,7 +421,7 @@ gulp.task('build', function(callback) {
 
   runSequence(
 
-    ['coffee','stylus','stylus_components','pug','pug_components'],
+    ['coffee','stylus','stylus_components','pug','pug_views','pug_components'],
     'buildit',
     ['libs_js','app_js'],
     'project_js',

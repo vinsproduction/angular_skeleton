@@ -20,6 +20,7 @@
     "gulp-pug": "*",
     "gulp-stylus": "*",
 
+    "gulp-header": "*",
     "gulp-uglify": "*",
     "gulp-concat": "*",
     "gulp-rename": "*",
