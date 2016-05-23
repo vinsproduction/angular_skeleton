@@ -117,7 +117,11 @@ app.factory("Popup", [
       }
       popups[name] = angular.extend(popups[name], popup.opt.scope);
       popups[name].popupIsOpen = true;
+      if (!parent.$$phase) {
+        parent.$digest();
+      }
       $timeout(function() {
+        $(window).resize();
         if (popups[name].popupOnOpen) {
           return popups[name].popupOnOpen();
         }
@@ -130,6 +134,9 @@ app.factory("Popup", [
         return;
       }
       popups[name].popupIsOpen = false;
+      if (!parent.$$phase) {
+        parent.$digest();
+      }
       $timeout(function() {
         if (popups[name].popupOnClose) {
           return popups[name].popupOnClose();

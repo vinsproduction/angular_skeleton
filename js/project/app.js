@@ -262,7 +262,11 @@ app.factory("Popup", [
       }
       popups[name] = angular.extend(popups[name], popup.opt.scope);
       popups[name].popupIsOpen = true;
+      if (!parent.$$phase) {
+        parent.$digest();
+      }
       $timeout(function() {
+        $(window).resize();
         if (popups[name].popupOnOpen) {
           return popups[name].popupOnOpen();
         }
@@ -275,6 +279,9 @@ app.factory("Popup", [
         return;
       }
       popups[name].popupIsOpen = false;
+      if (!parent.$$phase) {
+        parent.$digest();
+      }
       $timeout(function() {
         if (popups[name].popupOnClose) {
           return popups[name].popupOnClose();
@@ -355,25 +362,7 @@ app.controller('viewsLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', functio
 
 app.controller('popupsCtrl', ['APP', 'Api', 'Popup', '$rootScope', '$scope', '$timeout', function(APP, Api, Popup, $rootScope, $scope, $timeout) {}]);
 
-app.directive('examplePopupDirective', [
-  'APP', 'Api', 'Popup', '$rootScope', '$compile', function(APP, Api, Popup, $rootScope, $compile) {
-    return {
-      restrict: 'A',
-      scope: {
-        'popupName': '@popupName'
-      },
-      controller: function($scope) {
-        return Popup.scope($scope.popupName, $scope);
-      },
-      link: function(scope, el, attr) {
-        $compile(el.contents())(scope);
-        scope.popupOnInit = function() {};
-        scope.popupOnOpen = function() {};
-        scope.popupOnClose = function() {};
-      }
-    };
-  }
-]);
+
 
 app.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
 

@@ -20,7 +20,7 @@ fi
 
 name=$1
 component_path="./ppc/coffee/app/components/$(lower $name)"
-template_path="$component_path/$(lower $name).jade"
+template_path="$component_path/$(lower $name).pug"
 
 if [ -d $component_path ]
 	then
@@ -32,7 +32,7 @@ if [ -d $component_path ]
 
     if [ ! -f $template_path ]
 			then
-    		cat $tools/component/index.jade | sed "s/\[componentName\]/$(lower $name)/g" | sed "s/\[controllerName\]/$name/g" > $template_path
+    		cat $tools/component/index.pug | sed "s/\[componentName\]/$(lower $name)/g" | sed "s/\[controllerName\]/$name/g" > $template_path
    			
    			echo ">> $template_path created"
 				echo "\\r\\n"
@@ -68,13 +68,13 @@ if [ ! -f $styl_path ]
 		echo "\\r\\n"
 fi
 
-echo ">> grunt build"
+echo ">> gulp build"
 echo "\\r\\n"
 
-grunt build
+gulp build
 
 echo "\\r\\n"
-echo ">> Component $name created. Use 'grunt' to continue"
+echo ">> Component $name created. Use 'gulp' to continue"
 echo "\\r\\n"
 exit 1
 

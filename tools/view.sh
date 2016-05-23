@@ -30,11 +30,11 @@ if [ -d $view_path ]
     mkdir -p $view_path
 fi
 
-template_path="./ppc/jade/views/$(lower $name).jade"
+template_path="./ppc/pug/views/$(lower $name).pug"
 
 if [ ! -f $template_path ]
 	then
-		cat $tools/view/index.jade | sed "s/\[viewName\]/$(lower $name)/g" | sed "s/\[controllerName\]/$name/g" > $template_path
+		cat $tools/view/index.pug | sed "s/\[viewName\]/$(lower $name)/g" | sed "s/\[controllerName\]/$name/g" > $template_path
 			
 		echo ">> $template_path created"
 		echo "\\r\\n"
@@ -93,13 +93,13 @@ if [ ! -f $styl_meida_path ]
 		echo "\\r\\n"
 fi
 
-echo ">> grunt build"
+echo ">> gulp build"
 echo "\\r\\n"
 
-grunt build
+gulp build
 
 echo "\\r\\n"
-echo ">> View $name created. Use 'grunt' to continue"
+echo ">> View $name created. Use 'gulp' to continue"
 echo "\\r\\n"
 exit 1
 

@@ -8,11 +8,12 @@
 			.body(data-popup-body)
 			.button(data-popup-button): span(data-popup-button-name)
 
-	.popup(data-popup-name="example" example-popup-directive)
+	.popup(data-popup-name="example" )
 		.inner
 			.close(data-popup-close)
-			.title [[title]]
-			.body [[body]]
+			.content(example-popup-directive)
+				.title [[title]]
+				.body [[body]]
 			.button(data-popup-close): span Закрыть
 
 	.background

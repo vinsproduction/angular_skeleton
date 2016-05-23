@@ -16,10 +16,10 @@
     <link rel="image_src" href="">
     <link rel="shortcut icon" type="image/x-icon" href="">
     <!--IE--><!--[if IE]>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="imagetoolbar" content="no"/>
-    <meta http-equiv="MSThemeCompatible" content="no"/>
-    <![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta http-equiv="imagetoolbar" content="no"/>
+<meta http-equiv="MSThemeCompatible" content="no"/>
+<![endif]-->
     <!--Apple-->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><!--[if lt IE 7]>
@@ -28,10 +28,11 @@
       	height: 100%;
       }
     </style><![endif]-->
-    <!--[if lt IE 9]>
+<!--[if lt IE 9]>
     <script src="js/libs/html5shiv.js"></script><![endif]-->
     <!--JS helpers -->
     <script src="js/libs/helpers.js"></script>
+    <!--Include JS/CSS-->
     <script src="build.js"></script>
     <script>
       if(/^\?debug/.test(window.location.search)){
@@ -39,12 +40,13 @@
       	console.log('[Debug] build', build);
       
       	(function() {
+      		var src;
       		for(var i in build.css.list) {
-      			var src = build.css.list[i]
+      			src = build.css.list[i]
       			$$.includeCSS(src);
       		}
       		for(var i in build.js.list) {
-      			var src = build.js.list[i]
+      			src = build.js.list[i]
       			$$.includeJS(src);
       		}
       	})();
@@ -70,7 +72,7 @@
         </div>
       </header>
       <!-- /Header-->
-      <div ng-controller="viewsLayoutCtrl" class="views">
+      <div class="views" ng-controller="viewsLayoutCtrl">
         <!-- View-->
         <!-- /View-->
       </div>
@@ -86,20 +88,22 @@
     </main>
     <!-- Popups-->
     <div id="popups" data-ng-controller="popupsCtrl">
-      <div data-popup-name="custom" class="popup">
+      <div class="popup" data-popup-name="custom">
         <div class="inner">
-          <div data-popup-close class="close"></div>
-          <div data-popup-title class="title"></div>
-          <div data-popup-body class="body"></div>
-          <div data-popup-button class="button"><span data-popup-button-name></span></div>
+          <div class="close" data-popup-close></div>
+          <div class="title" data-popup-title></div>
+          <div class="body" data-popup-body></div>
+          <div class="button" data-popup-button><span data-popup-button-name></span></div>
         </div>
       </div>
-      <div data-popup-name="example" example-popup-directive class="popup">
+      <div class="popup" data-popup-name="example">
         <div class="inner">
-          <div data-popup-close class="close"></div>
-          <div class="title">[[title]]</div>
-          <div class="body">[[body]]</div>
-          <div data-popup-close class="button"><span>Закрыть</span></div>
+          <div class="close" data-popup-close></div>
+          <div class="content" example-popup-directive>
+            <div class="title">[[title]]</div>
+            <div class="body">[[body]]</div>
+          </div>
+          <div class="button" data-popup-close><span>Закрыть</span></div>
         </div>
       </div>
       <div class="background"></div>

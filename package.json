@@ -6,25 +6,32 @@
     "url": "git+https://github.com/vinsproduction/angular_skeleton.git"
   },
   "dependencies": {
+
     "express": "*",
-    "grunt": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-pug": "*",
-    "grunt-contrib-coffee": "*",
-    "grunt-contrib-stylus": "*",
-    "grunt-replace": "*",
-    "grunt-contrib-copy": "*",
-    "jstransformer-coffee-script": "*"
+
+    "glob": "*",
+    "run-sequence": "*",
+    "browser-sync": "*",
+
+    "gulp": "*",
+    "gulp-util": "*",
+
+    "gulp-coffee": "*",
+    "gulp-pug": "*",
+    "gulp-stylus": "*",
+
+    "gulp-uglify": "*",
+    "gulp-concat": "*",
+    "gulp-rename": "*",
+    "gulp-replace": "*"
+
   },
   "description": "Angular Skeleton",
   "bugs": {
     "url": "https://github.com/vinsproduction/angular_skeleton/issues"
   },
   "homepage": "https://github.com/vinsproduction/angular_skeleton#readme",
-  "main": "Gruntfile.js",
+  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,29 +1,30 @@
 
 
-app.directive('examplePopupDirective', ['APP','Api','Popup','$rootScope','$compile', (APP,Api,Popup,$rootScope,$compile) ->
+# app.directive('examplePopupDirective', ['APP','Api','Popup','$rootScope',(APP,Api,Popup,$rootScope) ->
 
-	restrict: 'A'
-	scope:
-		'popupName': '@popupName'
+# 	restrict: 'A'
+# 	transclude: true
+# 	scope: {}
 
-	controller: ($scope) ->
+# 	controller: ($scope) ->
 
-		Popup.scope($scope.popupName, $scope)
-		# Popup.watch($scope.popupName)
+# 		Popup.scope('example', $scope)
+# 		# Popup.watch($scope.popupName)
 
-	link: (scope, el, attr) ->
+# 	link: (scope, el, attr, ctrl, transclude) ->
 
-		$compile(el.contents())(scope)
+# 		transclude scope, (clone) ->
+# 			el.html(clone)
 
-		scope.popupOnInit = ->
-			# console.log 'init ' + scope.popupName, scope
+# 		scope.popupOnInit = ->
+# 			# console.log 'init ' + scope.popupName, scope
 
-		scope.popupOnOpen = ->
-			# console.log 'open ' + scope.popupName, scope
+# 		scope.popupOnOpen = ->
+# 			# console.log 'open ' + scope.popupName, scope
 
-		scope.popupOnClose = ->
-			# console.log 'close ' + scope.popupName, scope
+# 		scope.popupOnClose = ->
+# 			# console.log 'close ' + scope.popupName, scope
 
-		return
+# 		return
 
-])
+# ])

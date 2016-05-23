@@ -113,8 +113,12 @@ app.factory "Popup", ['$rootScope','Camelcase', '$timeout', ($rootScope, Camelca
 
 		# console.log 'open__', popups[name]
 
+		parent.$digest() if !parent.$$phase
+
 		$timeout ->
+			$(window).resize()
 			popups[name].popupOnOpen() if popups[name].popupOnOpen
+
 
 		return
 
@@ -127,8 +131,11 @@ app.factory "Popup", ['$rootScope','Camelcase', '$timeout', ($rootScope, Camelca
 
 		# console.log 'close__', parent.popups[name]
 
+		parent.$digest() if !parent.$$phase
+
 		$timeout ->
 			popups[name].popupOnClose() if popups[name].popupOnClose
+
 
 		return
 
