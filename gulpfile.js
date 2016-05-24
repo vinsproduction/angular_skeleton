@@ -60,7 +60,7 @@ var compiled = {
     './ppc/coffee/**/*.coffee'
   ],
   stylus: [
-    './ppc/stylus/**/*.styl',
+    './ppc/styl/**/*.styl',
     '!**/requires/**',
     '!mixins.styl'
   ],

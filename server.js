@@ -44,7 +44,7 @@ app = module.exports = function (port){
 		}
 	});
 
-	// Views
+	// VIEWS
 
 	var views = path.resolve( './html/');
 
@@ -55,7 +55,16 @@ app = module.exports = function (port){
 		}else{
 			template = req.path.replace('/','');
 		}
-		res.sendFile(template + '.html', {root: views})
+
+		template = views + '/' + template + '.html';
+		
+		fs.stat(template, function(err, stat) {
+			if (err == null) { 
+				res.sendFile(template)
+			}else{
+	    	res.send(template + " not found");
+			}
+		});
 	});
 
 
