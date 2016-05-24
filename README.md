@@ -25,7 +25,7 @@ Add prefix 'debug' to URL
 
 example
 ```
-http://localhost:8888/?debug
+http://localhost:3000/?debug
 ```
 
 ## App directory structure

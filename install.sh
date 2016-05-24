@@ -23,7 +23,7 @@ echo "\\n"
 echo ">> done."
 
 echo "\\n"
-echo ">> continue to use - grunt"
+echo ">> continue to use - gulp"
 
 
 echo "\\n"
