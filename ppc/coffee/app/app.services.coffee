@@ -6,7 +6,7 @@
 ###
 
 
-app.factory "Http", ['$http', ($http) ->
+app.factory "Http", ['$http', 'APP', ($http,APP) ->
 
 	defaultOptions =
 

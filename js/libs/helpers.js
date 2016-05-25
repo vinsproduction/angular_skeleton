@@ -8,21 +8,6 @@ if (!window.console.info) { window.console.info = window.console.log; }
 if (!window.console.error) { window.console.error = window.console.log; }
 
 
-/* LIVERELOAD */
-(function() {
-  var port, script, url;
-  if (window.WebSocket && /localhost/.test(window.location.host)) {
-
-		port = 35729;
-    url = "http://localhost:" + port + "/livereload.js";
-    script = document.createElement('script');
-    script.src = url;
-    document.getElementsByTagName('head')[0].appendChild(script);
-    return console.debug("[LiveReload] " + url);
-
-  };
-})();
-
 
 /*  HELPERS  */
 

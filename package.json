@@ -24,7 +24,9 @@
     "gulp-uglify": "*",
     "gulp-concat": "*",
     "gulp-rename": "*",
-    "gulp-replace": "*"
+    "gulp-replace": "*",
+
+    "jstransformer-coffee-script": "*"
 
   },
   "description": "Angular Skeleton",
