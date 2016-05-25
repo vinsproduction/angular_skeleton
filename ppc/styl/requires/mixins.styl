@@ -61,11 +61,10 @@ rgb(r,g,b)
 
 //background-rgba(#000000,'000000',0.5)
 background-rgba(color,colorms,a)
-	background rgba(color,a)
 	if support-for-ie
 		background transparent
 		filter unquote('progid:DXImageTransform.Microsoft.gradient(startColorstr=#' + round(a * 100) + replace('#','',colorms) + ',endColorstr=#' + round(a * 100) + replace('#','',colorms)  + ')')
-	
+	background rgba(color,a)
 
 import-font(originalname, newname)
 
