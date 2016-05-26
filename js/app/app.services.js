@@ -6,7 +6,7 @@
 	Http({url:'/'}).success((res) -> ).error((res) -> )
  */
 app.factory("Http", [
-  '$http', function($http) {
+  '$http', 'APP', function($http, APP) {
     var defaultOptions, request;
     defaultOptions = {
       log: true,
