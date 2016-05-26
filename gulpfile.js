@@ -83,6 +83,17 @@ var compiled = {
 
 }
 
+gulp.task('coffee', function(cb) {
+  gulp.src(compiled.coffee)
+    .pipe(changed('./js/', {extension: '.js'}))
+    .pipe(coffee({
+      bare: true
+    }).on('error', gutil.log))
+    .pipe(gulp.dest('./js/'))
+    .on('end',function(){
+      cb(null);
+    });
+});
 
 gulp.task('stylus', function(cb) {
 
