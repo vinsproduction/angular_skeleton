@@ -69,8 +69,8 @@ app = module.exports = function (port){
 
 
 	http.createServer(app).listen(port, function(){
-		console.log('Server listening on port ' + port);
-	});
+		console.log('\r\n' + 'Express server listening on port ' + port + '\r\n');
+	})
 
 	return app;
 

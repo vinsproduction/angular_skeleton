@@ -21,6 +21,7 @@
     "gulp-stylus": "*",
 
     "gulp-header": "*",
+    "gulp-changed": "*",
     "gulp-uglify": "*",
     "gulp-concat": "*",
     "gulp-rename": "*",

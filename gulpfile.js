@@ -9,6 +9,7 @@ var pug 		= require('gulp-pug');
 var stylus  = require('gulp-stylus');
 var concat  = require('gulp-concat');
 var header  = require('gulp-header');
+var changed = require('gulp-changed');
 var uglify  = require('gulp-uglify');
 var rename  = require('gulp-rename');
 var replace = require('gulp-replace');
@@ -83,23 +84,10 @@ var compiled = {
 }
 
 
-gulp.task('coffee', function(cb) {
-  gulp.src(compiled.coffee)
-    .pipe(coffee({
-    	bare: true
-    }).on('error', gutil.log))
-    .pipe(gulp.dest('./js/'))
-    .on('end',function(){
-      cb(null);
-    });
-});
-
-
-
-
 gulp.task('stylus', function(cb) {
 
   gulp.src(compiled.stylus)
+    .pipe(changed('./css/', {extension: '.css'}))
     .pipe(stylus({
       compress: false
     }).on('error', gutil.log))
@@ -112,6 +100,7 @@ gulp.task('stylus', function(cb) {
 gulp.task('stylus_components', function(cb) {
 
   gulp.src(compiled.components.stylus)
+    .pipe(changed('./js/app/components/', {extension: '.css'}))
     .pipe(stylus({
       compress: false
     }).on('error', gutil.log))
@@ -125,6 +114,7 @@ gulp.task('stylus_components', function(cb) {
 gulp.task('pug', function(cb) {
 
   gulp.src(compiled.pug)
+    .pipe(changed('./html/', {extension: '.html'}))
     .pipe(pug({
       pretty: true
     })
@@ -140,6 +130,7 @@ gulp.task('pug', function(cb) {
 gulp.task('pug_views', function(cb) {
 
    gulp.src('./ppc/pug/views/**/*.pug')
+    .pipe(changed('./html/', {extension: '.html'}))
     .pipe(header('extends ../base/layout\r\n'))
     .pipe(pug({
       pretty: true
@@ -155,6 +146,7 @@ gulp.task('pug_views', function(cb) {
 gulp.task('pug_components', function(cb) {
 
   gulp.src(compiled.components.pug)
+    .pipe(changed('./js/app/components/', {extension: '.html'}))
     .pipe(pug({
       pretty: true
     }).on('error', gutil.log))
@@ -411,7 +403,11 @@ gulp.task('watch', function() {
     './html/**/*',
 
 
-  ], browserSync.reload);
+  ], function(event){
+    console.log('[' + event.type +'] ' + event.path);
+    browserSync.reload();
+  });
+
 
 
 });
