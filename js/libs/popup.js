@@ -105,7 +105,7 @@ Popup = (function() {
             self.close(self.active);
           }
         }
-        return false;
+        return;
       });
       $(window).resize(function() {
         if (self.active) {
