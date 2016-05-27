@@ -64,12 +64,13 @@ var compiled = {
   stylus: [
     './ppc/styl/**/*.styl',
     '!**/requires/**',
-    '!mixins.styl'
+  ],
+  stylusExtends: [
+    '**/requires/**',
   ],
   stylusComponents: [
     './ppc/coffee/app/components/**/*.styl',
     '!**/requires/**',
-    '!mixins.styl'
   ],
 
   pug: [
@@ -107,8 +108,32 @@ gulp.task('coffee', function(cb) {
     });
 });
 
+gulp.task('coffee_all', function(cb) {
+  gulp.src(compiled.coffee)
+    .pipe(coffee({
+      bare: true
+    }).on('error', gutil.log))
+    .pipe(gulp.dest('./js/'))
+    .on('end',function(){
+      cb(null);
+    });
+});
+
 
 gulp.task('stylus', function(cb) {
+
+  gulp.src(compiled.stylus)
+    .pipe(changed('./css/', {extension: '.css'}))
+    .pipe(stylus({
+      compress: false
+    }).on('error', gutil.log))
+    .pipe(gulp.dest('./css/'))
+    .on('end',function(){  
+      cb(null);
+    });
+});
+
+gulp.task('stylus_all', function(cb) {
 
   gulp.src(compiled.stylus)
     .pipe(stylus({
@@ -433,6 +458,7 @@ gulp.task('watch', function() {
   gulp.watch(['./js/project/app.js','./js/project/libs.js'], ['project_js']);
 
   gulp.watch(compiled.stylus, ['stylus']);
+  gulp.watch(compiled.stylusExtends, ['stylus_all']);
   gulp.watch(compiled.stylusComponents, ['stylus_components']);
 
   gulp.watch(css.app, ['app_css']);
@@ -483,7 +509,7 @@ gulp.task('build', function(callback) {
 
   runSequence(
 
-    ['coffee','stylus','stylus_components','pug_index', 'pug_base','pug_views','pug_views_with_extends','pug_components'],
+    ['coffee_all','stylus_all','stylus_components','pug_index', 'pug_base','pug_views','pug_views_with_extends','pug_components'],
     'buildit',
     ['libs_js','app_js'],
     'project_js',
