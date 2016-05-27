@@ -111,7 +111,6 @@ gulp.task('coffee', function(cb) {
 gulp.task('stylus', function(cb) {
 
   gulp.src(compiled.stylus)
-    .pipe(changed('./css/', {extension: '.css'}))
     .pipe(stylus({
       compress: false
     }).on('error', gutil.log))
