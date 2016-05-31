@@ -453,20 +453,20 @@ gulp.task('watch', function() {
 
   gulp.watch(compiled.coffee, ['coffee']);
 
-  gulp.watch(js.app, ['app_js']);
-  gulp.watch(js.libs, ['libs_js']);
+  gulp.watch(js.app,{interval:2000}, ['app_js']);
+  gulp.watch(js.libs,{interval:2000}, ['libs_js']);
   gulp.watch(['./js/project/app.js','./js/project/libs.js'], ['project_js']);
 
   gulp.watch(compiled.stylus, ['stylus']);
   gulp.watch(compiled.stylusExtends, ['stylus_all']);
   gulp.watch(compiled.stylusComponents, ['stylus_components']);
 
-  gulp.watch(css.app, ['app_css']);
-  gulp.watch(css.libs, ['libs_css']);
+  gulp.watch(css.app, {interval:2000}, ['app_css']);
+  gulp.watch(css.libs,{interval:2000}, ['libs_css']);
   gulp.watch(['./css/project/app.css','./css/project/libs.css'], ['project_css']);
 
   gulp.watch(compiled.pugIndex, ['pug_index']);
-  gulp.watch(compiled.pugBase, ['pug_base','pug_views_with_extends_all']);
+  gulp.watch(compiled.pugBase, ['pug_index','pug_base','pug_views_with_extends_all']);
   gulp.watch(compiled.pugViews, ['pug_views','pug_views_with_extends']);
   gulp.watch(compiled.pugComponents, ['pug_components']);
 
@@ -481,8 +481,6 @@ gulp.task('watch', function() {
   // ], ['copy']);
 
   gulp.watch([
-
-    'ppc/styl/**/requires/**/*.styl',
 
     './css/app/**/*.css',
     './css/libs/**/*.css',

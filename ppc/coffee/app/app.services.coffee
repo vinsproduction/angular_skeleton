@@ -29,8 +29,8 @@ app.factory "Http", ['$http', 'APP', ($http,APP) ->
 		request = $http(params)
 
 		request.success (response, status, headers, config) ->
-			if log then console.debug "[#{debug}#{config.method} #{status}] #{config.url} | success:", response
-		
+			if log then console.debug "[#{debug}#{config.method} #{status}] #{config.url} | data:", config.data, "| success:", response
+	
 		request.error (response, status, headers, config) ->
 			if log then console.error "[#{debug}#{config.method} #{status}] #{config.url} | error:", response, "| config:", config
 
