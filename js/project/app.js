@@ -172,7 +172,7 @@ app.factory("Http", [
       request = $http(params);
       request.success(function(response, status, headers, config) {
         if (log) {
-          return console.debug("[" + debug + config.method + " " + status + "] " + config.url + " | success:", response);
+          return console.debug("[" + debug + config.method + " " + status + "] " + config.url + " | data:", config.data, "| success:", response);
         }
       });
       request.error(function(response, status, headers, config) {

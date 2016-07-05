@@ -1,7 +1,6 @@
 /* _________ POPUPS _________ */
 body.popup-open {
   overflow: hidden;
-  position: fixed;
   width: 100%;
 }
 #popups {
@@ -12,23 +11,17 @@ body.popup-open {
   position: fixed;
   height: 100%;
   width: 100%;
+  background: transparent;
+  -webkit-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
+  -moz-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
+  -o-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
+  background: rgba(0,0,0,0.6);
   top: 0;
   left: 0;
-}
-#popups .background {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  background: rgb(219, 211, 183);
-  opacity: 0.9;
-  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  right: 0;
+  bottom: 0;
 }
 #popups .popup {
   z-index: 999;

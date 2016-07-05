@@ -10,8 +10,10 @@ $root = '../../../../'
 
 body.popup-open
 	overflow hidden
-	position fixed
 	width 100%
+	
+	// main
+	// 	filter blur(10px)
 
 #popups
 	
@@ -22,19 +24,25 @@ body.popup-open
 	position fixed
 	height 100%
 	width 100%
+	background-rgba(#000000,'000000',0.6)
 	top 0
 	left 0
+	right 0
+	bottom 0
 
-	.background
+	// .background
 
-		position fixed
-		height 100%
-		width 100%
-		top 0
-		left 0
-		overflow auto
-		background rgb(219, 211, 183)
-		opacity 0.9
+	// 	position fixed
+	// 	height 100%
+	// 	width 100%
+	// 	top 0
+	// 	left 0
+	// 	bottom 0
+	// 	right 0
+	// 	overflow auto
+	// 	background #000
+	// 	opacity 0.4
+	// 	z-index 1
 
 	.popup
 		z-index 999
