@@ -13,6 +13,7 @@ var changed = require('gulp-changed');
 var uglify  = require('gulp-uglify');
 var rename  = require('gulp-rename');
 var replace = require('gulp-replace');
+var ngAnnotate = require('gulp-ng-annotate');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync').create();
 
@@ -312,6 +313,7 @@ gulp.task('project_js', function(cb) {
   gulp.src(['./js/project/libs.js','./js/project/app.js'])
     .pipe(concat('project.js'))
     .pipe(gulp.dest('./js/project/'))
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(rename({
       suffix: '.min'

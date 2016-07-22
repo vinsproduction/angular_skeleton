@@ -26,6 +26,7 @@
     "gulp-concat": "*",
     "gulp-rename": "*",
     "gulp-replace": "*",
+    "gulp-ng-annotate": "*",
 
     "jstransformer-coffee-script": "*"
 
