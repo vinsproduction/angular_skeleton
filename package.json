@@ -22,6 +22,7 @@
 
     "gulp-header": "*",
     "gulp-changed": "*",
+    "gulp-clean-css": "*",
     "gulp-uglify": "*",
     "gulp-concat": "*",
     "gulp-rename": "*",

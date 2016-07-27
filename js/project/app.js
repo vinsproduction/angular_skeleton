@@ -363,14 +363,3 @@ app.controller('viewsLayoutCtrl', ['APP', 'Api', '$rootScope', '$scope', functio
 app.controller('popupsCtrl', ['APP', 'Api', 'Popup', '$rootScope', '$scope', '$timeout', function(APP, Api, Popup, $rootScope, $scope, $timeout) {}]);
 
 
-
-app.controller('homeViewCtrl', ['APP', 'Api', '$rootScope', '$scope', function(APP, Api, $rootScope, $scope) {}]);
-
-app.directive('homeViewDirective', [
-  'APP', 'Api', '$rootScope', function(APP, Api, $rootScope) {
-    return {
-      restrict: 'A',
-      link: function(scope, el, attr, ctrl, transclude) {}
-    };
-  }
-]);

@@ -1,3 +1,12 @@
+block view_js_css
+	// View [viewName] js/css 
+	script.
+		$$.includeCSS(staticURL + 'css/app/views/[viewName]/[viewName].css?v=' + staticVer);
+		$$.includeJS(staticURL +'js/app/views/[viewName]/[viewName].controllers.js?v=' + staticVer);
+		$$.includeJS(staticURL + 'js/app/views/[viewName]/[viewName].directives.js?v=' + staticVer);
+	///View [viewName] css/js 
+
+
 block content
 	#view-[viewName].view(ng-controller="[controllerName]ViewCtrl")
 		.main-container

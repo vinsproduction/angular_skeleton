@@ -65,6 +65,10 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 50px #ededed inset;
 }
 /* _________ FORM _________ */
+.form input,
+.form textarea {
+  -webkit-appearance: none;
+}
 .form input:focus,
 .form textarea:focus,
 .form select:focus,
@@ -732,5 +736,3 @@ body.popup-open {
   margin-left: auto;
   margin-right: auto;
 }
-
-/* ______ View: home ______ */

@@ -10,6 +10,7 @@ var stylus  = require('gulp-stylus');
 var concat  = require('gulp-concat');
 var header  = require('gulp-header');
 var changed = require('gulp-changed');
+var cleanCSS = require('gulp-clean-css');
 var uglify  = require('gulp-uglify');
 var rename  = require('gulp-rename');
 var replace = require('gulp-replace');
@@ -253,9 +254,50 @@ gulp.task('pug_components', function(cb) {
 
 gulp.task('app_css', function(cb) {
 
-  gulp.src(css.app)
+  gulp.src(css.main.concat(css.base))
     .pipe(concat('app.css'))
     .pipe(replace(/\"(.*)\/img/g, '"../../img'))
+    .pipe(gulp.dest('./css/project/'))
+    .pipe(cleanCSS())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('./css/project/'))
+    .on('end', function(){
+      cb(null);
+    }) 
+
+});
+
+
+gulp.task('views_css', function(cb) {
+
+  gulp.src(css.views)
+    .pipe(concat('app.views.css'))
+    .pipe(replace(/\"(.*)\/img/g, '"../../img'))
+    .pipe(gulp.dest('./css/project/'))
+    .pipe(cleanCSS())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('./css/project/'))
+    .on('end', function(){
+      cb(null);
+    }) 
+
+});
+
+
+gulp.task('components_css', function(cb) {
+
+  gulp.src(css.components)
+    .pipe(concat('app.components.css'))
+    .pipe(replace(/\"(.*)\/img/g, '"../../img'))
+    .pipe(gulp.dest('./css/project/'))
+    .pipe(cleanCSS())
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(gulp.dest('./css/project/'))
     .on('end', function(){
       cb(null);
@@ -269,6 +311,11 @@ gulp.task('libs_css', function(cb) {
     .pipe(concat('libs.css'))
     .pipe(replace(/\"(.*)\/img/g, '"../../img'))
     .pipe(gulp.dest('./css/project/'))
+    .pipe(cleanCSS())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('./css/project/'))
     .on('end', function(){
       cb(null);
     }) 
@@ -278,7 +325,13 @@ gulp.task('libs_css', function(cb) {
 
 gulp.task('project_css', function(cb) {
 
-  gulp.src(['./css/project/libs.css', './css/project/app.css'])
+  gulp.src([
+
+      './css/project/libs.min.css',
+      './css/project/app.min.css',
+      './css/project/app.views.min.css',
+      './css/project/app.components.min.css',
+    ])
     .pipe(concat('project.css'))
     .pipe(gulp.dest('./css/project/'))
     .on('end', function(){
@@ -288,8 +341,48 @@ gulp.task('project_css', function(cb) {
 
 gulp.task('app_js', function(cb) {
 
-  gulp.src(js.app)
+  gulp.src(js.main.concat(js.base))
     .pipe(concat('app.js'))
+    .pipe(gulp.dest('./js/project/'))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('./js/project/'))
+    .on('end', function(){
+      cb(null);
+    }) 
+
+});
+
+gulp.task('views_js', function(cb) {
+
+  gulp.src(js.views)
+    .pipe(concat('app.views.js'))
+    .pipe(gulp.dest('./js/project/'))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('./js/project/'))
+    .on('end', function(){
+      cb(null);
+    }) 
+
+});
+
+gulp.task('components_js', function(cb) {
+
+  gulp.src(js.components)
+    .pipe(concat('app.components.js'))
+    .pipe(gulp.dest('./js/project/'))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(gulp.dest('./js/project/'))
     .on('end', function(){
       cb(null);
@@ -302,6 +395,11 @@ gulp.task('libs_js', function(cb) {
   gulp.src(js.libs)
     .pipe(concat('libs.js'))
     .pipe(gulp.dest('./js/project/'))
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('./js/project/'))
     .on('end', function(){
       cb(null);
     }) 
@@ -310,14 +408,15 @@ gulp.task('libs_js', function(cb) {
 
 gulp.task('project_js', function(cb) {
 
-  gulp.src(['./js/project/libs.js','./js/project/app.js'])
+  gulp.src([
+
+      './js/project/libs.min.js',
+      './js/project/app.min.js',
+      './js/project/app.views.min.js',
+      './js/project/app.components.min.js',
+
+    ])
     .pipe(concat('project.js'))
-    .pipe(gulp.dest('./js/project/'))
-    .pipe(ngAnnotate())
-    .pipe(uglify())
-    .pipe(rename({
-      suffix: '.min'
-    }))
     .pipe(gulp.dest('./js/project/'))
     .on('end', function(){
       cb(null);
@@ -436,15 +535,7 @@ gulp.task('server', function() {
   require('./server.js')(port);
 });
 
-// gulp.task('copy', function() {
 
-//   gulp.src(['build.js']).pipe(gulp.dest('../app/static/'));
-//   gulp.src(['css/**/*']).pipe(gulp.dest('../app/static/css'));
-//   gulp.src(['js/**/*']).pipe(gulp.dest('../app/static/js'));
-//   gulp.src(['img/**/*']).pipe(gulp.dest('../app/static/img'));
-//   gulp.src(['fonts/**/*']).pipe(gulp.dest('../app/static/fonts'));
-
-// });
 
 gulp.task('watch', function() {
 
@@ -455,32 +546,40 @@ gulp.task('watch', function() {
 
   gulp.watch(compiled.coffee, ['coffee']);
 
-  gulp.watch(js.app,{interval:2000}, ['app_js']);
+  gulp.watch(js.main.concat(js.base),{interval:2000}, ['app_js']);
+  gulp.watch(js.views,{interval:2000}, ['views_js']);
+  gulp.watch(js.components,{interval:2000}, ['components_js']);
   gulp.watch(js.libs,{interval:2000}, ['libs_js']);
-  gulp.watch(['./js/project/app.js','./js/project/libs.js'], ['project_js']);
+  gulp.watch([
+
+    './js/project/app.min.js',
+    './js/project/app.views.min.js',
+    './js/project/app.components.min.js',
+    './js/project/libs.min.js'
+
+    ],['project_js']);
 
   gulp.watch(compiled.stylus, ['stylus']);
   gulp.watch(compiled.stylusExtends, ['stylus_all']);
   gulp.watch(compiled.stylusComponents, ['stylus_components']);
 
   gulp.watch(css.app, {interval:2000}, ['app_css']);
+  gulp.watch(css.views,{interval:2000}, ['views_css']);
+  gulp.watch(css.components,{interval:2000}, ['components_css']); 
   gulp.watch(css.libs,{interval:2000}, ['libs_css']);
-  gulp.watch(['./css/project/app.css','./css/project/libs.css'], ['project_css']);
+  gulp.watch([
+
+    './css/project/app.css',
+    './css/project/app.views.css',
+    './css/project/app.components.css',
+    './css/project/libs.css'
+
+    ],['project_css']);
 
   gulp.watch(compiled.pugIndex, ['pug_index']);
   gulp.watch(compiled.pugBase, ['pug_index','pug_base','pug_views_with_extends_all']);
   gulp.watch(compiled.pugViews, ['pug_views','pug_views_with_extends']);
   gulp.watch(compiled.pugComponents, ['pug_components']);
-
-  // gulp.watch([
-
-  //   './img/**/*',
-  //   './fonts/**/*',  
-  //   './js/libs/helpers.js',
-  //   './js/project/project.min.js',
-  //   './css/project/project.css',
-
-  // ], ['copy']);
 
   gulp.watch([
 
@@ -511,9 +610,9 @@ gulp.task('build', function(callback) {
 
     ['coffee_all','stylus_all','stylus_components','pug_index', 'pug_base','pug_views','pug_views_with_extends','pug_components'],
     'buildit',
-    ['libs_js','app_js'],
+    ['libs_js','app_js', 'views_js', 'components_js'],
     'project_js',
-    ['libs_css','app_css'],
+    ['libs_css','app_css', 'views_css', 'components_css'],
     'project_css',
     'structure',
     // 'copy',
