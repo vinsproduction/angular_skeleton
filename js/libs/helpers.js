@@ -28,6 +28,20 @@ $$; // SHORT NAMESPACE
 	EXAMPLE includeCSS('/css/helpers.css'); */
 	$.includeCSS = function(src) { return window.document.write('<link rel="stylesheet" href="' + src + '" />');};
 
+	$.getScript = function(url, callback) {
+	  var script = document.createElement('script');
+	  script.type = 'text/javascript';
+	  script.src = url;
+	  // most browsers
+	  script.onload = callback(script);
+	  // IE 6 & 7
+	  script.onreadystatechange = function() {
+	    if (this.readyState == 'complete') {
+	      callback();
+	    }
+	  }
+	  document.getElementsByTagName('head')[0].appendChild(script);
+	}
 
 	/* BROWSER */
 	
