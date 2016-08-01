@@ -1,10 +1,10 @@
 block view_js_css
 	// View [viewName] js/css 
 	script.
-		$$.includeCSS(staticURL + 'css/app/views/[viewName]/[viewName].css?v=' + staticVer);
-		$$.includeJS(staticURL +'js/app/views/[viewName]/[viewName].controllers.js?v=' + staticVer);
-		$$.includeJS(staticURL + 'js/app/views/[viewName]/[viewName].directives.js?v=' + staticVer);
-	///View [viewName] css/js 
+		$$.includeCSS('css/app/views/[viewName]/[viewName].css');
+		$$.includeJS('js/app/views/[viewName]/[viewName].controllers.js');
+		$$.includeJS('js/app/views/[viewName]/[viewName].directives.js');
+	///View [viewName] js/css 
 
 
 block content

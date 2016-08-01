@@ -1,13 +1,15 @@
 
-var $$ = {}
 
-$$.staticVersion 	= window.staticVersion || 1;
-$$.staticPath 		= window.staticPath || '';
-
-
-/* ======== HELPERS ======= */
+var
+__helpers__ = {}, // ORIGINAL NAMESPACE
+$$; // SHORT NAMESPACE
 
 (function($){
+
+	$$ = __helpers__;
+
+	$.staticVersion = window.staticVersion || 1;
+	$.staticPath 		= window.staticPath || '';
 
 	if (!window.console.log) 	{ window.console.log = function(){}; }
 	if (!window.console.groupCollapsed) { window.console.groupCollapsed = window.console.log; }
@@ -53,7 +55,7 @@ $$.staticPath 		= window.staticPath || '';
 			$.browser.name = i;
 		}
 	};
-
+	
 
 	$.disableConsole = function(){
 		window.console = {
@@ -75,17 +77,8 @@ $$.staticPath 		= window.staticPath || '';
 	EXAMPLE $$.includeCSS('/css/helpers.css'); */
 	$.includeCSS = function(src) { return window.document.write('<link rel="stylesheet" href="' + $.staticPath + src + '?v=' + $.staticVersion + '" />');};
 
-})($$);
 
-
-/* ===== BUILD PROJECT ===== */
-
-(function($){
-
-	// if browser < IE9
-	if ($.browser.msie6 || $.browser.msie7 || $.browser.msie8) {
-		$.includeJS('js/libs/html5shiv.js');
-	}
+	/* ======= BUILD PROJECT ====== */
 
 	if(/^\?debug/.test(window.location.search)){
 
@@ -122,6 +115,6 @@ $$.staticPath 		= window.staticPath || '';
 	}
 
 
-})($$);
+})(__helpers__);
 
 

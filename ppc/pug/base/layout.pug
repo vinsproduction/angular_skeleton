@@ -40,66 +40,22 @@ html
 				height: 100%;
 			}
 		<![endif]-->
-					
-		<!--[if lt IE 9]>
-		script(src='js/libs/html5shiv.js')
-		<![endif]-->
 
-		//JS helpers 
-		script(src='js/libs/helpers.js')
 
-		//GLOBAL VARS
+		//Static
 		script.
-			window.staticURL = '';
-			window.staticVer = 1;
+			window.staticVersion = 1;
+			window.staticPath = '';
+		///Static
+			
 
-		//Build (for debug)
-		script.
-			$$.includeJS(staticURL + 'build.js?v=' + Math.random());
-
-		//Base js/css
-		script.
-			(function() {
-
-				if(/^\?debug/.test(window.location.search)){
-					console.debug('[DEBUG MODE]');
-					console.log('[Debug] build', build);
-
-					var src;
-
-					var cssList = build.css.libs.concat(build.css.main).concat(build.css.base);
-					for(var i in cssList) {
-						src = staticURL + build.css.list[i] + '?v=' + Math.random();
-						$$.includeCSS(src);
-					}
-
-					var jsList = build.js.libs.concat(build.js.main).concat(build.js.base);
-					for(var i in jsList) {					
-						src = staticURL + build.js.list[i] + '?v=' + Math.random();
-						$$.includeJS(src);
-					}
-
-
-				}else{
-					console.debug('[PRODUCTION MODE] console is disabled');
-					
-					if(!/^\?console/.test(window.location.search)){
-						$$.disableConsole();
-					};
-
-					$$.includeCSS(staticURL + 'css/project/libs.min.css?v=' + staticVer);
-					$$.includeCSS(staticURL +'css/project/app.min.css?v=' + staticVer);
-					$$.includeJS(staticURL + 'js/project/libs.min.js?v=' + staticVer);
-					$$.includeJS(staticURL +'js/project/app.min.js?v=' + staticVer);
-				}
-
-			})();
-
-		///Base js/css
+		//Build
+		script(src='build-list.js')
+		script(src='build.js')
+		///Build
 
 		block view_js_css
 			//- 
-
 
 		block css
 			//-

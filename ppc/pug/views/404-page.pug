@@ -1,0 +1,14 @@
+block view_js_css
+	// View 404-page js/css 
+	script.
+		$$.includeCSS('css/app/views/404-page/404-page.css');
+		$$.includeJS('js/app/views/404-page/404-page.controllers.js');
+		$$.includeJS('js/app/views/404-page/404-page.directives.js');
+	///View 404-page js/css 
+
+
+block content
+	#view-404-page.view(ng-controller="404-pageViewCtrl")
+		.main-container
+			.view-content
+				h1 404-page

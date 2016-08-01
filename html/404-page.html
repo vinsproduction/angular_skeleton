@@ -38,13 +38,13 @@
     <script src="build-list.js"></script>
     <script src="build.js"></script>
     <!--/Build-->
-    <!-- View home js/css -->
+    <!-- View 404-page js/css -->
     <script>
-      $$.includeCSS('css/app/views/home/home.css');
-      $$.includeJS('js/app/views/home/home.controllers.js');
-      $$.includeJS('js/app/views/home/home.directives.js');
+      $$.includeCSS('css/app/views/404-page/404-page.css');
+      $$.includeJS('js/app/views/404-page/404-page.controllers.js');
+      $$.includeJS('js/app/views/404-page/404-page.directives.js');
     </script>
-    <!--/View home js/css -->
+    <!--/View 404-page js/css -->
   </head>
   <body>
     <main ng-controller="mainLayoutCtrl">
@@ -59,17 +59,10 @@
       <!-- /Header-->
       <div class="views" ng-controller="viewsLayoutCtrl">
         <!-- View-->
-        <!-- View home js/css -->
-        <script>
-          $$.includeCSS('css/app/views/home/home.css');
-          $$.includeJS('js/app/views/home/home.controllers.js');
-          $$.includeJS('js/app/views/home/home.directives.js');
-        </script>
-        <!--/View home js/css -->
-        <div class="view" id="view-home" ng-controller="homeViewCtrl">
+        <div class="view" id="view-404-page" ng-controller="404-pageViewCtrl">
           <div class="main-container">
             <div class="view-content">
-              <h1>home</h1>
+              <h1>404-page</h1>
             </div>
           </div>
         </div>

@@ -43,12 +43,11 @@ var build = {
     views: [],
     components: [],
     libs: [
+      '!js/libs/html5shiv.js',
+
       'js/libs/jquery-1.12.3.js',
       'js/libs/underscore.js',
       'js/libs/angular.js',
-
-      '!js/libs/helpers.js',
-      '!js/libs/html5shiv.js'
     ],
   }
 
@@ -486,7 +485,7 @@ gulp.task('buildit', function(cb) {
 
   var buildContent = "window.build=";
   buildContent += JSON.stringify({js:js,css:css});
-  fs.writeFileSync('./build.js',buildContent);
+  fs.writeFileSync('./build-list.js',buildContent);
 
   cb(null);
 

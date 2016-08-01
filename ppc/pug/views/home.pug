@@ -2,12 +2,10 @@
 block view_js_css
 	// View home js/css 
 	script.
-		$$.includeCSS(staticURL + 'css/app/views/home/home.css?v=' + staticVer);
-		$$.includeJS(staticURL +'js/app/views/home/home.controllers.js?v=' + staticVer);
-		$$.includeJS(staticURL + 'js/app/views/home/home.directives.js?v=' + staticVer);
-
-
-	///View home css/js 
+		$$.includeCSS('css/app/views/home/home.css');
+		$$.includeJS('js/app/views/home/home.controllers.js');
+		$$.includeJS('js/app/views/home/home.directives.js');
+	///View home js/css 
 
 block content
 	#view-home.view(ng-controller="homeViewCtrl")
