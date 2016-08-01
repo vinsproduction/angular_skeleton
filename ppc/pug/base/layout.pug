@@ -23,31 +23,28 @@ html
 		link(rel='image_src' href='')
 		link(rel="shortcut icon" type="image/x-icon" href="")
 
-		//IE
 		<!--[if IE]>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta http-equiv="imagetoolbar" content="no"/>
 		<meta http-equiv="MSThemeCompatible" content="no"/>
 		<![endif]-->
 
-		//Apple
 		meta(name="apple-mobile-web-app-capable" content="yes")
 		meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
 
 		<!--[if lt IE 7]>
-		style.
-			body > main {
-				height: 100%;
-			}
+		<style>body > main { height: 100%;}</style>
 		<![endif]-->
-
 
 		//Static
 		script.
 			window.staticVersion = 1;
 			window.staticPath = '';
 		///Static
-			
+
+		<!--[if lt IE 9]>
+		<script src="js/libs/html5shiv.js"></script>
+		<![endif]-->
 
 		//Build
 		script(src='build-list.js')

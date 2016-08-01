@@ -82,10 +82,6 @@ $$.staticPath 		= window.staticPath || '';
 
 (function($){
 
-	// if browser < IE9
-	if ($.browser.msie6 || $.browser.msie7 || $.browser.msie8) {
-		$.includeJS('js/libs/html5shiv.js');
-	}
 
 	if(/^\?debug/.test(window.location.search)){
 
