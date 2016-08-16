@@ -24,8 +24,8 @@ echo ">> done."
 
 echo "\\n"
 echo ">> continue to use - gulp"
-
-
 echo "\\n"
+
+rm -rf install.sh
 
 exit 1
