@@ -78,14 +78,12 @@ var compiled = {
     './ppc/pug/**/*.pug',
   ],
   pugIndex: [
-    './ppc/pug/index.pug',
     './ppc/pug/views/home.pug',
   ],
   pugViews: [
     './ppc/pug/views/**/*.pug'
   ],
   pug_views_with_extends: [
-    '!./ppc/pug/views/home.pug',
     './ppc/pug/views/**/*.pug'
   ],
   pugBase: [
@@ -162,12 +160,14 @@ gulp.task('stylus_components', function(cb) {
 
 gulp.task('pug_index', function(cb) {
 
-  gulp.src(['ppc/pug/index.pug'])
+  gulp.src(compiled.pugIndex)
+    .pipe(header('extends ../base/layout\r\n'))
     .pipe(pug({
       pretty: true
     })
     .on('error', gutil.log))
-    .pipe(gulp.dest('./html/'))
+    .pipe(rename("index.html"))
+    .pipe(gulp.dest('./html'))
     .on('end',function(){  
       cb(null);
     });

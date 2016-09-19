@@ -31,6 +31,7 @@ Form = (function() {
     this.formEl = false;
     this.submitEl = false;
     this.autoFields = true;
+    this.autoInit = true;
     this.enter = true;
     this.noSubmitEmpty = false;
     this.disableSubmit = false;
@@ -93,21 +94,18 @@ Form = (function() {
     self = this;
     $(function() {
       if (!self.formEl && self.logs) {
-        return console.log("[Form: " + self.formName + "] Warning! formEl not set");
-      }
-      if (!self.submitEl && self.logs) {
-        return console.log("[Form: " + self.formName + "] Warning! submitEl not set");
+        console.warn("[Form: " + self.formName + "] formEl not set");
       }
       self.form = self.h.isObject(self.formEl) ? self.formEl : $(self.formEl);
-      self.submitBtn = self.h.isObject(self.submitEl) ? self.submitEl : self.form.find(self.submitEl);
       if (!self.form.size() && self.logs) {
-        return console.log("[Form: " + self.formName + "] Warning! formEl not found in DOM");
-      }
-      if (!self.submitBtn.size() && self.logs) {
-        return console.log("[Form: " + self.formName + "] Warning! submitEl not found in DOM");
+        console.warn("[Form: " + self.formName + "] formEl not found in DOM");
+        return;
       }
       self.form.attr('data-form', self.formName);
-      self.submitBtn.attr('data-submit', 'data-submit');
+      self.submitBtn = self.h.isObject(self.submitEl) ? self.submitEl : self.form.find(self.submitEl);
+      if (self.submitBtn.size()) {
+        self.submitBtn.attr('data-submit', 'data-submit');
+      }
       if (self.autoFields) {
         self.form.find('[name]').each(function() {
           var name;
@@ -119,11 +117,13 @@ Form = (function() {
           }
         });
       }
-      self.init();
+      if (self.autoInit) {
+        self.initForm();
+      }
     });
   }
 
-  Form.prototype.init = function() {
+  Form.prototype.initForm = function() {
     var opts, self;
     self = this;
     this.resetData();
@@ -261,16 +261,12 @@ Form = (function() {
     if (this.enter) {
       $(window).keydown(function(event) {
         if (self.form.inFocus && event.keyCode === 13) {
-          if (!self._disableSubmit) {
-            return self.Submit();
-          }
+          return self.Submit();
         }
       });
     }
     this.submitBtn.click(function() {
-      if (!self._disableSubmit) {
-        self.Submit();
-      }
+      self.Submit();
       return false;
     });
     if (this.logs) {
@@ -376,6 +372,14 @@ Form = (function() {
     this.fields[name].error = function(errors) {
       if (errors == null) {
         errors = false;
+      }
+      if (errors) {
+        self.setError(name, {
+          ruleName: 'unknown-rule',
+          reason: errors
+        });
+      } else {
+        self.deleteError(name);
       }
       self.errorField(name, errors);
       return this;
@@ -873,9 +877,20 @@ Form = (function() {
     };
   };
 
+  Form.prototype.init = function() {
+    var self;
+    self = this;
+    return $(function() {
+      return self.initForm();
+    });
+  };
+
   Form.prototype.Submit = function() {
     var list, self;
     self = this;
+    if (self._disableSubmit) {
+      return;
+    }
     this.resetData();
     this.resetErrors();
     list = {};
@@ -883,7 +898,7 @@ Form = (function() {
       console.groupCollapsed("[Form: " + this.formName + "] submit");
     }
     $.each(this.fields, function(name, opt) {
-      var ref, val;
+      var ref, setGroup, val;
       if (!opt.active) {
         return;
       }
@@ -916,14 +931,32 @@ Form = (function() {
       }
       if (opt.fieldGroup) {
         if (self.data.hasOwnProperty(name)) {
-          if (!self.data[opt.fieldGroup]) {
-            self.data[opt.fieldGroup] = {};
+          if (!self.data.groups) {
+            self.data.groups = {};
           }
-          self.data[opt.fieldGroup][name] = self.data[name];
+          setGroup = function(path, name, val) {
+            var arr, newObj, obj;
+            arr = path.split('.');
+            newObj = {};
+            obj = newObj;
+            $.each(arr, function(k, v) {
+              newObj[v] = {};
+              newObj = newObj[v];
+              if (k === arr.length - 1) {
+                return newObj[name] = val;
+              }
+            });
+            return obj;
+          };
+          self.data.groups = $.extend(true, {}, self.data.groups, setGroup(opt.fieldGroup, name, self.data[name]));
           return self.deleteData(name);
         }
       }
     });
+    this.data = $.extend(true, {}, this.data, this.data.groups);
+    if (this.data['groups']) {
+      delete this.data['groups'];
+    }
     if (this.logs) {
       console.log(this.data);
     }
