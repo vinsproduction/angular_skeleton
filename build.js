@@ -90,12 +90,22 @@ $$.staticPath 		= window.staticPath || '';
 		console.debug('[DEBUG MODE] v.' + $.staticVersion);
 		console.log('[Build] list', build);
 
+		// with views
+		// var cssList = build.css.libs.concat(build.css.main).concat(build.css.base).concat(build.css.views);
+		
+		// without views
 		var cssList = build.css.libs.concat(build.css.main).concat(build.css.base);
+
 		for(var i in cssList) {
 			$.includeCSS(build.css.list[i]);
 		}
 
+		// with views
+		// var jsList = build.js.libs.concat(build.js.main).concat(build.js.base).concat(build.js.views);
+		
+		// without views
 		var jsList = build.js.libs.concat(build.js.main).concat(build.js.base);
+
 		for(var i in jsList) {					
 			$.includeJS(build.js.list[i]);
 		}
@@ -111,10 +121,11 @@ $$.staticPath 		= window.staticPath || '';
 
 		console.log('[Build] list', build);
 
-		// // all
+		// with views
 		// $.includeCSS('css/project/project.css');
 		// $.includeJS('js/project/project.js');
 
+		// without views
 		$.includeCSS('css/project/libs.min.css');
 		$.includeCSS('css/project/app.min.css');
 		$.includeJS('js/project/libs.min.js');
