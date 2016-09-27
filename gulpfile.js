@@ -556,7 +556,7 @@ gulp.task('watch', function() {
     './js/project/app.components.min.js',
     './js/project/libs.min.js'
 
-    ],['project_js']);
+    ], {interval:2000}, ['project_js']);
 
   gulp.watch(compiled.stylus, ['stylus']);
   gulp.watch(compiled.stylusExtends, ['stylus_all']);
@@ -568,12 +568,12 @@ gulp.task('watch', function() {
   gulp.watch(css.libs,{interval:2000}, ['libs_css']);
   gulp.watch([
 
-    './css/project/app.css',
-    './css/project/app.views.css',
-    './css/project/app.components.css',
-    './css/project/libs.css'
+    './css/project/app.min.css',
+    './css/project/app.views.min.css',
+    './css/project/app.components.min.css',
+    './css/project/libs.min.css'
 
-    ],['project_css']);
+    ], {interval:2000}, ['project_css']);
 
   gulp.watch(compiled.pugIndex, ['pug_index']);
   gulp.watch(compiled.pugBase, ['pug_index','pug_base','pug_views_with_extends_all']);

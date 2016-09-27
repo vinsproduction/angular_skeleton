@@ -111,6 +111,10 @@ $$.staticPath 		= window.staticPath || '';
 
 		console.log('[Build] list', build);
 
+		// // all
+		// $.includeCSS('css/project/project.css');
+		// $.includeJS('js/project/project.js');
+
 		$.includeCSS('css/project/libs.min.css');
 		$.includeCSS('css/project/app.min.css');
 		$.includeJS('js/project/libs.min.js');
